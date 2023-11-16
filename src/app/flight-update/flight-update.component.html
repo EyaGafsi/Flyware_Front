@@ -1,0 +1,27 @@
+<form class="row g-3" [formGroup]="form" (submit)="onSubmit()">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">departureDate</label>
+    <input type="text" formControlName="departureDate" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">arrivingDate</label>
+    <input type="text" formControlName="arrivingDate" class="form-control" id="inputPassword4">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">destination</label>
+    <input type="text" formControlName="destination" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress2" class="form-label">price</label>
+    <input type="number" formControlName="price" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="mb-3">
+    <label for="formFile" class="form-label">Default file input example</label>
+    <input type="file" (change)="onFileSelect($event)" class="form-control"  >
+  </div>
+  <div *ngIf="imageData">
+<img [src]="imageData" [alt]="form.value.name" >  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </div>
+</form>
