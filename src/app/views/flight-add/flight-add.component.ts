@@ -19,7 +19,7 @@ export class FlightAddComponent implements OnInit {
       duration: ['', Validators.required],
       date: ['', Validators.required],
       returnDate: [null],
-      destination: ['', [Validators.required, Validators.email]],
+      destination: ['', [Validators.required]],
       departure: ['', Validators.required],
       price: ['', Validators.required],
       nbBuisPlaces: ['', Validators.required],

@@ -1,78 +1,4 @@
-<header class="top-area">
-  <div class="header-area">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-2">
-          <div class="logo">
-            <a href="index.html">
-              tour<span>Nest</span>
-            </a>
-          </div><!-- /.logo-->
-        </div><!-- /.col-->
-        <div class="col-sm-10">
-          <div class="main-menu">
 
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <i class="fa fa-bars"></i>
-              </button><!-- / button-->
-            </div><!-- /.navbar-header-->
-            <div class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <li class="smooth-menu"><a href="#home">home</a></li>
-                <li class="smooth-menu"><a href="#gallery">Destination</a></li>
-                <li class="smooth-menu"><a href="#pack">Packages </a></li>
-                <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
-                <li class="smooth-menu"><a href="#blog">blog</a></li>
-                <li class="smooth-menu"><a href="#subs">subscription</a></li>
-                <li>
-                  <button class="book-btn">book now
-                  </button>
-                </li><!--/.project-btn-->
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.main-menu-->
-        </div><!-- /.col-->
-      </div><!-- /.row -->
-      <div class="home-border"></div><!-- /.home-border-->
-    </div><!-- /.container-->
-  </div><!-- /.header-area -->
-
-</header><!-- /.top-area-->
-<!-- main-menu End -->
-
-
-<!--about-us start -->
-<section id="home" class="about-us">
-  <div class="container">
-    <div class="about-us-content">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="single-about-us">
-            <div class="about-us-txt">
-              <h2>
-                Explore the Beauty of the Beautiful World
-
-              </h2>
-              <div class="about-btn">
-                <button  class="about-view">
-                  explore now
-                </button>
-              </div><!--/.about-btn-->
-            </div><!--/.about-us-txt-->
-          </div><!--/.single-about-us-->
-        </div><!--/.col-->
-        <div class="col-sm-0">
-          <div class="single-about-us">
-
-          </div><!--/.single-about-us-->
-        </div><!--/.col-->
-      </div><!--/.row-->
-    </div><!--/.about-us-content-->
-  </div><!--/.container-->
-
-</section><!--/.about-us-->
 <!--about-us end -->
 
 <!--travel-box start-->
@@ -84,33 +10,34 @@
               <div id="desc-tabs" class="desc-tabs">
 
             <ul class="nav nav-tabs" role="tablist">
-
-              <li role="presentation" class="active">
-                 <a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
-                   <i class="fa fa-tree"></i>
-                   tours
+            <li role="presentation" class="active">
+                 <a href="#flights" aria-controls="flights" role="tab" data-toggle="tab">
+                   <i class="fa fa-plane"></i>
+                   flights
                  </a>
               </li>
-
               <li role="presentation">
                 <a href="#hotels" aria-controls="hotels" role="tab" data-toggle="tab">
                   <i class="fa fa-building"></i>
                   hotels
                 </a>
               </li>
-
-              <li role="presentation">
-                 <a href="#flights" aria-controls="flights" role="tab" data-toggle="tab">
-                   <i class="fa fa-plane"></i>
-                   flights
+              <li role="presentation" >
+                 <a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
+                   <i class="fa fa-tree"></i>
+                   tours
                  </a>
               </li>
+
+
+
+
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
 
-              <div role="tabpanel" class="tab-pane active fade in" id="tours">
+              <div role="tabpanel" class="tab-pane fade in" id="tours">
                 <div class="tab-para">
 
                   <div class="row">
@@ -153,7 +80,7 @@
                         <h2>check in</h2>
                         <div class="travel-check-icon">
                           <form action="#">
-                            <input type="text" name="check_in" class="form-control" data-toggle="datepicker" placeholder="12 -01 - 2017 ">
+                            <input type="text" name="check_in" class="form-control" data-toggle="datepicker" >
                           </form>
                         </div><!-- /.travel-check-icon -->
                       </div><!--/.single-tab-select-box-->
@@ -164,7 +91,7 @@
                         <h2>check out</h2>
                         <div class="travel-check-icon">
                           <form action="#">
-                            <input type="text" name="check_out" class="form-control"  data-toggle="datepicker" placeholder="22 -01 - 2017 ">
+                            <input type="text" name="check_out" class="form-control"  data-toggle="datepicker" >
                           </form>
                         </div><!-- /.travel-check-icon -->
                       </div><!--/.single-tab-select-box-->
@@ -348,7 +275,7 @@
                     <div class="col-sm-5"></div><!--/.col-->
                     <div class="clo-sm-7">
                       <div class="about-btn travel-mrt-0 pull-right">
-                        <button  class="about-view travel-btn">
+                        <button  type="submit" class="about-view travel-btn">
                           search
                         </button><!--/.travel-btn-->
                       </div><!--/.about-btn-->
@@ -360,11 +287,13 @@
 
               </div><!--/.tabpannel-->
 
-              <div role="tabpanel" class="tab-pane fade in" id="flights">
+              <div role="tabpanel" class="tab-pane active fade in" id="flights">
+                <form [formGroup]="searchForm" (ngSubmit)="afficher(0,10)">
                 <div class="tab-para">
                   <div class="trip-circle">
                     <div class="single-trip-circle">
-                      <input type="radio" id="radio01" name="radio" />
+                      <input type="radio" id="radio01" name="radio"  [checked]="!tripType"
+                      (change)="tripType = !tripType"/>
                         <label for="radio01">
                           <span class="round-boarder">
                             <span class="round-boarder1"></span>
@@ -372,7 +301,8 @@
                         </label>
                     </div><!--/.single-trip-circle-->
                     <div class="single-trip-circle">
-                      <input type="radio" id="radio02" name="radio" />
+                      <input type="radio" id="radio02" name="radio"   [checked]="tripType"
+                      (change)="tripType = !tripType"/>
                         <label for="radio02">
                           <span class="round-boarder">
                             <span class="round-boarder1"></span>
@@ -387,14 +317,10 @@
                         <h2>from</h2>
 
                         <div class="travel-select-icon">
-                          <select class="form-control ">
+                          <select class="form-control" formControlName="from">
 
-                              <option value="default">enter your location</option><!-- /.option-->
-
-                              <option value="turkey">turkey</option><!-- /.option-->
-
-                              <option value="russia">russia</option><!-- /.option-->
-                              <option value="egept">egypt</option><!-- /.option-->
+                              <option value="">enter your location</option><!-- /.option-->
+                              <option *ngFor="let departure of departures" [value]="departure">{{ departure }}</option>
 
                           </select><!-- /.select-->
                         </div><!-- /.travel-select-icon -->
@@ -405,21 +331,17 @@
                       <div class="single-tab-select-box">
                         <h2>departure</h2>
                         <div class="travel-check-icon">
-                          <form action="#">
-                            <input type="text" name="departure" class="form-control" data-toggle="datepicker"
+                            <input type="date" name="departure" class="form-control"  formControlName="departure"
                             placeholder="12 -01 - 2017 ">
-                          </form>
                         </div><!-- /.travel-check-icon -->
                       </div><!--/.single-tab-select-box-->
                     </div><!--/.col-->
 
-                    <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="col-lg-2 col-md-3 col-sm-4" *ngIf="tripType === true">
                       <div class="single-tab-select-box">
                         <h2>return</h2>
                         <div class="travel-check-icon">
-                          <form action="#">
-                            <input type="text" name="return" class="form-control" data-toggle="datepicker" placeholder="22 -01 - 2017 ">
-                          </form>
+                            <input type="date" name="return" class="form-control" data-toggle="datepicker" formControlName="return">
                         </div><!-- /.travel-check-icon -->
                       </div><!--/.single-tab-select-box-->
                     </div><!--/.col-->
@@ -469,14 +391,11 @@
                         <h2>to</h2>
 
                         <div class="travel-select-icon">
-                          <select class="form-control ">
+                          <select class="form-control" formControlName="to">
 
-                              <option value="default">enter your destination location</option><!-- /.option-->
+                              <option value="">enter your destination location</option><!-- /.option-->
+                              <option *ngFor="let destination of destinations" [value]="destination">{{ destination }}</option>
 
-                              <option value="istambul">istambul</option><!-- /.option-->
-
-                              <option value="mosko">mosko</option><!-- /.option-->
-                              <option value="cairo">cairo</option><!-- /.option-->
 
                           </select><!-- /.select-->
                         </div><!-- /.travel-select-icon -->
@@ -501,6 +420,7 @@
                         </div><!-- /.travel-select-icon -->
                       </div><!--/.single-tab-select-box-->
                     </div><!--/.col-->
+
                     <div class="clo-sm-5">
                       <div class="about-btn pull-right">
                         <button  class="about-view travel-btn">
@@ -512,7 +432,7 @@
                   </div><!--/.row-->
 
                 </div>
-
+              </form>
               </div><!--/.tabpannel-->
 
             </div><!--/.tab content-->
@@ -524,7 +444,7 @@
 
     </section><!--/.travel-box-->
 <!--travel-box end-->
-
+<div *ngIf="displayHome">
     <!--service start-->
 <section id="service" class="service">
   <div class="container">
@@ -693,7 +613,7 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="dicount-offer-content text-center">
-          <h2>Join with us within 21 January, 2018 and get upto 40% Discount</h2>
+          <h2>Join with us within 21 January, 202 and get upto 40% Discount</h2>
           <div class="campaign-timer">
             <div id="timer">
               <div class="time time-after" id="days">
@@ -1490,3 +1410,90 @@
   </div><!-- /.container-->
 
 </footer><!-- /.footer-copyright-->
+</div>
+
+
+<section id="pack" class="packages" *ngIf="!displayHome">
+  <div class="container">
+    <div class="gallary-header text-center">
+      <h2>
+        choose your flight
+      </h2>
+      <p>
+        Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.
+      </p>
+    </div><!--/.gallery-header-->
+    <div class="packages-content">
+      <div class="row">
+
+        <div *ngFor="let flight of flights" class="col-md-4 col-sm-6" >
+          <div class="single-package-item">
+
+            <img [src]="flight.imagePath" alt="package-place">
+            <div class="single-package-item-txt">
+              <h3>{{flight.destination}} <span class="pull-right">{{flight.price}} $</span></h3>
+              <div class="packages-para">
+                <p>
+                  <span>
+                    <i class="fa fa-plane-departure"></i> {{flight.date  | date: 'yyyy-MM-dd'}}
+                  </span>
+                  <i class="fas fa-clock"></i>  {{ formatDuration(flight.duration) }}
+                </p>
+                <p>
+                  <span *ngIf="flight.returnDate!=null">
+                    <i class="fa-solid fa-plane-arrival"></i> {{flight.returnDate | date: 'yyyy-MM-dd'}}
+                  </span>
+                  <i class="fa fa-angle-right"></i> {{flight.departure}}
+                 </p>
+              </div><!--/.packages-para-->
+              <div class="packages-review">
+                <p>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <span>2544 review</span>
+                </p>
+              </div><!--/.packages-review-->
+              <div class="about-btn">
+                <button  class="about-view packages-btn">
+                  book now
+                </button>
+
+              </div><!--/.about-btn-->
+              <div class="about-btn">
+
+              <button  class="about-view packages-btn" (click)="navigateToUpdatePage(flight._id)">
+                update
+              </button>
+            </div><!--/.about-btn-->
+            <div class="about-btn">
+
+              <button  class="about-view packages-btn" (click)="delete(flight._id)">
+                delete
+              </button>
+            </div><!--/.about-btn-->
+            </div><!--/.single-package-item-txt-->
+          </div><!--/.single-package-item-->
+
+        </div><!--/.col-->
+      </div><!--/.row-->
+    </div><!--/.packages-content-->
+  </div><!--/.container-->
+  <div class="clearfix text">
+
+    <div class="hint-text"> <b>{{currentPage}}</b> - <b>{{numberOfPages}}</b>
+    </div>
+    <ul class="pagination">
+      <li class="page-item"><a (click)="goToPreviousPage()" class="page-link"><i
+            class="fa fa-angle-double-left"></i></a></li>
+      <li class="page-item" [class.active]="currentPage === page"
+        *ngFor="let page of generatePageNumbers(numberOfPages);">
+        <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+      </li>
+      <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i
+            class="fa fa-angle-double-right"></i></a></li>
+    </ul>
+  </div>
+</section>

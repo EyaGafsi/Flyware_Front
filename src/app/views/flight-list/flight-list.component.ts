@@ -12,6 +12,7 @@ export class FlightListComponent implements OnInit {
   currentPage = 0;
   itemsPerPage = 2;
   numberOfPages = 0;
+
   constructor(private router: Router,private flightService: FlightService) {
     this.afficher(this.currentPage, this.itemsPerPage);
   }
@@ -19,7 +20,7 @@ export class FlightListComponent implements OnInit {
   }
 
   afficher(page:any, size:any) {
-    this.flightService.afficher(page, size).subscribe(
+    this.flightService.afficher(null,page, size).subscribe(
       (response: any) => {
         console.log(response);
         this.flights = response.docs;

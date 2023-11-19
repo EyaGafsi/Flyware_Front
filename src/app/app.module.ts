@@ -8,15 +8,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlightAddComponent } from './views/flight-add/flight-add.component';
-import { FlightUpdateComponent } from './flight-update/flight-update.component';
 import { DatePipe } from '@angular/common';
+import { FlightUpdateComponent } from './views/flight-update/flight-update.component';
+import { ClientLayoutComponent } from './views/client-layout/client-layout.component';
+import { HomeComponent } from './views/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
     FlightListComponent,
     FlightAddComponent,
-    FlightUpdateComponent
+    FlightUpdateComponent,
+    ClientLayoutComponent
   ],
   imports: [
     BrowserModule,
