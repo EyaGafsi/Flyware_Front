@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +10,19 @@ export class FlightService {
 {"No-Auth":"True"}
   );
   private selectedFlight: any;
+  private currentPage: any;
 
   setSelectedFlight(flight: any) {
     this.selectedFlight = flight;
   }
   getSelectedFlight() {
     return this.selectedFlight;
+  }
+  setCurrentPage(currentPage: any) {
+    this.currentPage = currentPage;
+  }
+  getCurrentPage() {
+    return this.currentPage;
   }
   constructor(private httpclient:HttpClient) { }
   public afficher(page:any, size:any) {

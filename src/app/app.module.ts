@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FlightAddComponent } from './views/flight-add/flight-add.component';
 import { FlightUpdateComponent } from './flight-update/flight-update.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { FlightUpdateComponent } from './flight-update/flight-update.component';
     RouterModule,
     CommonModule,
     ReactiveFormsModule  ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

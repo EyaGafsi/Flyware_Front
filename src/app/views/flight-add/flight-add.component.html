@@ -1,19 +1,65 @@
 <form class="row g-3" [formGroup]="form" (submit)="onSubmit()">
   <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">departureDate</label>
-    <input type="text" formControlName="departureDate" class="form-control" id="inputEmail4">
+    <label for="inputEmail4" class="form-label">duration(min)</label>
+    <input type="number" formControlName="duration" class="form-control" id="inputEmail4">
   </div>
   <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">arrivingDate</label>
-    <input type="text" formControlName="arrivingDate" class="form-control" id="inputPassword4">
+    <label for="inputEmail4" class="form-label">departure date</label>
+    <input type="date" formControlName="date" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6">
+    <label class="form-check-label">Trip Type:</label>
+
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="oneWayRadio"
+        name="tripType"
+        value="oneWay"
+        [checked]="!tripType"
+        (change)="tripType = !tripType"
+      />
+      <label class="form-check-label" for="oneWayRadio">One Way</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        type="radio"
+        class="form-check-input"
+        id="returnTripRadio"
+        name="tripType"
+        value="returnTrip"
+        [checked]="tripType"
+        (change)="tripType = !tripType"
+      />
+      <label class="form-check-label" for="returnTripRadio">Return Trip</label>
+    </div>
+  </div>
+
+  <div class="col-md-6" *ngIf="tripType === true">
+    <label for="inputEmail4" class="form-label">return date</label>
+    <input type="date" formControlName="returnDate" class="form-control" id="inputEmail4">
   </div>
   <div class="col-12">
     <label for="inputAddress" class="form-label">destination</label>
     <input type="text" formControlName="destination" class="form-control" id="inputAddress" placeholder="1234 Main St">
   </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">departure</label>
+    <input type="text" formControlName="departure" class="form-control" id="inputPassword4">
+  </div>
   <div class="col-12">
     <label for="inputAddress2" class="form-label">price</label>
     <input type="number" formControlName="price" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+   <div class="col-12">
+    <label for="inputAddress2" class="form-label">nbBuisPlaces</label>
+    <input type="number" formControlName="nbBuisPlaces" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="col-12">
+    <label for="inputAddress2" class="form-label">nbEcoPlaces</label>
+    <input type="number" formControlName="nbEcoPlaces" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
   </div>
   <div class="mb-3">
     <label for="formFile" class="form-label">Default file input example</label>

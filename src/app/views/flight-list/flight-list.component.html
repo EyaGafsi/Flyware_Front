@@ -16,19 +16,19 @@
 
             <img [src]="flight.imagePath" alt="package-place">
             <div class="single-package-item-txt">
-              <h3>{{flight.destination}} <span class="pull-right">{{flight.price}}</span></h3>
+              <h3>{{flight.destination}} <span class="pull-right">{{flight.price}} $</span></h3>
               <div class="packages-para">
                 <p>
                   <span>
-                    <i class="fa fa-plane-departure"></i> {{flight.departureDate}}
+                    <i class="fa fa-plane-departure"></i> {{flight.date  | date: 'yyyy-MM-dd'}}
                   </span>
-                  <i class="fa-solid fa-plane-arrival"></i>  {{flight.arrivingDate}}
+                  <i class="fas fa-clock"></i>  {{ formatDuration(flight.duration) }}
                 </p>
                 <p>
-                  <span>
-                    <i class="fa fa-angle-right"></i>  transportation
+                  <span *ngIf="flight.returnDate!=null">
+                    <i class="fa-solid fa-plane-arrival"></i> {{flight.returnDate | date: 'yyyy-MM-dd'}}
                   </span>
-                  <i class="fa fa-angle-right"></i>  food facilities
+                  <i class="fa fa-angle-right"></i> {{flight.departure}}
                  </p>
               </div><!--/.packages-para-->
               <div class="packages-review">

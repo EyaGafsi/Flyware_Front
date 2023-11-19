@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlightService } from '../views/services/flight.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flight-update',
@@ -13,16 +14,22 @@ export class FlightUpdateComponent implements OnInit {
   imageData: String;
   file: any;
   flight:any;
+  tripType:boolean;
 
-  constructor(private formBuilder: FormBuilder, private flightService: FlightService) {
+  constructor(private router: Router,private formBuilder: FormBuilder, private flightService: FlightService) {
       this.form = this.formBuilder.group({
-        departureDate: ['', Validators.required],
-        arrivingDate: ['', [Validators.required, Validators.email]],
-        destination: ['', Validators.required],
+        duration: ['', Validators.required],
+        date: ['', Validators.required],
+        returnDate: [null],
+        destination: ['', [Validators.required]],
+        departure: ['', Validators.required],
         price: ['', Validators.required],
+        nbBuisPlaces: ['', Validators.required],
+        nbEcoPlaces: ['', Validators.required],
         image: [null]
       });
       this.imageData = '';
+      this.tripType=false;
 
   }
 
@@ -32,14 +39,24 @@ export class FlightUpdateComponent implements OnInit {
       response => {
         this.flight=response;
         this.form = this.formBuilder.group({
-          departureDate: [this.flight.departureDate, Validators.required],
-          arrivingDate: [this.flight.arrivingDate, [Validators.required, Validators.email]],
-          destination: [this.flight.destination, Validators.required],
+          duration: [this.flight.duration, Validators.required],
+          date: [this.flight.date, Validators.required],
+          returnDate: [this.flight.returnDate],
+          destination: [this.flight.destination, [Validators.required, Validators.email]],
+          departure: [this.flight.departure, Validators.required],
           price: [this.flight.price, Validators.required],
+          nbBuisPlaces: [this.flight.nbBuisPlaces, Validators.required],
+          nbEcoPlaces: [this.flight.nbEcoPlaces, Validators.required],
           image: []
         });
+        this.tripType=this.flight.returnDate!=null;
         this.imageData = this.flight.imagePath;
-
+        var flightDate = new Date(this.flight.date);
+        var formattedDate = flightDate.toISOString().split('T')[0];
+        this.form.patchValue({ date: formattedDate });
+         flightDate = new Date(this.flight.returnDate);
+         formattedDate = flightDate.toISOString().split('T')[0];
+        this.form.patchValue({ returnDate: formattedDate });
       },
       error => {
         console.log(error);
@@ -68,10 +85,18 @@ export class FlightUpdateComponent implements OnInit {
 
   onSubmit() {
       const formData = new FormData();
-      formData.append('departureDate', this.form.get('departureDate')?.value);
-      formData.append('arrivingDate', this.form.get('arrivingDate')?.value);
+      formData.append('duration', this.form.get('duration')?.value);
+      formData.append('date', this.form.get('date')?.value);
+      if (this.tripType==false){
+        this.form.patchValue({
+          returnDate: null
+        });}else{
+      formData.append('returnDate', this.form.get('returnDate')?.value);}
       formData.append('destination', this.form.get('destination')?.value);
+      formData.append('departure', this.form.get('departure')?.value);
       formData.append('price', this.form.get('price')?.value);
+      formData.append('nbBuisPlaces', this.form.get('nbBuisPlaces')?.value);
+      formData.append('nbEcoPlaces', this.form.get('nbEcoPlaces')?.value);
       var newFile = this.form.get('image')?.value;
       if (newFile) {
         formData.append('image', newFile);
@@ -79,12 +104,11 @@ export class FlightUpdateComponent implements OnInit {
           this.flightService.update(this.flightService.getSelectedFlight(),formData).subscribe(
         response => {
           console.log(response);
+          this.router.navigate(['/flights']);
+
            },
         error => {
-          console.log(error);
-
-          console.log('Error status:', error.status);
-          console.log('Error message:', error.message);
+          console.log(error)
         }
       );
     }
