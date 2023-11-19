@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { FlightService } from '../services/flight.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-flight-add',
@@ -12,16 +13,22 @@ export class FlightAddComponent implements OnInit {
   form: FormGroup;
   imageData: String;
   file: any;
-
-  constructor(private formBuilder: FormBuilder, private flightService: FlightService) {
+  tripType:boolean;
+  constructor(private formBuilder: FormBuilder, private flightService: FlightService,private datePipe: DatePipe) {
     this.form = this.formBuilder.group({
-      departureDate: ['', Validators.required],
-      arrivingDate: ['', [Validators.required, Validators.email]],
-      destination: ['', Validators.required],
+      duration: ['', Validators.required],
+      date: ['', Validators.required],
+      returnDate: [null],
+      destination: ['', [Validators.required, Validators.email]],
+      departure: ['', Validators.required],
       price: ['', Validators.required],
-      image: []  // Use formControlName "image" to match your HTML template
+      nbBuisPlaces: ['', Validators.required],
+      nbEcoPlaces: ['', Validators.required],
+      image: [],
     });
     this.imageData = "";
+    this.tripType=false;
+
   }
 
   ngOnInit(): void {
@@ -47,12 +54,18 @@ export class FlightAddComponent implements OnInit {
 
   onSubmit() {
     if (this.file) {
-      const formData = new FormData();
+console.log(this.form);
 
-      formData.append('departureDate', this.form.get('departureDate')?.value);
-      formData.append('arrivingDate', this.form.get('arrivingDate')?.value);
+      const formData = new FormData();
+      formData.append('duration', this.form.get('duration')?.value);
+      formData.append('date',  this.datePipe.transform(this.form.get('date')?.value, 'yyyy-MM-dd') || '');
+      if(this.tripType){
+      formData.append('returnDate',  this.datePipe.transform(this.form.get('returnDate')?.value, 'yyyy-MM-dd') || '');}
       formData.append('destination', this.form.get('destination')?.value);
+      formData.append('departure', this.form.get('departure')?.value);
       formData.append('price', this.form.get('price')?.value);
+      formData.append('nbBuisPlaces', this.form.get('nbBuisPlaces')?.value);
+      formData.append('nbEcoPlaces', this.form.get('nbEcoPlaces')?.value);
       formData.append('image', this.form.get('image')?.value);
 
           this.flightService.add(formData).subscribe(

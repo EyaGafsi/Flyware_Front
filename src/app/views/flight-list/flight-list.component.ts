@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class FlightListComponent implements OnInit {
   flights: any[] = [];
   currentPage = 0;
-  itemsPerPage = 10;
+  itemsPerPage = 2;
   numberOfPages = 0;
   constructor(private router: Router,private flightService: FlightService) {
     this.afficher(this.currentPage, this.itemsPerPage);
@@ -30,6 +30,16 @@ export class FlightListComponent implements OnInit {
 
       }
     );
+  }
+  formatDuration(minutes: number): string {
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+
+    if (h > 0) {
+      return `${h}h ${m}min`;
+    } else {
+      return `${m}min`;
+    }
   }
   goToPreviousPage() {
     if (this.currentPage > 0) {
@@ -57,7 +67,7 @@ export class FlightListComponent implements OnInit {
 
   navigateToUpdatePage(flight: any) {
     this.flightService.setSelectedFlight(flight);
-
+    this.flightService.setCurrentPage(this.currentPage);
     this.router.navigate(['/flightUpdate']);
   }
   delete(flight: any) {
@@ -68,6 +78,7 @@ export class FlightListComponent implements OnInit {
          },
       error => {
         console.log(error);
+
       }
     );
   }
