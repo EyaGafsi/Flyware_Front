@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -25,8 +25,15 @@ export class FlightService {
     return this.currentPage;
   }
   constructor(private httpclient:HttpClient) { }
-  public afficher(page:any, size:any) {
-    return this.httpclient.get(`${this.PATH_OF_API}/flights?page=${page}&size=${size}`);
+  public afficher(form:any,page:any, size:any) {
+    const params = new HttpParams()
+    .set('departure', form.value.from || '')
+    .set('destination', form.value.to || '')
+    .set('date', form.value.departure || '')
+    .set('returnDate', form.value.return || '')
+    .set('price', form.value.price || '');
+
+    return this.httpclient.get(`${this.PATH_OF_API}/flights?page=${page}&size=${size}`,{params});
  }
  public add(form:any) {
   return this.httpclient.post(this.PATH_OF_API+'/flights',form,{headers:this.requestHeader});
@@ -39,5 +46,10 @@ public delete(id:any) {
 }
 public getFlightById(id:any) {
   return this.httpclient.get(`${this.PATH_OF_API}/flights/${id}`);}
+
+  public getDestinations() {
+    return this.httpclient.get(`${this.PATH_OF_API}/destinations`);}
+    public getDepartures() {
+      return this.httpclient.get(`${this.PATH_OF_API}/departures`);}
 }
 

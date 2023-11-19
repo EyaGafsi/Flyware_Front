@@ -4,7 +4,7 @@ import { FlightListComponent } from './views/flight-list/flight-list.component';
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightAddComponent } from './views/flight-add/flight-add.component';
 import { HomeComponent } from './views/home/home.component';
-import { FlightUpdateComponent } from './flight-update/flight-update.component';
+import { FlightUpdateComponent } from './views/flight-update/flight-update.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
