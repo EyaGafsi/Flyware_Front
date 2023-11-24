@@ -1,2 +1,12 @@
 <app-client-layout></app-client-layout>
 <router-outlet></router-outlet>
+<!-- app.component.html -->
+<div>
+  <h1>{{ title }}</h1>
+  <nav>
+    <a routerLink="/hotels" routerLinkActive="active">Hotel List</a>
+    <a routerLink="/create" routerLinkActive="active">Create Hotel</a>
+    <a routerLink="/edit/:id" routerLinkActive="active">Hotel edit</a>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

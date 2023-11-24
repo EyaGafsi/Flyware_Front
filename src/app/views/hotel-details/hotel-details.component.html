@@ -1,0 +1,9 @@
+<!-- hotel-details.component.html -->
+<div class="container">
+  <h2>Hotel Details</h2>
+  <div *ngIf="hotel">
+    <h3>{{ hotel.name }}</h3>
+    <p>Address: {{ hotel.address }}</p>
+    <p>Rating: {{ hotel.rating }}</p>
+  </div>
+</div>

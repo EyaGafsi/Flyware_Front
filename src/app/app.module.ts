@@ -13,6 +13,14 @@ import { FlightUpdateComponent } from './views/flight-update/flight-update.compo
 import { ClientLayoutComponent } from './views/client-layout/client-layout.component';
 import { HomeComponent } from './views/home/home.component';
 
+import { HotelListComponent } from  './views/hotel-list/hotel-list.component';
+import { HotelDetailsComponent } from './views/hotel-details/hotel-details.component';
+import { HotelCreateComponent } from './views/hotel-create/hotel-create.component';
+import { HotelEditComponent } from './views/hotel-edit/hotel-edit.component';
+
+
+import {HotelService} from './views/services/hotel.service';
+import { Hotel } from './views/models/hotel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +28,11 @@ import { HomeComponent } from './views/home/home.component';
     FlightListComponent,
     FlightAddComponent,
     FlightUpdateComponent,
-    ClientLayoutComponent
+    ClientLayoutComponent,
+    HotelListComponent,
+    HotelDetailsComponent,
+    HotelCreateComponent,
+    HotelEditComponent
   ],
   imports: [
     BrowserModule,

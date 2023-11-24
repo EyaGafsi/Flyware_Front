@@ -1,0 +1,19 @@
+<!-- hotel-list.component.html -->
+
+<div class="container">
+  <h2>Hotel List</h2>
+  <ul>
+    <li *ngFor="let hotel of hotels">
+      <div class="card">
+        <img [src]="hotel.imageUrl" class="card-img-top" alt="{{ hotel.name }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ hotel.name }}</h5>
+          <p class="card-text">Address: {{ hotel.address }}</p>
+          <p class="card-text">Rating: {{ hotel.rating }}</p>
+          <!-- You can add more details based on your Hotel model -->
+          <a [routerLink]="['/hotels', hotel.id]" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
