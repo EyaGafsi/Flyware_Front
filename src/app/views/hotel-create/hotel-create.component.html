@@ -1,0 +1,30 @@
+<!-- hotel-create.component.html -->
+
+<div class="container">
+
+  <form class="row g-3" [formGroup]="form" (submit)="onSubmit()">
+    <div class="col-md-6">
+      <label for="inputName" class="form-label">Name</label>
+      <input type="text" formControlName="name" class="form-control" id="inputName" placeholder="Hotel Name">
+    </div>
+    <div class="col-md-6">
+      <label for="inputAddress" class="form-label">Address</label>
+      <input type="text" formControlName="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="col-md-6">
+      <label for="inputStars" class="form-label">Rating</label>
+      <input type="number" formControlName="rating" class="form-control" id="inputRating" placeholder="Number of Rating">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="formFile" class="form-label">Hotel Image</label>
+      <input type="file" (change)="onFileSelect($event)" class="form-control" id="formFile">
+    </div>
+    <div *ngIf="imageData" class="col-md-6">
+      <img [src]="imageData" [alt]="form.value.name" class="img-thumbnail">
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Create Hotel</button>
+    </div>
+  </form>
+
+</div>
