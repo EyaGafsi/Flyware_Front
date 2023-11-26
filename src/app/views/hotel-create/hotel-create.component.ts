@@ -18,7 +18,7 @@ export class HotelCreateComponent implements OnInit {
     this.form = this.fb.group({
       name: [''],
       address: [''],
-      stars: [0],
+      rating: [null],
       imageUrl: [''], // Use imageUrl instead of image
     });
   }

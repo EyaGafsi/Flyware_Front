@@ -25,8 +25,12 @@ export class HotelService {
     return this.http.post<Hotel>(this.apiUrl, hotel);
   }
 
-  updateHotel(hotel: Hotel): Observable<Hotel> {
-    // Update the API URL to match your Spring Boot endpoint
-    return this.http.put<Hotel>(`${this.apiUrl}/${hotel.id}`, hotel);
+  updateHotel(id: number, hotel: Hotel): Observable<any> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put(url, hotel);
+  }
+  deleteHotel(id: number): Observable<any> {
+    const deleteUrl = `${this.apiUrl}/${id}`;
+    return this.http.delete(deleteUrl);
   }
 }

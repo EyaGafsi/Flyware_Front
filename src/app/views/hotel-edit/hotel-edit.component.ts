@@ -1,8 +1,8 @@
+// hotel-edit.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotelService } from '../services/hotel.service';
-import { Hotel } from '../models/hotel';// Assurez-vous de l'importer correctement
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-hotel-edit',
@@ -10,27 +10,50 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./hotel-edit.component.css']
 })
 export class HotelEditComponent implements OnInit {
-
-
-  //hotel!: Hotel;
-  hotel: Hotel = new Hotel();
+  form: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
+    private hotelService: HotelService,
     private route: ActivatedRoute,
-    private router: Router,
-    private hotelService: HotelService
-  ) { }
+    private router: Router
+  ) {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      rating: ['', Validators.required],
+      imageUrl: ['']
+    });
+  }
 
   ngOnInit() {
-    const hotelId = this.route.snapshot.params['id'];
-    this.hotelService.getHotelById(hotelId).subscribe(data => {
-      this.hotel = data;
-    });
+    // Chargez les données de l'hôtel existant ici en fonction de l'ID de l'URL
+    const hotelId = this.route.snapshot.paramMap.get('id');
+    if (hotelId) {
+      this.hotelService.getHotelById(+hotelId).subscribe(
+        (hotel) => {
+          this.form.patchValue(hotel);
+        },
+        (error) => {
+          console.error('Error loading hotel for edit:', error);
+        }
+      );
+    }
+  }
+  onSubmit() {
+    const hotelId = this.route.snapshot.paramMap.get('id');
+    if (hotelId) {
+      const numericHotelId = +hotelId; // Convertit hotelId en nombre
+      this.hotelService.updateHotel(numericHotelId, this.form.value).subscribe(
+        () => {
+          console.log('Hotel updated successfully.');
+          this.router.navigate(['/hotels', numericHotelId]);
+        },
+        (error) => {
+          console.error('Error updating hotel:', error);
+        }
+      );
+    }
   }
 
-  updateHotel() {
-    this.hotelService.updateHotel(this.hotel).subscribe(() => {
-      this.router.navigate(['/hotels']);
-    });
-  }
 }

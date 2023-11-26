@@ -2,8 +2,18 @@
 <div class="container">
   <h2>Hotel Details</h2>
   <div *ngIf="hotel">
-    <h3>{{ hotel.name }}</h3>
-    <p>Address: {{ hotel.address }}</p>
-    <p>Rating: {{ hotel.rating }}</p>
+    <div class="card">
+      <img [src]="hotel.imageUrl || 'url_de_l_image_de_remplacement'" class="card-img-top" alt="{{ hotel.name }}">
+      <div class="card-body">
+        <h3 class="card-title">{{ hotel.name }}</h3>
+        <p class="card-text">Address: {{ hotel.address }}</p>
+        <p class="card-text">Rating:
+          <span *ngFor="let _ of [].constructor(hotel.rating); let i = index">
+            <i class="fas fa-star text-warning yellow-star"></i>
+          </span>
+        </p>
+      </div>
+    </div>
   </div>
 </div>
+

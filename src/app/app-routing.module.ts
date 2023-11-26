@@ -10,6 +10,7 @@ import { HotelDetailsComponent } from './views/hotel-details/hotel-details.compo
 import { HotelCreateComponent } from './views/hotel-create/hotel-create.component';
 import { HotelEditComponent } from './views/hotel-edit/hotel-edit.component';
 import { HttpClientModule } from '@angular/common/http';
+
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'flights',component:FlightListComponent},

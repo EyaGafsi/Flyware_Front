@@ -5,12 +5,18 @@
   <ul>
     <li *ngFor="let hotel of hotels">
       <div class="card">
-        <img [src]="hotel.imageUrl" class="card-img-top" alt="{{ hotel.name }}">
+        <img [src]="hotel.imageUrl || 'url_de_l_image_de_remplacement'" class="card-img-top" alt="{{ hotel.name }}">
         <div class="card-body">
           <h5 class="card-title">{{ hotel.name }}</h5>
           <p class="card-text">Address: {{ hotel.address }}</p>
-          <p class="card-text">Rating: {{ hotel.rating }}</p>
-          <!-- You can add more details based on your Hotel model -->
+          <p class="card-text">Rating:
+            <span *ngFor="let _ of [].constructor(hotel.rating); let i = index">
+              <i class="fas fa-star text-warning yellow-star"></i>
+            </span>
+          </p>
+          <button *ngIf="hotel.id !== undefined" (click)="editHotel(hotel.id)" class="btn btn-warning">Edit</button>
+
+          <button *ngIf="hotel.id !== undefined" (click)="deleteHotel(hotel.id)" class="btn btn-danger">Delete</button>
           <a [routerLink]="['/hotels', hotel.id]" class="btn btn-primary">View Details</a>
         </div>
       </div>
