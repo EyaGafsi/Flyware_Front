@@ -12,8 +12,15 @@
             <i class="fas fa-star text-warning yellow-star"></i>
           </span>
         </p>
+        <!-- Display new fields -->
+        <p class="card-text">Country: {{ hotel.country }}</p>
+        <p class="card-text">Location: {{ hotel.location }}</p>
+        <p class="card-text">Check In: {{ hotel.checkIn | date }}</p>
+        <p class="card-text">Check Out: {{ hotel.checkOut | date }}</p>
+        <p class="card-text">Duration (days): {{ hotel.duration }}</p>
+        <p class="card-text">Members: {{ hotel.members }}</p>
+        <!-- End of new fields -->
       </div>
     </div>
   </div>
 </div>
-

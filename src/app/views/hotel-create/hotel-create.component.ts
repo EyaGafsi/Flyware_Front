@@ -19,7 +19,15 @@ export class HotelCreateComponent implements OnInit {
       name: [''],
       address: [''],
       rating: [null],
-      imageUrl: [''], // Use imageUrl instead of image
+      imageUrl: [''],
+      // Add new fields for Destination (Country, Location), Check In, Check Out, Duration, Members
+      country: [''],
+      location: [''],
+      checkIn: [null],
+      checkOut: [null],
+      duration: [null],
+      members: [null],
+      // End of new fields
     });
   }
 

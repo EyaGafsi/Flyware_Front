@@ -14,8 +14,13 @@
               <i class="fas fa-star text-warning yellow-star"></i>
             </span>
           </p>
+          <p class="card-text">Country: {{ hotel.country }}</p>
+          <p class="card-text">Location: {{ hotel.location }}</p>
+          <p class="card-text">Check In: {{ hotel.checkIn | date }}</p>
+          <p class="card-text">Check Out: {{ hotel.checkOut | date }}</p>
+          <p class="card-text">Duration: {{ hotel.duration }} days</p>
+          <p class="card-text">Members: {{ hotel.members }}</p>
           <button *ngIf="hotel.id !== undefined" (click)="editHotel(hotel.id)" class="btn btn-warning">Edit</button>
-
           <button *ngIf="hotel.id !== undefined" (click)="deleteHotel(hotel.id)" class="btn btn-danger">Delete</button>
           <a [routerLink]="['/hotels', hotel.id]" class="btn btn-primary">View Details</a>
         </div>
