@@ -15,6 +15,32 @@
       <label for="inputStars" class="form-label">Rating</label>
       <input type="number" formControlName="rating" class="form-control" id="inputRating" placeholder="Number of Rating">
     </div>
+    <!-- New Fields for Destination (Country, Location), Check In, Check Out, Duration, Members -->
+    <div class="col-md-6">
+      <label for="inputCountry" class="form-label">Country</label>
+      <input type="text" formControlName="country" class="form-control" id="inputCountry" placeholder="Hotel Country">
+    </div>
+    <div class="col-md-6">
+      <label for="inputLocation" class="form-label">Location</label>
+      <input type="text" formControlName="location" class="form-control" id="inputLocation" placeholder="Hotel Location">
+    </div>
+    <div class="col-md-6">
+      <label for="inputCheckIn" class="form-label">Check In</label>
+      <input type="date" formControlName="checkIn" class="form-control" id="inputCheckIn">
+    </div>
+    <div class="col-md-6">
+      <label for="inputCheckOut" class="form-label">Check Out</label>
+      <input type="date" formControlName="checkOut" class="form-control" id="inputCheckOut">
+    </div>
+    <div class="col-md-6">
+      <label for="inputDuration" class="form-label">Duration (days)</label>
+      <input type="number" formControlName="duration" class="form-control" id="inputDuration" placeholder="Duration in days">
+    </div>
+    <div class="col-md-6">
+      <label for="inputMembers" class="form-label">Members</label>
+      <input type="number" formControlName="members" class="form-control" id="inputMembers" placeholder="Number of Members">
+    </div>
+    <!-- End of New Fields -->
     <div class="col-md-6 mb-3">
       <label for="formFile" class="form-label">Hotel Image</label>
       <input type="file" (change)="onFileSelect($event)" class="form-control" id="formFile">

@@ -22,12 +22,18 @@ export class HotelEditComponent implements OnInit {
       name: ['', Validators.required],
       address: ['', Validators.required],
       rating: ['', Validators.required],
-      imageUrl: ['']
+      imageUrl: [''],
+      country: ['', Validators.required],       // Add country field
+      location: ['', Validators.required],      // Add location field
+      checkIn: ['', Validators.required],        // Add checkIn field
+      checkOut: ['', Validators.required],       // Add checkOut field
+      duration: ['', Validators.required],       // Add duration field
+      members: ['', Validators.required]         // Add members field
     });
   }
 
   ngOnInit() {
-    // Chargez les données de l'hôtel existant ici en fonction de l'ID de l'URL
+    // Load existing hotel data based on the ID from the URL
     const hotelId = this.route.snapshot.paramMap.get('id');
     if (hotelId) {
       this.hotelService.getHotelById(+hotelId).subscribe(
@@ -40,10 +46,11 @@ export class HotelEditComponent implements OnInit {
       );
     }
   }
+
   onSubmit() {
     const hotelId = this.route.snapshot.paramMap.get('id');
     if (hotelId) {
-      const numericHotelId = +hotelId; // Convertit hotelId en nombre
+      const numericHotelId = +hotelId; // Convert hotelId to number
       this.hotelService.updateHotel(numericHotelId, this.form.value).subscribe(
         () => {
           console.log('Hotel updated successfully.');
@@ -55,5 +62,4 @@ export class HotelEditComponent implements OnInit {
       );
     }
   }
-
 }

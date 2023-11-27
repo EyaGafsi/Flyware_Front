@@ -30,11 +30,13 @@ export class HotelListComponent implements OnInit {
       }
     );
   }
+
   editHotel(id: number) {
-    // Rediriger vers la page d'édition pour l'hôtel avec l'ID spécifié
-    // Remplacez 'edit/:id' par le chemin réel de votre route d'édition
+    // Redirect to the edit page for the hotel with the specified ID
+    // Replace 'edit/:id' with the actual path of your edit route
     this.router.navigate(['/edit', id]);
   }
+
   deleteHotel(id: number) {
     this.hotelService.deleteHotel(id).subscribe(
       () => {
@@ -45,5 +47,11 @@ export class HotelListComponent implements OnInit {
         console.error('Error deleting hotel:', error);
       }
     );
+  }
+
+  // Add a method to display hotel details with new variables
+  displayDetails(hotel: Hotel) {
+    console.log('Hotel Details:', hotel);
+    // You can display the details in a modal, tooltip, or any other way you prefer
   }
 }
