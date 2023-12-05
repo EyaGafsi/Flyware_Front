@@ -102,6 +102,15 @@ export class HomeComponent implements OnInit {
     this.flightService.setCurrentPage(this.currentPage);
     this.router.navigate(['/flightUpdate']);
   }
+
+  // navigateToBookPage(flight: any) {
+  //   this.flightService.setSelectedFlight(flight);
+  //   this.flightService.setCurrentPage(this.currentPage);
+  //   this.router.navigate(['/flightBooking']);
+  // }
+
+
+
   delete(flight: any) {
     this.flightService.delete(flight).subscribe(
       response => {

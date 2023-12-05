@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { FlightUpdateComponent } from './views/flight-update/flight-update.component';
 import { ClientLayoutComponent } from './views/client-layout/client-layout.component';
 import { HomeComponent } from './views/home/home.component';
+// import { FlightBookingComponent } from './flight-booking/flight-booking.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HomeComponent } from './views/home/home.component';
     FlightAddComponent,
     FlightUpdateComponent,
     ClientLayoutComponent
+    // FlightBookingComponent,
   ],
   imports: [
     BrowserModule,
