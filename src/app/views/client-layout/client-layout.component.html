@@ -2,7 +2,7 @@
   <div class="header-area">
     <div class="container">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-2" style="z-index: 1000;">
           <div class="logo">
             <a href="index.html">
               Fly<span>Ware</span>
@@ -12,7 +12,6 @@
         <div class="col-sm-10">
           <div class="main-menu">
 
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <i class="fa fa-bars"></i>
@@ -26,17 +25,43 @@
                 <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
                 <li class="smooth-menu"><a href="#blog">blog</a></li>
                 <li class="smooth-menu"><a href="#subs">subscription</a></li>
+                <li class="smooth-menu"><a routerLink="flightBookings">flight bookings</a></li><li class="smooth-menu">
+  <div class="dropdown position-relative" (click)="noticationNumber()">
+    <a href="#" class="nav-link dropdown-toggle" role="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <span><i class="fa-solid fa-bell"></i></span>
+      <span class="position-absolute badge rounded-pill bg-danger" *ngIf="notifNumber > 0">
+        {{ notifNumber }}
+      </span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown"
+      style="max-width: 300px; width: 250px; font-size: 15px; max-height: 200px; overflow-y: auto;" *ngIf="notif.length > 0">
+      <ng-container *ngFor="let item of notif; let index = index; let last = last">
+        <div [ngClass]="{'unread': index < number}">
+          <a class="dropdown-item" style="white-space: normal;">
+            {{ item }}
+          </a>
+          <div *ngIf="!last" class="dropdown-divider"></div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="dropdown-menu dropdown-menu-end" *ngIf="notif.length === 0">
+      <a *ngIf="notif.length === 0" class="dropdown-item">vous n'avez aucune notification</a>
+    </div>
+  </div>
+</li>
                 <li>
-                  <button class="book-btn">Login
+                  <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
+                  </button>
+                  <button *ngIf="isLoggedIn()" (click)="logout()" class="book-btn">Logout
+
                   </button>
                 </li><!--/.project-btn-->
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.main-menu-->
         </div><!-- /.col-->
-      </div><!-- /.row -->
-      <div class="home-border"></div><!-- /.home-border-->
-    </div><!-- /.container-->
+      </div><!-- /.row -->    </div><!-- /.container-->
   </div><!-- /.header-area -->
 
 </header><!-- /.top-area-->

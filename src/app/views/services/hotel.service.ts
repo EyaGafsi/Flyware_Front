@@ -1,6 +1,6 @@
 // hotel.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 
@@ -21,7 +21,6 @@ export class HotelService {
   }
 
   createHotel(hotel: Hotel): Observable<Hotel> {
-    // Update the API URL to match your Spring Boot endpoint
     return this.http.post<Hotel>(this.apiUrl, hotel);
   }
 

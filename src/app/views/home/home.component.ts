@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlightService } from '../services/flight.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-home',
@@ -10,16 +11,16 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   flights: any[] = [];
-  currentPage = 0;
-  itemsPerPage = 12;
-  numberOfPages = 0;
+  currentPage = 1;
+  itemsPerPage = 2;
+  numberOfPages = 1;
   tripType=false;
   searchForm: FormGroup;
   displayHome=true;
   destinations:any;
   departures:any;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private keycloakService: KeycloakService) {
     this.searchForm = this.formBuilder.group({
       from: [''],
       to: [''],
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
   }
 
   afficher(page:any, size:any) {
@@ -54,7 +56,7 @@ export class HomeComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.flights = response.docs;
-        this.numberOfPages = response.pages - 1;
+        this.numberOfPages = response.pages ;
         this.displayHome=false;
       },
       error => {
@@ -74,7 +76,7 @@ export class HomeComponent implements OnInit {
     }
   }
   goToPreviousPage() {
-    if (this.currentPage > 0) {
+    if (this.currentPage > 1) {
       this.currentPage--;
       this.afficher(this.currentPage, this.itemsPerPage);
     }
@@ -87,7 +89,7 @@ export class HomeComponent implements OnInit {
   }
   generatePageNumbers(totalPages: number): number[] {
     const pageNumbers: number[] = [];
-    for (let i = 0; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
@@ -114,6 +116,10 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-
+  navigateToBookingPage(flight: any) {
+    this.flightService.setSelectedFlight(flight);
+    this.flightService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/flightDetails']);
+  }
 
 }

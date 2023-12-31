@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 })
 export class FlightListComponent implements OnInit {
   flights: any[] = [];
-  currentPage = 0;
-  itemsPerPage = 2;
-  numberOfPages = 0;
+  currentPage = 1;
+  itemsPerPage = 10;
+  numberOfPages = 1;
 
   constructor(private router: Router,private flightService: FlightService) {
     this.afficher(this.currentPage, this.itemsPerPage);
@@ -24,7 +24,7 @@ export class FlightListComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.flights = response.docs;
-        this.numberOfPages = response.pages - 1;
+        this.numberOfPages = response.pages ;
       },
       error => {
         console.log(error);
@@ -43,7 +43,7 @@ export class FlightListComponent implements OnInit {
     }
   }
   goToPreviousPage() {
-    if (this.currentPage > 0) {
+    if (this.currentPage > 1) {
       this.currentPage--;
       this.afficher(this.currentPage, this.itemsPerPage);
     }
@@ -56,7 +56,7 @@ export class FlightListComponent implements OnInit {
   }
   generatePageNumbers(totalPages: number): number[] {
     const pageNumbers: number[] = [];
-    for (let i = 0; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
@@ -72,6 +72,8 @@ export class FlightListComponent implements OnInit {
     this.router.navigate(['/flightUpdate']);
   }
   delete(flight: any) {
+    const confirmation = window.confirm('Are you sure you want to delete this flight?');
+ if(confirmation){
     this.flightService.delete(flight).subscribe(
       response => {
         console.log(response);
@@ -83,6 +85,6 @@ export class FlightListComponent implements OnInit {
       }
     );
   }
-
+}
 
 }

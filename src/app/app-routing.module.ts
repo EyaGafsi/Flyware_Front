@@ -6,22 +6,28 @@ import { FlightAddComponent } from './views/flight-add/flight-add.component';
 import { HomeComponent } from './views/home/home.component';
 import { FlightUpdateComponent } from './views/flight-update/flight-update.component';
 import { HotelListComponent } from './views/hotel-list/hotel-list.component';
-import { HotelDetailsComponent } from './views/hotel-details/hotel-details.component';
 import { HotelCreateComponent } from './views/hotel-create/hotel-create.component';
 import { HotelEditComponent } from './views/hotel-edit/hotel-edit.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './views/_auth/auth.guard';
+import { AccessDeniedComponent } from './views/access-denied/access-denied.component';
+import { FlightBookingListComponent } from './views/flight-booking-list/flight-booking-list.component';
+import { UserFlightBookingListComponent } from './views/user-flight-booking-list/user-flight-booking-list.component';
+import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
-  {path:'flights',component:FlightListComponent},
-  {path:'flightDetails',component:FlightDetailsComponent},
-  {path:'flightAdd',component:FlightAddComponent},
-  {path:'flightUpdate',component:FlightUpdateComponent},
-  { path: 'hotels', component: HotelListComponent },
-  { path: 'hotels/:id', component: HotelDetailsComponent },
-  { path: 'create', component: HotelCreateComponent },
-  { path: 'edit/:id', component: HotelEditComponent },
-  { path: '', redirectTo: '/hotels', pathMatch: 'full' },
+  {path:'flights',component:FlightListComponent, canActivate: [AuthGuard],data: { roles: ['admin'] }, },
+  {path:'flightDetails',component:FlightDetailsComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  {path:'flightAdd',component:FlightAddComponent, canActivate: [AuthGuard], data:{ 'roles': ['admin'] }},
+  {path:'flightUpdate',component:FlightUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  { path: 'hotels', component: HotelListComponent, canActivate: [AuthGuard], data:{ 'roles': ['admin'] } },
+  { path: 'create', component: HotelCreateComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  { path: 'edit/:id', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  { path: 'accessDenied', component: AccessDeniedComponent},
+  { path: 'flightBookings', component: FlightBookingListComponent},
+  { path: 'userFlightBookings', component: UserFlightBookingListComponent},
+  { path: 'updateFlightBookings', component: FlightBookingUpdateComponent},
 
 ];
 

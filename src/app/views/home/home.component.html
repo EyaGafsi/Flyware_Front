@@ -1,7 +1,3 @@
-
-<!--about-us end -->
-
-<!--travel-box start-->
 <section  class="travel-box">
       <div class="container">
         <div class="row">
@@ -1446,34 +1442,14 @@
                   <i class="fa fa-angle-right"></i> {{flight.departure}}
                  </p>
               </div><!--/.packages-para-->
-              <div class="packages-review">
-                <p>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <span>2544 review</span>
-                </p>
-              </div><!--/.packages-review-->
+
               <div class="about-btn">
-                <button  class="about-view packages-btn">
+                <button  class="about-view packages-btn" (click)="navigateToBookingPage(flight._id)">
                   book now
                 </button>
 
               </div><!--/.about-btn-->
-              <div class="about-btn">
 
-              <button  class="about-view packages-btn" (click)="navigateToUpdatePage(flight._id)">
-                update
-              </button>
-            </div><!--/.about-btn-->
-            <div class="about-btn">
-
-              <button  class="about-view packages-btn" (click)="delete(flight._id)">
-                delete
-              </button>
-            </div><!--/.about-btn-->
             </div><!--/.single-package-item-txt-->
           </div><!--/.single-package-item-->
 
@@ -1481,12 +1457,9 @@
       </div><!--/.row-->
     </div><!--/.packages-content-->
   </div><!--/.container-->
-  <div class="clearfix text">
-
-    <div class="hint-text"> <b>{{currentPage}}</b> - <b>{{numberOfPages}}</b>
-    </div>
+  <div class="clearfix text-center">
     <ul class="pagination">
-      <li class="page-item"><a (click)="goToPreviousPage()" class="page-link"><i
+      <li ><a (click)="goToPreviousPage()" class="page-link"><i
             class="fa fa-angle-double-left"></i></a></li>
       <li class="page-item" [class.active]="currentPage === page"
         *ngFor="let page of generatePageNumbers(numberOfPages);">
