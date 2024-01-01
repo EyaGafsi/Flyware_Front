@@ -21,6 +21,7 @@ import { HotelEditComponent } from './views/hotel-edit/hotel-edit.component';
 
 import {HotelService} from './views/services/hotel.service';
 import { Hotel } from './views/models/hotel';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +34,7 @@ import { Hotel } from './views/models/hotel';
     HotelDetailsComponent,
     HotelCreateComponent,
     HotelEditComponent
+
   ],
   imports: [
     BrowserModule,

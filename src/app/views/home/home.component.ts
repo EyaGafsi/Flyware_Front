@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlightService } from '../services/flight.service';
+import { HotelService } from '../services/hotel.service';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -10,16 +12,21 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   flights: any[] = [];
+  hotels: any[] = [];
   currentPage = 0;
   itemsPerPage = 12;
   numberOfPages = 0;
   tripType=false;
   searchForm: FormGroup;
+  hotelSearchForm: FormGroup;
   displayHome=true;
   destinations:any;
   departures:any;
+  countries: any;
+  locations: any;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService) {
+
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService) {
     this.searchForm = this.formBuilder.group({
       from: [''],
       to: [''],
@@ -28,9 +35,21 @@ export class HomeComponent implements OnInit {
       price: [''],
 
     });
+
+    this.hotelSearchForm = this.formBuilder.group({
+      name:[''],
+      address:[''],
+      country: [''],
+      location: [''],
+      checkIn: [''],
+      checkOut: [''],
+      duration: [''],
+      members: [''],
+    });
   }
   ngOnInit(): void {
     this.displayHome=true;
+
     this.flightService.getDestinations().subscribe(
       (response: any) => {
         this.destinations = response;
@@ -47,6 +66,22 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
+    this.hotelService.getCountries().subscribe(
+      countries => {
+        console.log('Countries in component:', countries);
+        this.countries = countries;
+      },
+      error => console.error('Error fetching countries in component:', error)
+    );
+
+    this.hotelService.getLocations().subscribe(
+      locations => {
+        console.log('Locations in component:', locations);
+        this.locations = locations;
+      },
+      error => console.error('Error fetching locations in component:', error)
+    );
   }
 
   afficher(page:any, size:any) {
@@ -54,6 +89,20 @@ export class HomeComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.flights = response.docs;
+        this.numberOfPages = response.pages - 1;
+        this.displayHome=false;
+      },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
+  afficherhotel(page:any, size:any) {
+    this.hotelService.afficherHotel(this.hotelSearchForm,page, size).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.hotels = response.docs;
         this.numberOfPages = response.pages - 1;
         this.displayHome=false;
       },
@@ -115,5 +164,39 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  advancedSearchHotels() {
+    // Récupérez les valeurs du formulaire
+    const formData = this.hotelSearchForm.value;
+    console.log('Valeurs du formulaire :', formData);
+  console.log('Valeur de duration avant l\'appel :', formData.duration);
+  console.log('Valeur de members avant l\'appel :', formData.members);
 
+    // Appelez votre service pour effectuer la recherche avancée
+    this.hotelService.advancedSearchHotels(
+      formData.name,
+      formData.address,
+      formData.country,
+      formData.location,
+      formData.checkIn,
+      formData.checkOut,
+      formData.duration,
+      formData.members
+    ).subscribe(
+      (response) => {
+        // Traitez la réponse du serveur ici
+        console.log('Réponse du serveur :', response);
+      },
+      (error) => {
+        // Traitez les erreurs ici
+        console.error('Erreur lors de la recherche avancée :', error);
+      }
+    );
+  }
+
+
+  navigateToUpdatePagehotel(hotel: any) {
+    this.hotelService.setSelectedHotel(hotel);
+    this.hotelService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/edit/:id']);
+  }
 }
