@@ -35,6 +35,7 @@ export function kcFactory(kcService: KeycloakService) {
         clientId: 'flyware-client',
         url: 'http://localhost:8080'
 
+<<<<<<< HEAD
       },
       initOptions: {
         onLoad: 'check-sso',
@@ -49,6 +50,11 @@ export function kcFactory(kcService: KeycloakService) {
     });
   };
 }
+=======
+import {HotelService} from './views/services/hotel.service';
+import { Hotel } from './views/models/hotel';
+
+>>>>>>> aya-benfraj
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,12 +66,17 @@ export function kcFactory(kcService: KeycloakService) {
     HotelListComponent,
     HotelDetailsComponent,
     HotelCreateComponent,
+<<<<<<< HEAD
     HotelEditComponent,
     AccessDeniedComponent,
     FlightBookingListComponent,
     UserFlightBookingListComponent,
     FlightDetailsComponent,
     FlightBookingUpdateComponent
+=======
+    HotelEditComponent
+
+>>>>>>> aya-benfraj
   ],
   imports: [
     BrowserModule,

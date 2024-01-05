@@ -10,7 +10,7 @@ export class Hotel {
     public location?: string,
     public checkIn?: Date,
     public checkOut?: Date,
-    public duration?: number,
+    public duration?: string,
     public members?: number
   ) { }
 }
