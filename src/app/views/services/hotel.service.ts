@@ -1,10 +1,7 @@
 // hotel.service.ts
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-=======
+
 import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
->>>>>>> aya-benfraj
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 
