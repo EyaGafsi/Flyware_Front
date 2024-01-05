@@ -2,83 +2,71 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 import { Socket,io } from 'socket.io-client';
-import { RxStompService } from './rx-stomp-service.service';
+import { KeycloakService } from 'keycloak-angular';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+  PATH_OF_API = "http://localhost:3003";
+
   private socket: Socket;
+  private notifications:any;
+  private notifNumber:any;
 
-  private notifications: string[] = [];
-  private lastNotification:any;
-  private unreadNotifications = 0;
-  private notificationsSubject: Subject<string[]> = new Subject<string[]>();
-  private notificationNumberSubject: Subject<number> = new Subject<number>();
-  notification: string='';
-
-  constructor(private stompService: RxStompService) {
+  constructor(private keycloakService: KeycloakService,private httpclient: HttpClient) {
     this.socket = io('http://localhost:3001', { transports: ['websocket'] });
     this.init();
 
   }
 
   listenForNotifications(): Observable<string> {
+
     return new Observable<string>(observer => {
-      this.socket.on('notification', (data: string) => {
-        observer.next(data);
+      this.socket.on('notification', (data: any) => {
+        location.reload();
+
+
+        observer.next(data.message);
+        const formData = {
+          userId: data.userId,
+          message: data.message,
+        };
+        this.add(formData).subscribe(
+          response => {
+            console.log(response);
+
+
+          },
+
+        );
+
       });
     });
   }
 
-
+  public add(form: any) {
+    return this.httpclient.post(`${this.PATH_OF_API}/notification/`,form);
+  }
   private init(): void {
-    const storedNotifications = localStorage.getItem('notifications');
-    if (storedNotifications) {
-      this.notifications = JSON.parse(storedNotifications);
-    }
 
-    const storedUnreadNotifications = localStorage.getItem('unreadNotifications');
-    if (storedUnreadNotifications) {
-      this.unreadNotifications = JSON.parse(storedUnreadNotifications);
-    }
 
-    this.listenForNotifications().subscribe(data => {
-      this.notification = data;
-console.log(this.notification)  ;
-if (this.notification !== this.lastNotification) {
-  this.notifications.push(this.notification);
-  this.unreadNotifications = this.unreadNotifications + 1;
-  this.lastNotification = this.notification;
-  localStorage.setItem('notifications', JSON.stringify(this.notifications));
-  localStorage.setItem('unreadNotifications', JSON.stringify(this.unreadNotifications));
-  this.notificationsSubject.next(this.notifications.slice().reverse());
-  this.notificationNumberSubject.next(this.unreadNotifications);
-}  });
+    this.listenForNotifications().subscribe(data => {console.log(data)
+       });
 
 
   }
 
-  getNotifications(): string[] {
-    return this.notifications.slice().reverse();
+  getNotifications() {
+    return this.httpclient.get(`${this.PATH_OF_API}/notification/${this.keycloakService.getKeycloakInstance().tokenParsed!!.sub}`);
   }
 
   getNotificationNumber() {
-    return this.unreadNotifications;
+    return this.httpclient.get(`${this.PATH_OF_API}/unreadNotification/${this.keycloakService.getKeycloakInstance().tokenParsed!!.sub}`);
   }
-  getNotificationsObservable(): Observable<string[]> {
-    return this.notificationsSubject.asObservable();
-  }
-
-  // Exposer l'Observable pour le nombre de notifications non lues
-  getNotificationNumberObservable(): Observable<number> {
-    return this.notificationNumberSubject.asObservable();
-  }
-
   resetNotificationNumber() {
-    this.unreadNotifications = 0;
-    localStorage.setItem('unreadNotifications', JSON.stringify(this.unreadNotifications));
-    this.notificationNumberSubject.next(this.unreadNotifications);
+    return this.httpclient.put(`${this.PATH_OF_API}/notification/${this.keycloakService.getKeycloakInstance().tokenParsed!!.sub}`,null);
 
   }
 

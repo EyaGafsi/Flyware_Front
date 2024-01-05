@@ -26,7 +26,11 @@ export class HomeComponent implements OnInit {
       to: [''],
       departure: [''],
       return: [''],
-      price: [''],
+      minPrice: [0],
+      maxPrice: [0],
+      nbAdult: [0],
+      nbChildren: [0],
+      type: ['']
 
     });
   }

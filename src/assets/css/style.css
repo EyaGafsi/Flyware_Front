@@ -477,6 +477,9 @@ html,body{
 .travel-check-icon{
     position: relative;
 }
+.travel-icon{
+  position: relative;
+}
 .travel-check-icon:after{
     position: absolute;
     content: "\f073";
@@ -491,8 +494,27 @@ html,body{
     border-bottom: transparent;
     padding: 10px 8px;
 }/*travel-select-icon*/
-
+.travel-icon:after{
+  position: absolute;
+  right: 0px;
+  top: 0;
+  font-size: 18px;
+  color: #aaa;
+  background: #f9f9f9;
+  font-family: "fontAwesome";
+  pointer-events: none;
+  border:1px solid #d7d7d7;
+  border-bottom: transparent;
+  padding: 10px 8px;
+}/*travel-select-icon*/
 .travel-select-icon  select,.travel-check-icon  input {
+	color:#aaa;
+	font-size:14px;
+	font-family: 'Poppins', sans-serif;
+	text-transform: capitalize;
+	height: 48px;
+}/*select*/
+.travel-select-icon  select,.travel-icon  input {
 	color:#aaa;
 	font-size:14px;
 	font-family: 'Poppins', sans-serif;
@@ -501,6 +523,18 @@ html,body{
 }/*select*/
 
 .travel-select-icon .form-control,.travel-check-icon .form-control{
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-o-appearance:none;
+	-ms-appearance:none;
+	appearance:none;
+	outline:0!important;
+	box-shadow:none;
+	border:1px solid #d7d7d7;
+	border-radius: 0px;
+	margin-bottom: 20px;
+}/*.travel-select-icon .form-control*/
+.travel-select-icon .form-control,.travel-icon .form-control{
 	-webkit-appearance:none;
 	-moz-appearance:none;
 	-o-appearance:none;

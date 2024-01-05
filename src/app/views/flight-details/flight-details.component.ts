@@ -22,8 +22,8 @@ export class FlightDetailsComponent implements OnInit {
       this.form = this.formBuilder.group({
         flightId: [''],
         userId: [''],
-        nbAdults: [null,Validators.required],
-        nbChildren: [null,Validators.required],
+        nbAdults: [0,Validators.required],
+        nbChildren: [0,Validators.required],
         type: [null,Validators.required]
       });
 
@@ -66,6 +66,8 @@ onSubmit() {
         console.log(response);
         this.message = 'Booking request sent successfully';
         this.showSuccessMessage();
+
+
       },
       error => {
         this.message = 'You already booked in this flight';
@@ -107,4 +109,21 @@ closeAlert() {
   this.showWarningAlert = false;
 
 }
-}
+ maxAdult(){
+  if( this.form.get('type')?.value=="business")
+  return this.flight.nbBuisPlaces-this.form.get('nbChildren')?.value
+   else if( this.form.get('type')?.value=="economic")
+  return this.flight.nbEcoPlaces-this.form.get('nbChildren')?.value
+else return 0;
+  }
+  maxChildren(){
+    if( this.form.get('type')?.value=="business")
+    return this.flight.nbBuisPlaces-this.form.get('nbAdults')?.value
+     else if( this.form.get('type')?.value=="economic")
+    return this.flight.nbEcoPlaces-this.form.get('nbAdults')?.value
+  else return 0;
+    }
+
+ }
+
+

@@ -8315,3 +8315,25 @@ h1, h2, h3, h4, h5,
   color: #40bfc1; }
   .checkbox-primary input:checked ~ .checkmark:after {
     color: #40bfc1; }
+    .pagination {
+      display: inline-block;
+    }
+
+    .pagination a {
+      color: black;
+      float: center;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+
+    }
+    .pagination a.active {
+      background-color: #4CAF50;
+      border-radius: 5px;
+
+      color: white;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .text-center {
+      text-align: center !important; }

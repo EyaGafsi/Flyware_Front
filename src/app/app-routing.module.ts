@@ -25,9 +25,9 @@ const routes: Routes = [
   { path: 'create', component: HotelCreateComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'edit/:id', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'accessDenied', component: AccessDeniedComponent},
-  { path: 'flightBookings', component: FlightBookingListComponent},
-  { path: 'userFlightBookings', component: UserFlightBookingListComponent},
-  { path: 'updateFlightBookings', component: FlightBookingUpdateComponent},
+  { path: 'flightBookings', component: FlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  { path: 'userFlightBookings', component: UserFlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
+  { path: 'updateFlightBookings', component: FlightBookingUpdateComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
 
 ];
 
