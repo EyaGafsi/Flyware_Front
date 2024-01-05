@@ -8,10 +8,9 @@ export class FlightService {
   PATH_OF_API = "http://localhost:3000";
   PATH_OF_BOOKING_API = "http://localhost:3001";
   PATH_OF_USER_API = "http://localhost:3002";
-
   private selectedFlight: any;
   private currentPage: any;
-
+  constructor(private httpclient: HttpClient) { }
   setSelectedFlight(flight: any) {
     this.selectedFlight = flight;
   }
@@ -24,7 +23,7 @@ export class FlightService {
   getCurrentPage() {
     return this.currentPage;
   }
-  constructor(private httpclient: HttpClient) { }
+
   public afficher(form: any, page: any, size: any) {
     if (form){
     const params = new HttpParams()
@@ -32,7 +31,11 @@ export class FlightService {
       .set('destination', form.value.to || '')
       .set('date', form.value.departure || '')
       .set('returnDate', form.value.return || '')
-      .set('price', form.value.price || '');
+      .set('minPrice', form.value.minPrice || 0)
+      .set('maxPrice', form.value.maxPrice || 0)
+      .set('type', form.value.type || '')
+      .set('nbPlaces', form.value.nbAdult+form.value.nbChildren || 0);
+console.log(params);
 
     return this.httpclient.get(`${this.PATH_OF_API}/flights?page=${page}&size=${size}`, { params });}
     return this.httpclient.get(`${this.PATH_OF_API}/flights?page=${page}&size=${size}`);
@@ -56,17 +59,17 @@ export class FlightService {
   public getDepartures() {
     return this.httpclient.get(`${this.PATH_OF_API}/departures`);
   }
-  public getBookings() {
-    return this.httpclient.get(`${this.PATH_OF_BOOKING_API}/flightBookings`);
+  public getBookings(page: any, size: any) {
+    return this.httpclient.get(`${this.PATH_OF_BOOKING_API}/flightBookings?page=${page}&size=${size}`);
   }
-  public getFlightBookingByUserId(id: any) {
-    return this.httpclient.get(`${this.PATH_OF_BOOKING_API}/UserFlightBookings/${id}`);
+  public getFlightBookingByUserId(id: any, page: any, size: any) {
+    return this.httpclient.get(`${this.PATH_OF_BOOKING_API}/UserFlightBookings?id=${id}&page=${page}&size=${size}`);
   }
   public getFlightBookingById(id: any) {
     return this.httpclient.get(`${this.PATH_OF_BOOKING_API}/flightBookings/${id}`);
   }
-  public acceptFlightBooking(id: any) {
-    return this.httpclient.put(`${this.PATH_OF_BOOKING_API}/accept/${id}`,null);
+  public setFlightBookingStatus(id: any,status:any) {
+    return this.httpclient.put(`${this.PATH_OF_BOOKING_API}/setStatus/${id}`,{status:status});
   }
   public refuseFlightBooking(id: any) {
     return this.httpclient.put(`${this.PATH_OF_BOOKING_API}/refuse/${id}`,null);
@@ -81,6 +84,16 @@ export class FlightService {
   }
   public bookFlight(form: any) {
     return this.httpclient.post(`${this.PATH_OF_BOOKING_API}/reserver`, form);
+  }
+  public sendFlightEmail(flight: any,flightBooking: any,user : any) {
+    const emailData = {
+      flight: flight,
+      flightBooking: flightBooking,
+      user: user
+    };
+    console.log("My email data" ,emailData);
+
+    return this.httpclient.post(`${this.PATH_OF_BOOKING_API}/send-email`, emailData);
   }
   public getUserById(id: any) {
     return this.httpclient.get(`${this.PATH_OF_USER_API}/users/${id}`);

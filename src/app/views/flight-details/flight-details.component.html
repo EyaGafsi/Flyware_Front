@@ -60,16 +60,6 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="number" class="form-control"  formControlName="nbAdults" id="name" placeholder="adult number">
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input type="number" class="form-control"  formControlName="nbChildren" id="email" placeholder="Children number">
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
                         <select class="form-control" formControlName="type">
                           <option [ngValue]="null" disabled selected>Select a class</option>
                           <option value="economic">economic</option><!-- /.option-->
@@ -77,8 +67,20 @@
                           <option value="business">business</option><!-- /.option-->
 
 
-                      </select>                      </div>
+                      </select>
+                     </div>
                     </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="number" class="form-control"  formControlName="nbAdults" id="name" placeholder="adult number" min="1" [max]="maxAdult()">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="number" class="form-control"  formControlName="nbChildren" id="email" placeholder="Children number" min="0" [max]="maxChildren()">
+                      </div>
+                    </div>
+
 
                     <div class="col-md-12">
                       <div class="form-group">

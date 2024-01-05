@@ -8334,3 +8334,26 @@ h1, h2, h3, h4, h5,
     .table tbody td.status .refuser:after {
       background: #bd3a23;
     }
+
+    .pagination {
+      display: inline-block;
+    }
+
+    .pagination a {
+      color: black;
+      float: center;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+
+    }
+    .pagination a.active {
+      background-color: #4CAF50;
+      border-radius: 5px;
+
+      color: white;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .text-center {
+      text-align: center !important; }
