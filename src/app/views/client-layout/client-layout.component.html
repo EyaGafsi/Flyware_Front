@@ -25,31 +25,51 @@
                 <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
                 <li class="smooth-menu"><a href="#blog">blog</a></li>
                 <li class="smooth-menu"><a href="#subs">subscription</a></li>
-                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight bookings</a></li><li class="smooth-menu" *ngIf="role.includes('client')">
-<div class="dropdown position-relative"  (click)="noticationNumber()" >
-  <a  class="dropbtn" >
-    <span><i class="fa-solid fa-bell"></i></span>
-    <span class="position-absolute badge rounded-pill bg-danger" *ngIf="notifNumber > 0">
-      {{ notifNumber }}
-    </span>
-  </a>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight
+                    bookings</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('client')">
+                  <div class="dropdown position-relative" (click)="noticationNumber()">
+                    <a class="dropbtn">
+                      <span><i class="fa-solid fa-bell"></i></span>
+                      <span class="position-absolute badge rounded-pill bg-danger" *ngIf="notifNumber > 0">
+                        {{ notifNumber }}
+                      </span>
+                    </a>
 
-  <div class="dropdown-content" [ngClass]="{'bl': isDropdownOpen}"
-       style="max-width: 300px; width: 250px; font-size: 15px; max-height: 200px; overflow-y: auto;"
-       *ngIf="notifications">
-      <div *ngFor="let notif of notifications"[ngClass]="{'unread': notif.unread==true}">
-        <a  style="white-space: normal;">
-          {{ notif.message }}
-        </a>
-      </div>
-  </div>
+                    <div class="dropdown-content" [ngClass]="{'bl': isDropdownOpen}"
+                      style="max-width: 300px; width: 250px; font-size: 15px; max-height: 200px; overflow-y: auto;"
+                      *ngIf="notifications">
+                      <div *ngFor="let notif of notifications" [ngClass]="{'unread': notif.unread==true}">
+                        <a style="white-space: normal;">
+                          {{ notif.message }}
+                        </a>
+                      </div>
+                    </div>
 
-  <div class="dropdown" *ngIf="!notifications">
-    <a *ngIf="!notifications" class="dropdown-content">vous n'avez aucune notification</a>
-  </div>
-</div>
+                    <div class="dropdown" *ngIf="!notifications">
+                      <a *ngIf="!notifications" class="dropdown-content">vous n'avez aucune notification</a>
+                    </div>
+                  </div>
 
-</li>
+                </li>
+                <li class="smooth-menu" *ngIf="isLoggedIn()">
+                  <div class="dropdown position-relative">
+                    <a class="dropbtn">
+                       <i class="fas fa-user"></i>
+                        admin
+                    </a>
+
+                    <div class="dropdown-content"
+                      >
+                        <a style="white-space: normal;">
+hello                        </a>
+                    </div>
+
+
+                  </div>
+
+                </li>
+
                 <li>
                   <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
                   </button>
@@ -61,7 +81,8 @@
             </div><!-- /.navbar-collapse -->
           </div><!-- /.main-menu-->s
         </div><!-- /.col-->
-      </div><!-- /.row -->    </div><!-- /.container-->
+      </div><!-- /.row -->
+    </div><!-- /.container-->
   </div><!-- /.header-area -->
 
 </header><!-- /.top-area-->
@@ -80,7 +101,7 @@
 
               </h2>
               <div class="about-btn">
-                <button  class="about-view">
+                <button class="about-view">
                   explore now
                 </button>
               </div><!--/.about-btn-->
