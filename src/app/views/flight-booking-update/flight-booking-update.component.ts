@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { FlightService } from '../services/flight.service';
 import { KeycloakService } from 'keycloak-angular';
+import { FlightService } from '../services/flight.service';
 
 @Component({
-  selector: 'app-flight-details',
-  templateUrl: './flight-details.component.html',
-  styleUrls: ['./flight-details.component.css']
+  selector: 'app-flight-booking-update',
+  templateUrl: './flight-booking-update.component.html',
+  styleUrls: ['./flight-booking-update.component.css']
 })
-export class FlightDetailsComponent implements OnInit {
+export class FlightBookingUpdateComponent implements OnInit {
   message:any;
   form: FormGroup;
   file: any;
@@ -18,32 +17,42 @@ export class FlightDetailsComponent implements OnInit {
   showFailedAlert=false;
   showWarningAlert=false;
 
-  constructor(private keycloakService: KeycloakService,private formBuilder: FormBuilder, private flightService: FlightService) {
+  constructor(private formBuilder: FormBuilder, private flightService: FlightService) {
       this.form = this.formBuilder.group({
+        _id: [''],
         flightId: [''],
         userId: [''],
-        nbAdults: [0,Validators.required],
-        nbChildren: [0,Validators.required],
+        nbAdults: [null,Validators.required],
+        nbChildren: [null,Validators.required],
         type: [null,Validators.required]
       });
 
   }
   ngOnInit(): void {
     const selectedFlight = this.flightService.getSelectedFlight();
-    this.flightService.getFlightById(selectedFlight).subscribe(
+
+    this.flightService.getFlightById(selectedFlight?.flightId).subscribe(
       response => {
         this.flight=response;
         var flightDate = new Date(this.flight.date);
         this.flight.date= flightDate.toISOString().split('T')[0];
         if (this.flight.returnDate!==null){
          flightDate = new Date(this.flight.returnDate);
-         this.flight.returnDate= flightDate.toISOString().split('T')[0]; }       console.log(this.flight);
+         this.flight.returnDate= flightDate.toISOString().split('T')[0]; }
 
       },
       error => {
         console.log(error);
       }
     );
+    this.form = this.formBuilder.group({
+      _id: [selectedFlight?._id, Validators.required],
+      flightId: [selectedFlight?.flightId, Validators.required],
+      userId: [selectedFlight?.userId, Validators.required],
+      nbAdults: [selectedFlight?.nbAdults, Validators.required],
+      nbChildren: [selectedFlight?.nbChildren, Validators.required],
+      type: [selectedFlight?.type, Validators.required],
+    });
   }
 formatDuration(minutes: number): string {
   const h = Math.floor(minutes / 60);
@@ -57,17 +66,13 @@ formatDuration(minutes: number): string {
 }
 
 onSubmit() {
-  this.form.patchValue({ flightId: this.flightService.getSelectedFlight() });
-  this.form.patchValue({ userId:this.keycloakService.getKeycloakInstance().tokenParsed!!.sub });
 
   if (this.form.valid) {
-    this.flightService.bookFlight(this.form.value).subscribe(
+    this.flightService.editFlightBooking(this.form.value).subscribe(
       response => {
         console.log(response);
         this.message = 'Booking request sent successfully';
         this.showSuccessMessage();
-
-
       },
       error => {
         this.message = 'You already booked in this flight';
@@ -109,21 +114,4 @@ closeAlert() {
   this.showWarningAlert = false;
 
 }
- maxAdult(){
-  if( this.form.get('type')?.value=="business")
-  return this.flight.nbBuisPlaces-this.form.get('nbChildren')?.value
-   else if( this.form.get('type')?.value=="economic")
-  return this.flight.nbEcoPlaces-this.form.get('nbChildren')?.value
-else return 0;
-  }
-  maxChildren(){
-    if( this.form.get('type')?.value=="business")
-    return this.flight.nbBuisPlaces-this.form.get('nbAdults')?.value
-     else if( this.form.get('type')?.value=="economic")
-    return this.flight.nbEcoPlaces-this.form.get('nbAdults')?.value
-  else return 0;
-    }
-
- }
-
-
+}

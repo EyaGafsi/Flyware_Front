@@ -12,32 +12,36 @@
             <thead>
               <tr>
                 <th>Flight number</th>
-                <th>destination</th>
-                <th>price</th>
-                <th>date</th>
-                <th>duration</th>
-                <th>departure</th>
+                <th>Client name</th>
+                <th>Number of Adults</th>
+                <th>Number of Children</th>
+                <th>Type</th>
                 <th>&nbsp;</th>
+                <th>&nbsp;</th>
+
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let flight of flights" class="alert" role="alert">
+                <td hidden="true">{{ flight.userId  }}</td>
 
-                <td>{{ flight._id }}</td>
-                <td>{{flight.destination}}</td>
-                <td>{{flight.price}} $</td>
-                <td> {{flight.date  | date: 'yyyy-MM-dd'}}</td>
-                <td> {{ formatDuration(flight.duration) }}</td>
-                <td> {{flight.departure}}</td>
-                <td  class="border-bottom-0">
-                  <button type="button" class="edit" (click)="navigateToUpdatePage(flight._id)">
-                    <span aria-hidden="true"><i class="fas fa-marker"></i></span>
-                  </button>
+                <td>{{ flight.flightId }}</td>
+                 <td>
+                    <span>{{flight.username }}</span>
                 </td>
-                <td  >
-                  <button type="button" class="close" (click)="delete(flight._id)" >
-                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
-                  </button>
+                <td>{{ flight.nbAdults }}</td>
+                <td>{{ flight.nbChildren }}</td>
+                <td>{{ flight.type }}</td>
+
+                <td>
+                  <button type="button" class="accept"(click)="accepter(flight)">
+                    <span aria-hidden="true"><i class="fas fa-check"></i></span>
+                  </button></td>
+                <td>
+
+                  <button  type="button" class="close" (click)="refuser(flight._id)">
+                       <span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+
                 </td>
               </tr>
             </tbody>
