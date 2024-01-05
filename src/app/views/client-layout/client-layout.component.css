@@ -1,6 +1,4 @@
 
-
-/* Dropdown container */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -43,4 +41,16 @@
 
 .bl {
   display: block;
+}
+
+
+.dropdownProfile:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdownProfile {
+  position: relative;
+  display: inline-block;
 }

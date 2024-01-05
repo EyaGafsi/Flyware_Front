@@ -82,6 +82,9 @@ console.log(params);
   public cancelFlightBooking(id: any) {
     return this.httpclient.delete(`${this.PATH_OF_BOOKING_API}/cancelBooking/${id}`);
   }
+  public deleteReservationByFlightId(id: any) {
+    return this.httpclient.delete(`${this.PATH_OF_BOOKING_API}/deleteByFlightId/${id}`);
+  }
   public bookFlight(form: any) {
     return this.httpclient.post(`${this.PATH_OF_BOOKING_API}/reserver`, form);
   }

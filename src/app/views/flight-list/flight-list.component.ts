@@ -71,6 +71,11 @@ export class FlightListComponent implements OnInit {
     this.flightService.setCurrentPage(this.currentPage);
     this.router.navigate(['/flightUpdate']);
   }
+  navigateToAddPage() {
+    this.router.navigate(['/flightAdd']);
+  }
+
+
   delete(flight: any) {
     const confirmation = window.confirm('Are you sure you want to delete this flight?');
  if(confirmation){
@@ -78,6 +83,16 @@ export class FlightListComponent implements OnInit {
       response => {
         console.log(response);
         this.afficher(this.currentPage, this.itemsPerPage);
+        this.flightService.deleteReservationByFlightId(flight).subscribe(
+          response => {
+            console.log(response);
+
+             },
+          error => {
+            console.log(error);
+
+          }
+        );
          },
       error => {
         console.log(error);
