@@ -12,7 +12,7 @@
                    flights
                  </a>
               </li>
-              <li role="presentation">
+              <li role="presentation" class="active" >
                 <a href="#hotels" aria-controls="hotels" role="tab" data-toggle="tab">
                   <i class="fa fa-building"></i>
                   hotels
@@ -170,118 +170,93 @@
               </div><!--/.tabpannel-->
 
               <div role="tabpanel" class="tab-pane fade in" id="hotels">
-                <div class="tab-para">
+                <form [formGroup]="hotelSearchForm" (ngSubmit)="afficherhotel(0, 10)">
+                  <div class="tab-para">
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="single-tab-select-box">
+                          <h2>destination</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control" formControlName="country">
+                              <option value="default">Select your destination country</option>
+                              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                            </select>
+                          </div>
+                          <div class="travel-select-icon">
+                            <select class="form-control" formControlName="location">
+                              <option value="default">Select your destination location</option>
+                              <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
 
-                  <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12">
-                      <div class="single-tab-select-box">
+                      <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>check in</h2>
+                          <div class="travel-check-icon">
+                            <form action="#">
+                              <input type="text" name="check_in" class="form-control" data-toggle="datepicker" placeholder="12 -01 - 2017" formControlName="checkIn">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
 
-                        <h2>destination</h2>
+                      <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>check out</h2>
+                          <div class="travel-check-icon">
+                            <form action="#">
+                              <input type="text" name="check_out" class="form-control" data-toggle="datepicker" placeholder="22 -01 - 2017" formControlName="checkOut">
+                            </form>
+                          </div>
+                        </div>
+                      </div>
 
-                        <div class="travel-select-icon">
-                          <select class="form-control ">
+                      <div class="col-lg-2 col-md-1 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>duration</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control" formControlName="duration">
+                              <option value="4">4</option>
+                              <option value="10">10</option>
+                              <option value="15">15</option>
+                              <option value="20">20</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
 
-                              <option value="default">enter your destination country</option><!-- /.option-->
+                      <div class="col-lg-2 col-md-1 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>members</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control" formControlName="members">
+                              <option value="default">1</option>
+                              <option value="2">2</option>
+                              <option value="4">4</option>
+                              <option value="8">8</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                              <option value="turkey">turkey</option><!-- /.option-->
+                    <div class="row">
+                      <div class="col-sm-5"></div>
+                      <div class="clo-sm-7">
+                        <div class="about-btn travel-mrt-0 pull-right">
+                          <button type="button" class="about-view travel-btn" (click)="advancedSearchHotels()">search</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
 
-                              <option value="russia">russia</option><!-- /.option-->
-                              <option value="egept">egypt</option><!-- /.option-->
 
-                          </select><!-- /.select-->
-                        </div><!-- /.travel-select-icon -->
 
-                        <div class="travel-select-icon">
-                          <select class="form-control ">
 
-                              <option value="default">enter your destination location</option><!-- /.option-->
-
-                              <option value="istambul">istambul</option><!-- /.option-->
-
-                              <option value="mosko">mosko</option><!-- /.option-->
-                              <option value="cairo">cairo</option><!-- /.option-->
-
-                          </select><!-- /.select-->
-                        </div><!-- /.travel-select-icon -->
-
-                      </div><!--/.single-tab-select-box-->
-                    </div><!--/.col-->
-
-                    <div class="col-lg-2 col-md-3 col-sm-4">
-                      <div class="single-tab-select-box">
-                        <h2>check in</h2>
-                        <div class="travel-check-icon">
-                          <form action="#">
-                            <input type="text" name="check_in" class="form-control" data-toggle="datepicker" placeholder="12 -01 - 2017 ">
-                          </form>
-                        </div><!-- /.travel-check-icon -->
-                      </div><!--/.single-tab-select-box-->
-                    </div><!--/.col-->
-
-                    <div class="col-lg-2 col-md-3 col-sm-4">
-                      <div class="single-tab-select-box">
-                        <h2>check out</h2>
-                        <div class="travel-check-icon">
-                          <form action="#">
-                            <input type="text" name="check_out" class="form-control"  data-toggle="datepicker" placeholder="22 -01 - 2017 ">
-                          </form>
-                        </div><!-- /.travel-check-icon -->
-                      </div><!--/.single-tab-select-box-->
-                    </div><!--/.col-->
-
-                    <div class="col-lg-2 col-md-1 col-sm-4">
-                      <div class="single-tab-select-box">
-                        <h2>duration</h2>
-                        <div class="travel-select-icon">
-                          <select class="form-control ">
-
-                              <option value="default">5</option><!-- /.option-->
-
-                              <option value="10">10</option><!-- /.option-->
-
-                              <option value="15">15</option><!-- /.option-->
-                              <option value="20">20</option><!-- /.option-->
-
-                          </select><!-- /.select-->
-                        </div><!-- /.travel-select-icon -->
-                      </div><!--/.single-tab-select-box-->
-                    </div><!--/.col-->
-
-                    <div class="col-lg-2 col-md-1 col-sm-4">
-                      <div class="single-tab-select-box">
-                        <h2>members</h2>
-                        <div class="travel-select-icon">
-                          <select class="form-control ">
-
-                              <option value="default">1</option><!-- /.option-->
-
-                              <option value="2">2</option><!-- /.option-->
-
-                              <option value="4">4</option><!-- /.option-->
-                              <option value="8">8</option><!-- /.option-->
-
-                          </select><!-- /.select-->
-                        </div><!-- /.travel-select-icon -->
-                      </div><!--/.single-tab-select-box-->
-                    </div><!--/.col-->
-
-                  </div><!--/.row-->
-
-                  <div class="row">
-                    <div class="col-sm-5"></div><!--/.col-->
-                    <div class="clo-sm-7">
-                      <div class="about-btn travel-mrt-0 pull-right">
-                        <button  type="submit" class="about-view travel-btn">
-                          search
-                        </button><!--/.travel-btn-->
-                      </div><!--/.about-btn-->
-                    </div><!--/.col-->
-
-                  </div><!--/.row-->
-
-                </div><!--/.tab-para-->
-
-              </div><!--/.tabpannel-->
 
               <div role="tabpanel" class="tab-pane active fade in" id="flights">
                 <form [formGroup]="searchForm" (ngSubmit)="afficher(0,10)">
@@ -440,6 +415,7 @@
       </div><!--/.container-->
 
     </section><!--/.travel-box-->
+<!--*************************************************************************************-->
 <!--travel-box end-->
 <div *ngIf="displayHome">
     <!--service start-->
@@ -1126,7 +1102,7 @@
 </section><!--/.testimonial-->
 <!-- testemonial End -->
 
-
+<!--************************TEMPLATE ZEEEEYDAAAAAA REMMMZAAAA *******************************-->
 <!--special-offer start-->
 <section id="spo" class="special-offer">
   <div class="container">
@@ -1408,6 +1384,7 @@
 
 </footer><!-- /.footer-copyright-->
 </div>
+<!--*************************************************************************************-->
 
 
 <section id="pack" class="packages" *ngIf="!displayHome">
@@ -1469,5 +1446,72 @@
       <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i
             class="fa fa-angle-double-right"></i></a></li>
     </ul>
+  </div>
+</section>
+
+<!-- hotel.component.html -->
+<section id="hotels" class="hotels" *ngIf="!displayHome">
+  <div class="container">
+    <div class="gallery-header text-center">
+      <h2>Choose Your Hotel</h2>
+      <p>Duis aute irure dolor in velit esse cillum dolore eu fugiat nulla.</p>
+    </div>
+    <div class="hotels-content">
+      <div class="row">
+        <div *ngFor="let hotel of hotels" class="col-md-4 col-sm-6">
+          <div class="single-hotel-item">
+            <img [src]="hotel.imagePath" alt="hotel-place">
+            <div class="single-hotel-item-txt">
+              <h3>{{ hotel.name }}</h3>
+              <p>{{ hotel.location }}</p>
+              <div class="hotels-para">
+                <p>
+                  <span><i class="fas fa-bed"></i> {{ hotel.checkIn | date: 'yyyy-MM-dd'}}</span>
+                  <i class="fas fa-clock"></i> {{ formatDuration(hotel.stayDuration) }}
+                </p>
+                <p *ngIf="hotel.checkOut != null">
+                  <span><i class="fas fa-sign-out-alt"></i> {{ hotel.checkOut | date: 'yyyy-MM-dd'}}</span>
+                </p>
+              </div>
+              <div class="hotels-review">
+                <p>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <span>2544 reviews</span>
+                </p>
+              </div>
+              <div class="about-btn">
+                <button class="about-view hotels-btn">Book Now</button>
+              </div>
+              <div class="about-btn">
+                <button class="about-view hotels-btn" (click)="navigateToUpdatePagehotel(hotel)">
+                  Update
+                </button>
+              </div>
+              <div class="about-btn">
+                <button class="about-view hotels-btn" (click)="delete(hotel._id)">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix text">
+      <div class="hint-text">
+        <b>{{ currentPage + 1 }}</b> - <b>{{ numberOfPages + 1 }}</b>
+      </div>
+      <ul class="pagination">
+        <li class="page-item"><a (click)="goToPreviousPage()" class="page-link"><i class="fa fa-angle-double-left"></i></a></li>
+        <li class="page-item" [class.active]="currentPage === page" *ngFor="let page of generatePageNumbers(numberOfPages);">
+          <a class="page-link" (click)="changePage(page)">{{ page + 1 }}</a>
+        </li>
+        <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+      </ul>
+    </div>
   </div>
 </section>
