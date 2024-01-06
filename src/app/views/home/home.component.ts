@@ -13,16 +13,15 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class HomeComponent implements OnInit {
   flights: any[] = [];
-<<<<<<< HEAD
   currentPage = 1;
   itemsPerPage = 2;
   numberOfPages = 1;
-=======
+
   hotels: any[] = [];
-  currentPage = 0;
-  itemsPerPage = 12;
-  numberOfPages = 0;
->>>>>>> aya-benfraj
+  currentPageHotel = 0;
+  itemsPerPageHotel = 12;
+  numberOfPagesHotel = 0;
+
   tripType=false;
   searchForm: FormGroup;
   hotelSearchForm: FormGroup;
@@ -32,12 +31,10 @@ export class HomeComponent implements OnInit {
   countries: any;
   locations: any;
 
-<<<<<<< HEAD
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private keycloakService: KeycloakService) {
-=======
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService) {
->>>>>>> aya-benfraj
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+
+
     this.searchForm = this.formBuilder.group({
       from: [''],
       to: [''],
@@ -82,8 +79,7 @@ export class HomeComponent implements OnInit {
       }
     );
 
-<<<<<<< HEAD
-=======
+
     this.hotelService.getCountries().subscribe(
       countries => {
         console.log('Countries in component:', countries);
@@ -99,7 +95,6 @@ export class HomeComponent implements OnInit {
       },
       error => console.error('Error fetching locations in component:', error)
     );
->>>>>>> aya-benfraj
   }
 
   afficher(page:any, size:any) {
@@ -181,13 +176,11 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-<<<<<<< HEAD
   navigateToBookingPage(flight: any) {
     this.flightService.setSelectedFlight(flight);
     this.flightService.setCurrentPage(this.currentPage);
     this.router.navigate(['/flightDetails']);
   }
-=======
 
   advancedSearchHotels() {
     // Récupérez les valeurs du formulaire
@@ -195,7 +188,6 @@ export class HomeComponent implements OnInit {
     console.log('Valeurs du formulaire :', formData);
   console.log('Valeur de duration avant l\'appel :', formData.duration);
   console.log('Valeur de members avant l\'appel :', formData.members);
->>>>>>> aya-benfraj
 
     // Appelez votre service pour effectuer la recherche avancée
     this.hotelService.advancedSearchHotels(

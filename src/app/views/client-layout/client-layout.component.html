@@ -24,9 +24,6 @@
                 <li class="smooth-menu"><a href="#pack">Packages </a></li>
                 <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
                 <li class="smooth-menu"><a href="#blog">blog</a></li>
-                <li class="smooth-menu"><a href="#subs">subscription</a></li>
-                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight
-                    bookings</a></li>
                 <li class="smooth-menu" *ngIf="role.includes('client')">
                   <div class="dropdown position-relative" (click)="noticationNumber()">
                     <a class="dropbtn">
@@ -52,17 +49,30 @@
                   </div>
 
                 </li>
+                <li class="smooth-menu" *ngIf="role.includes('client')"><a routerLink="flights">flights</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight
+                  bookings</a></li>
                 <li class="smooth-menu" *ngIf="isLoggedIn()">
-                  <div class="dropdown position-relative">
+                  <div class="dropdownProfile position-relative">
                     <a class="dropbtn">
                        <i class="fas fa-user"></i>
                         admin
                     </a>
 
-                    <div class="dropdown-content"
+                    <div class="dropdown-content" style="font-size: 12px;"
                       >
-                        <a style="white-space: normal;">
-hello                        </a>
+                        <a style="white-space: normal;" routerLink="/userFlightBookings">
+                          <i style="margin-right: 5px;font-size: 15px;" class="fas fa-plane"></i>
+                          My Flight Bookings</a>
+                          <a style="white-space: normal;" >
+                            <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
+                            My Hotel Bookings</a>
+                            <a style="white-space: normal;" >
+                              <i style="margin-right: 5px;font-size: 15px;" class="fas fa-car"></i>
+                              My Transport Bookings</a>
+                          <a style="white-space: normal;" (click)="logout()">
+                            <i style="margin-right: 5px;font-size: 15px;" class="fa fa-sign-out"></i>
+                            Logout</a>
                     </div>
 
 
@@ -73,9 +83,7 @@ hello                        </a>
                 <li>
                   <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
                   </button>
-                  <button *ngIf="isLoggedIn()" (click)="logout()" class="book-btn">Logout
 
-                  </button>
                 </li><!--/.project-btn-->
               </ul>
             </div><!-- /.navbar-collapse -->

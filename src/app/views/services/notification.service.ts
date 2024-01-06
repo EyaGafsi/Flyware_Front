@@ -12,8 +12,6 @@ export class NotificationService {
   PATH_OF_API = "http://localhost:3003";
 
   private socket: Socket;
-  private notifications:any;
-  private notifNumber:any;
 
   constructor(private keycloakService: KeycloakService,private httpclient: HttpClient) {
     this.socket = io('http://localhost:3001', { transports: ['websocket'] });
