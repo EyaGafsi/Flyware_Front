@@ -15,7 +15,9 @@ export class FlightUpdateComponent implements OnInit {
   file: any;
   flight:any;
   tripType:boolean;
-
+  showSuccessAlert = false;
+  showFailedAlert=false;
+  message:any;
   constructor(private router: Router,private formBuilder: FormBuilder, private flightService: FlightService) {
       this.form = this.formBuilder.group({
         duration: ['', Validators.required],
@@ -104,13 +106,37 @@ export class FlightUpdateComponent implements OnInit {
           this.flightService.update(this.flightService.getSelectedFlight(),formData).subscribe(
         response => {
           console.log(response);
-          this.router.navigate(['/flights']);
+          this.message = 'Flight updated successfully';
+
+          this.showSuccessMessage();
 
            },
         error => {
-          console.log(error)
+          console.log(error);
+          this.message = 'Error while updating the flight';
+
+          this.showFailedMessage();
+
         }
       );
     }
+    showSuccessMessage() {
+      this.showSuccessAlert = true;
 
+      setTimeout(() => {
+        this.showSuccessAlert = false;
+      }, 5000);
+    }
+    showFailedMessage() {
+      this.showFailedAlert = true;
+      setTimeout(() => {
+        this.showFailedAlert = false;
+      }, 5000);
+    }
+
+    closeAlert() {
+      this.showSuccessAlert = false;
+      this.showFailedAlert = false;
+
+    }
 }

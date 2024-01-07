@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlightService } from '../services/flight.service';
+import { HotelService } from '../services/hotel.service';
+
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-home',
@@ -10,27 +13,58 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   flights: any[] = [];
-  currentPage = 0;
-  itemsPerPage = 12;
-  numberOfPages = 0;
+  currentPage = 1;
+  itemsPerPage = 2;
+  numberOfPages = 1;
+
+  hotels: any[] = [];
+  currentPageHotel = 0;
+  itemsPerPageHotel = 12;
+  numberOfPagesHotel = 0;
+
   tripType=false;
   searchForm: FormGroup;
+  hotelSearchForm: FormGroup;
   displayHome=true;
+  displayHotel=false;
+  displayFlight=false;
+
   destinations:any;
   departures:any;
+  countries: any;
+  locations: any;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService) {
+
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+
+
     this.searchForm = this.formBuilder.group({
       from: [''],
       to: [''],
       departure: [''],
       return: [''],
-      price: [''],
+      minPrice: [0],
+      maxPrice: [0],
+      nbAdult: [0],
+      nbChildren: [0],
+      type: ['']
 
+    });
+
+    this.hotelSearchForm = this.formBuilder.group({
+      name:[''],
+      address:[''],
+      country: [''],
+      location: [''],
+      checkIn: [''],
+      checkOut: [''],
+      duration: [''],
+      members: [''],
     });
   }
   ngOnInit(): void {
     this.displayHome=true;
+
     this.flightService.getDestinations().subscribe(
       (response: any) => {
         this.destinations = response;
@@ -47,6 +81,23 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
+
+
+    this.hotelService.getCountries().subscribe(
+      countries => {
+        console.log('Countries in component:', countries);
+        this.countries = countries;
+      },
+      error => console.error('Error fetching countries in component:', error)
+    );
+
+    this.hotelService.getLocations().subscribe(
+      locations => {
+        console.log('Locations in component:', locations);
+        this.locations = locations;
+      },
+      error => console.error('Error fetching locations in component:', error)
+    );
   }
 
   afficher(page:any, size:any) {
@@ -54,9 +105,27 @@ export class HomeComponent implements OnInit {
       (response: any) => {
         console.log(response);
         this.flights = response.docs;
+        this.numberOfPages = response.pages ;
+        this.displayHome=false;
+        this.displayHotel=false;
+        this.displayFlight=true;
+
+      },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
+  afficherhotel(page:any, size:any) {
+    this.hotelService.afficherHotel(page, size).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.hotels = response.docs;
         this.numberOfPages = response.pages - 1;
         this.displayHome=false;
-      },
+        this.displayFlight=false;
+        this.displayHotel=true;      },
       error => {
         console.log(error);
 
@@ -74,7 +143,7 @@ export class HomeComponent implements OnInit {
     }
   }
   goToPreviousPage() {
-    if (this.currentPage > 0) {
+    if (this.currentPage > 1) {
       this.currentPage--;
       this.afficher(this.currentPage, this.itemsPerPage);
     }
@@ -87,7 +156,7 @@ export class HomeComponent implements OnInit {
   }
   generatePageNumbers(totalPages: number): number[] {
     const pageNumbers: number[] = [];
-    for (let i = 0; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(i);
     }
     return pageNumbers;
@@ -114,6 +183,15 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+  navigateToBookingPage(flight: any) {
+    this.flightService.setSelectedFlight(flight);
+    this.flightService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/flightDetails']);
+  }
 
-
+  navigateToUpdatePagehotel(hotel: any) {
+    this.hotelService.setSelectedHotel(hotel);
+    this.hotelService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/edit']);
+  }
 }

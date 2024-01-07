@@ -9,7 +9,9 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./flight-add.component.css']
 })
 export class FlightAddComponent implements OnInit {
-
+  showSuccessAlert = false;
+  showFailedAlert=false;
+  message:any;
   form: FormGroup;
   imageData: String;
   file: any;
@@ -54,8 +56,6 @@ export class FlightAddComponent implements OnInit {
 
   onSubmit() {
     if (this.file) {
-console.log(this.form);
-
       const formData = new FormData();
       formData.append('duration', this.form.get('duration')?.value);
       formData.append('date',  this.datePipe.transform(this.form.get('date')?.value, 'yyyy-MM-dd') || '');
@@ -72,11 +72,37 @@ console.log(this.form);
         response => {
           console.log(response);
           this.form.reset();
+          this.message = 'Flight added successfully';
+          this.imageData = "";
+
+          this.showSuccessMessage();
         },
         error => {
           console.log(error);
+          this.message = 'Error while adding the flight';
+
+          this.showFailedMessage();
         }
       );
     }
+  }
+  showSuccessMessage() {
+    this.showSuccessAlert = true;
+
+    setTimeout(() => {
+      this.showSuccessAlert = false;
+    }, 5000);
+  }
+  showFailedMessage() {
+    this.showFailedAlert = true;
+    setTimeout(() => {
+      this.showFailedAlert = false;
+    }, 5000);
+  }
+
+  closeAlert() {
+    this.showSuccessAlert = false;
+    this.showFailedAlert = false;
+
   }
 }

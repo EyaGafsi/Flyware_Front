@@ -1,76 +1,160 @@
-<div class="container ">
-
-<form class="row g-3" [formGroup]="form" (submit)="onSubmit()">
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">duration(min)</label>
-    <input type="number" formControlName="duration" class="form-control" id="inputEmail4">
-  </div>
-  <div class="col-md-6">
-    <label for="inputEmail4" class="form-label">departure date</label>
-    <input type="date" formControlName="date" class="form-control" id="inputEmail4">
-  </div>
-  <div class="col-md-6">
-    <label class="form-check-label">Trip Type:</label>
-
-    <div class="form-check">
-      <input
-        type="radio"
-        class="form-check-input"
-        id="oneWayRadio"
-        name="tripType"
-        value="oneWay"
-        [checked]="!tripType"
-        (change)="tripType = !tripType"
-      />
-      <label class="form-check-label" for="oneWayRadio">One Way</label>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Add Flight</h2>
+      </div>
     </div>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters" style="margin-left: 20px;">
+            <div class="col-lg-6">
+              <form [formGroup]="form" (submit)="onSubmit()" class="contactForm">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="text" formControlName="destination" class="form-control" placeholder="destination">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="text" formControlName="departure" class="form-control" placeholder="departure">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
 
-    <div class="form-check">
-      <input
-        type="radio"
-        class="form-check-input"
-        id="returnTripRadio"
-        name="tripType"
-        value="returnTrip"
-        [checked]="tripType"
-        (change)="tripType = !tripType"
-      />
-      <label class="form-check-label" for="returnTripRadio">Return Trip</label>
+                      <input type="number" formControlName="duration" class="form-control" placeholder="duration(min)">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="price" class="form-control" placeholder="price">
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="form-check-label" >departure date :</label>
+
+                      <input type="date" formControlName="date" class="form-control" placeholder="departure date">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="form-check-label">Trip Type : </label>
+
+                      <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="oneWayRadio" name="tripType" value="oneWay"
+                          [checked]="!tripType" (change)="tripType = !tripType" />
+                        <label class="form-check-label" for="oneWayRadio">One Way</label>
+                      </div>
+
+                      <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="returnTripRadio" name="tripType"
+                          value="returnTrip" [checked]="tripType" (change)="tripType = !tripType" />
+                        <label class="form-check-label" for="returnTripRadio">Return Trip</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="tripType === true">
+                    <div class="form-group">
+                      <label class="form-check-label">return date :</label>
+
+                      <input type="date" formControlName="returnDate" class="form-control" placeholder="return date">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="nbBuisPlaces" class="form-control"
+                        placeholder="Business class places">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="nbEcoPlaces" class="form-control"
+                        placeholder="Economic class places">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="submit" value="Add" class="btn btn-primary">
+                      <div class="submitting"></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+            <div class="col-lg-6 d-flex  align-items-stretch">
+              <div class="info-wrap  w-100 p-5 img">
+                <div class="file-upload">
+                  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+                <div class="image-upload-wrap">
+                  <input class="file-upload-input" type='file' (change)="onFileSelect($event)"  />
+                  <div class="drag-text">
+                    <h3 *ngIf="!imageData">Drag and drop a file or select add Image</h3>
+                    <img *ngIf="imageData" class="file-upload-image" [src]="imageData" alt="your image" />
+                  </div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="col-md-6" *ngIf="tripType === true">
-    <label for="inputEmail4" class="form-label">return date</label>
-    <input type="date" formControlName="returnDate" class="form-control" id="inputEmail4">
+  <div class="fixed-bottom p-3" *ngIf="showSuccessAlert">
+    <div class="success alert fixed-end">
+      <div class="content">
+        <div class="icon">
+          <svg width="50" height="50" id="Layer_1" style="enable-background:new 0 0 128 128;" version="1.1"
+            viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g>
+              <circle fill="#fff" cx="64" cy="64" r="64" />
+            </g>
+            <g>
+              <path fill="#3EBD61"
+                d="M54.3,97.2L24.8,67.7c-0.4-0.4-0.4-1,0-1.4l8.5-8.5c0.4-0.4,1-0.4,1.4,0L55,78.1l38.2-38.2   c0.4-0.4,1-0.4,1.4,0l8.5,8.5c0.4,0.4,0.4,1,0,1.4L55.7,97.2C55.3,97.6,54.7,97.6,54.3,97.2z" />
+            </g>
+          </svg>
+        </div>
+        <p>{{message}}</p>
+      </div>
+      <button class="close" (click)="closeAlert()">
+        <svg height="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
+          width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path fill="#69727D"
+            d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
+        </svg>
+      </button>
+    </div>
   </div>
-  <div class="col-12">
-    <label for="inputAddress" class="form-label">destination</label>
-    <input type="text" formControlName="destination" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  <div class="fixed-bottom p-3" *ngIf="showFailedAlert">
+    <div class="danger alert  fixed-end">
+      <div class="content">
+        <div class="icon">
+          <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff"
+              d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z" />
+          </svg>
+        </div>
+        <p>{{message}}</p>
+      </div>
+      <button class="close" (click)="closeAlert()">
+        <svg heig ht="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
+          width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path fill="#69727D"
+            d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
+        </svg>
+      </button>
+    </div>
   </div>
-  <div class="col-md-6">
-    <label for="inputPassword4" class="form-label">departure</label>
-    <input type="text" formControlName="departure" class="form-control" id="inputPassword4">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress2" class="form-label">price</label>
-    <input type="number" formControlName="price" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-   <div class="col-12">
-    <label for="inputAddress2" class="form-label">nbBuisPlaces</label>
-    <input type="number" formControlName="nbBuisPlaces" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="col-12">
-    <label for="inputAddress2" class="form-label">nbEcoPlaces</label>
-    <input type="number" formControlName="nbEcoPlaces" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-  </div>
-  <div class="mb-3">
-    <label for="formFile" class="form-label">Default file input example</label>
-    <input type="file" (change)="onFileSelect($event)" class="form-control"  >
-  </div>
-  <div *ngIf="imageData">
-<img [src]="imageData" [alt]="form.value.name" >  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </div>
-</form>
-</div>
+
+</section>

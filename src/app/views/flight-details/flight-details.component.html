@@ -1,481 +1,144 @@
-  <div id="preloader">
-      <div class="jumper">
-          <div></div>
-          <div></div>
-          <div></div>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Flight booking</h2>
       </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters">
+            <div class="col-lg-6">
+              <div class="contact-wrap w-100 p-md-5 p-4">
+
+                <div class="row mb-4">
+                  <div class="col-md-4">
+                    <div class="dbox w-100 d-flex align-items-start">
+                      <div class="text">
+                        <p><span>destination:</span> {{flight?.destination}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="dbox w-100 d-flex align-items-start">
+                      <div class="text">
+                        <p><span>price:</span> {{flight?.price}} $</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="dbox w-100 d-flex align-items-start">
+                      <div class="text">
+                        <p><span>departure:</span> {{flight?.departure}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="dbox w-100 d-flex align-items-start">
+                      <div class="text">
+                        <p><span>date:</span> <a href="mailto:info@yoursite.com">{{flight?.date}}</a></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="dbox w-100 d-flex align-items-start">
+                      <div class="text">
+                        <p><span>duration:</span> <a href="tel://1234567920">{{formatDuration(flight?.duration)}}</a></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4" *ngIf="flight?.returnDate !==null">
+                    <div class="dbox w-100 d-flex align-items-start">
+                      <div class="text">
+                        <p><span>return date:</span> <a href="tel://1234567920">{{flight?.returnDate}}</a></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <form  [formGroup]="form" (submit)="onSubmit()" class="contactForm">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <select class="form-control" formControlName="type">
+                          <option [ngValue]="null" disabled selected>Select a class</option>
+                          <option value="economic">economic</option><!-- /.option-->
+
+                          <option value="business">business</option><!-- /.option-->
+
+
+                      </select>
+                     </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="number" class="form-control"  formControlName="nbAdults" id="name" placeholder="adult number" min="1" [max]="maxAdult()">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="number" class="form-control"  formControlName="nbChildren" id="email" placeholder="Children number" min="0" [max]="maxChildren()">
+                      </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="submit" value="Book now" class="btn btn-primary">
+                        <div class="submitting"></div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-stretch">
+              <div class="info-wrap w-100 p-5 img" >
+                <img [src]="flight?.imagePath"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Header -->
-  <header class="">
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <a class="navbar-brand" href="index.html"><h2>Travel Agency Website<em>.</em></h2></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+  <div class="fixed-bottom p-3" *ngIf="showSuccessAlert">
+    <div class="success alert fixed-end">
+       <div class="content">
+         <div class="icon">
+           <svg width="50" height="50" id="Layer_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><circle fill="#fff" cx="64" cy="64" r="64"/></g><g><path fill="#3EBD61" d="M54.3,97.2L24.8,67.7c-0.4-0.4-0.4-1,0-1.4l8.5-8.5c0.4-0.4,1-0.4,1.4,0L55,78.1l38.2-38.2   c0.4-0.4,1-0.4,1.4,0l8.5,8.5c0.4,0.4,0.4,1,0,1.4L55.7,97.2C55.3,97.6,54.7,97.6,54.3,97.2z"/></g></svg>
+       </div>
+         <p>{{message}}</p>
+       </div>
+       <button class="close" (click)="closeAlert()">
+        <svg height="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#69727D" d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"/></svg>
+       </button>
+     </div>
+    </div>
+<div class="fixed-bottom p-3" *ngIf="showFailedAlert">
+      <div class="danger alert  fixed-end">
+        <div class="content">
+          <div class="icon">
+            <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z"/></svg>
+        </div>
+          <p>{{message}}</p>
+        </div>
+        <button class="close" (click)="closeAlert()">
+         <svg heig    ht="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#69727D" d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"/></svg>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="packages.html">Packages</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="blog.html">Blog</a>
-            </li>
-
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="about.html">About Us</a>
-                  <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                  <a class="dropdown-item" href="terms.html">Terms</a>
-                </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Page Content -->
-  <!-- Banner Starts Here -->
-  <div class="heading-page header-text">
-    <section class="page-heading">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="text-content">
-              <h4>€300 - €4000</h4>
-              <h2>Lorem ipsum dolor sit amet.</h2>
-            </div>
+      </div></div>
+      <div class="fixed-bottom p-3" *ngIf="showWarningAlert">
+        <div class="warning alert  fixed-end">
+          <div class="content">
+            <div class="icon">
+              <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z"/></svg>
           </div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- Banner Ends Here -->
-
-  <section class="blog-posts grid-system">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-7">
-          <div>
-            <img src="assets/images/product-1-720x480.jpg" alt="" class="img-fluid wc-image">
+            <p>{{message}}</p>
           </div>
-
-          <br>
-
-          <div class="row">
-            <div class="col-sm-4 col-6">
-              <div>
-                <img src="assets/images/product-1-720x480.jpg" alt="" class="img-fluid">
-              </div>
-              <br>
-            </div>
-            <div class="col-sm-4 col-6">
-              <div>
-                <img src="assets/images/product-2-720x480.jpg" alt="" class="img-fluid">
-              </div>
-              <br>
-            </div>
-            <div class="col-sm-4 col-6">
-              <div>
-                <img src="assets/images/product-3-720x480.jpg" alt="" class="img-fluid">
-              </div>
-              <br>
-            </div>
-
-            <div class="col-sm-4 col-6">
-              <div>
-                <img src="assets/images/product-4-720x480.jpg" alt="" class="img-fluid">
-              </div>
-              <br>
-            </div>
-            <div class="col-sm-4 col-6">
-              <div>
-                <img src="assets/images/product-5-720x480.jpg" alt="" class="img-fluid">
-              </div>
-              <br>
-            </div>
-            <div class="col-sm-4 col-6">
-              <div>
-                <img src="assets/images/product-6-720x480.jpg" alt="" class="img-fluid">
-              </div>
-              <br>
-            </div>
-          </div>
-
-          <br>
-        </div>
-
-        <div class="col-md-5">
-          <div class="sidebar-item recent-posts">
-            <div class="sidebar-heading">
-              <h2>Package Info</h2>
-            </div>
-
-            <div class="content">
-              <p>- Available: Spring <br> - 20 nights <br> - Flight included <br> - 6 Regeneration Road, SE16 2NX, London</p>
-            </div>
-          </div>
-
-          <br>
-          <br>
-
-          <div class="sidebar-item recent-posts">
-            <div class="sidebar-heading">
-              <h2>Contact Details</h2>
-            </div>
-
-            <div class="content">
-              <p>
-                <span>Name</span>
-
-                <br>
-
-                <strong>John Smith</strong>
-              </p>
-
-              <p>
-                <span>Phone</span>
-
-                <br>
-
-                <strong>
-                  <a href="tel:123-456-789">123-456-789</a>
-                </strong>
-              </p>
-
-              <p>
-                <span>Mobile phone</span>
-
-                <br>
-
-                <strong>
-                  <a href="tel:456789123">456789123</a>
-                </strong>
-              </p>
-
-              <p>
-                <span>Email</span>
-
-                <br>
-
-                <strong>
-                  <a href="mailto:john@carsales.com">john@carsales.com</a>
-                </strong>
-              </p>
-            </div>
-          </div>
-
-          <br>
-
-          <div class="main-button">
-            <a href="#" data-toggle="modal" data-target="#exampleModal">Enquiry</a>
-          </div>
-
-          <br>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="section contact-us">
-    <div class="container">
-      <div class="sidebar-item recent-posts">
-        <div class="sidebar-heading">
-          <h2>Description</h2>
-        </div>
-
-        <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia doloremque sit, enim sint odio corporis illum perferendis, unde repellendus aut dolore doloribus minima qui ullam vel possimus magnam ipsa deleniti.</p>
-
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus ducimus ab numquam magnam aliquid, odit provident consectetur corporis eius blanditiis alias nulla commodi qui voluptatibus laudantium quaerat tempore possimus esse nam sed accusantium inventore? Sapiente minima dicta sed quia sunt?</p>
-
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum qui, corrupti consequuntur. Officia consectetur error amet debitis esse minus quasi, dicta suscipit tempora, natus, vitae voluptatem quae libero. Sunt nulla culpa impedit! Aliquid cupiditate, impedit reiciendis dolores, illo adipisci, omnis dolor distinctio voluptas expedita maxime officiis maiores cumque sequi quaerat culpa blanditiis. Quia tenetur distinctio rem, quibusdam officiis voluptatum neque!</p>
-        </div>
-
-        <br>
-        <br>
-      </div>
-
-      <div class="sidebar-item recent-posts">
-        <div class="sidebar-heading">
-          <h2>Availability &amp; Prices</h2>
-        </div>
-
-        <div class="content">
-          <div class="table-responsive">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
-                 <thead>
-                      <tr>
-                           <th>Package</th>
-                           <th>From</th>
-                           <th>To</th>
-                           <th>Price</th>
-                      </tr>
-                 </thead>
-
-                 <tbody>
-                      <tr>
-                           <td></td>
-                           <td>01-06-2020</td>
-                           <td>31-12-2020</td>
-                           <td>€ 300 per night</td>
-                      </tr>
-
-                      <tr>
-                           <td></td>
-                           <td>01-06-2020</td>
-                           <td>31-12-2020</td>
-                           <td>€ 300 per night</td>
-                      </tr>
-
-                      <tr>
-                           <td></td>
-                           <td>01-06-2020</td>
-                           <td>31-12-2020</td>
-                           <td>€ 300 per night</td>
-                      </tr>
-                      <tr>
-                           <td></td>
-                           <td>01-06-2020</td>
-                           <td>31-12-2020</td>
-                           <td>€ 4000 total price</td>
-                      </tr>
-                 </tbody>
-            </table>
-          </div>
-        </div>
-
-        <br>
-        <br>
-      </div>
-
-      <div class="sidebar-item recent-posts">
-        <div class="sidebar-heading">
-          <h2>Info</h2>
-        </div>
-
-        <div class="content">
-          <ul class="list-group list-group-no-border">
-            <li class="list-group-item">
-               <div class="row">
-                    <div class="col-md-2 col-sm-3">
-                         <p class="pjVpProductPolicyTitle">
-                              <strong>Check-in</strong>
-                         </p>
-                    </div>
-                    <div class="col-md-10 col-sm-9">
-                         <p>
-                              Donec dapibus semper sem, ac ultrices sem sagittis ut. Donec sit amet erat elit, sed pellentesque odio. In enim ligula, euismod a adipiscing in, laoreet quis turpis. Ut accumsan dignissim rutrum.
-                         </p>
-                    </div>
-               </div>
-            </li>
-
-            <li class="list-group-item">
-                 <div class="row">
-                      <div class="col-md-2 col-sm-3">
-                           <p>
-                                <strong>Check-out</strong>
-                           </p>
-                      </div>
-
-                      <div class="col-md-10 col-sm-9">
-                           <p>
-                                Donec dapibus semper sem, ac ultrices sem sagittis ut. Donec sit amet erat elit, sed pellentesque odio. In enim ligula, euismod a adipiscing in, laoreet quis turpis. Ut accumsan dignissim rutrum.
-                           </p>
-                      </div>
-                 </div>
-            </li>
-
-            <li class="list-group-item">
-                 <div class="row">
-                      <div class="col-md-2 col-sm-3">
-                           <p>
-                                <strong>Pets</strong>
-                           </p>
-                      </div>
-                      <div class="col-md-10 col-sm-9">
-                           <p>
-                                Not allowed
-                           </p>
-                      </div>
-                 </div>
-            </li>
-
-            <li class="list-group-item">
-                 <div class="row">
-                      <div class="col-md-2 col-sm-3">
-                           <p>
-                                <strong>Policies</strong>
-                           </p>
-                      </div>
-                      <div class="col-md-10 col-sm-9">
-                           <div>
-                                <p>
-                                     Donec dapibus semper sem, ac ultrices sem sagittis ut. Donec sit amet erat elit, sed pellentesque odio. In enim ligula, euismod a adipiscing in, laoreet quis turpis. Ut accumsan dignissim rutrum. <br>
-                                      Donec dapibus semper sem, ac ultrices sem sagittis ut. Donec sit amet erat elit, sed pellentesque odio. In enim ligula, euismod a adipiscing in, laoreet quis turpis. Ut accumsan dignissim rutrum. <br>
-                                </p>
-                           </div>
-                      </div>
-                 </div>
-            </li>
-
-            <li class="list-group-item">
-                 <div class="row">
-                      <div class="col-md-2 col-sm-3">
-                           <p>
-                                <strong>Fees</strong>
-                           </p>
-                      </div>
-
-                      <div class="col-md-10 col-sm-9">
-                           <div>
-                                <p>
-                                     Donec dapibus semper sem, ac ultrices sem sagittis ut. Donec sit amet erat elit, sed pellentesque odio. In enim ligula, euismod a adipiscing in, laoreet quis turpis. Ut accumsan dignissim rutrum. <br>
-                                      Donec dapibus semper sem, ac ultrices sem sagittis ut. Donec sit amet erat elit, sed pellentesque odio. In enim ligula, euismod a adipiscing in, laoreet quis turpis. Ut accumsan dignissim rutrum. <br>
-                                </p>
-                           </div>
-                      </div>
-                 </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <br>
-      <br>
-
-      <div class="sidebar-item recent-posts">
-        <div class="sidebar-heading">
-          <h2>Map</h2>
-        </div>
-
-        <div class="content">
-          <img src="assets/images/map.jpg" class="img-fluid" alt="">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <ul class="social-icons">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Behance</a></li>
-            <li><a href="#">Linkedin</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-12">
-          <div class="copyright-text">
-            <p>
-              Copyright © 2020 Company Name
-              | Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Enquiry</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button class="close" (click)="closeAlert()">
+           <svg heig    ht="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#69727D" d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"/></svg>
           </button>
-        </div>
-        <div class="modal-body">
-          <div class="contact-us">
-          <div class="contact-form">
-            <form action="#" id="contact">
-                <div class="row">
-                     <div class="col-md-6">
-                        <fieldset>
-                          <input type="text" class="form-control" placeholder="Enter full name" required="">
-                        </fieldset>
-                     </div>
-
-                     <div class="col-md-6">
-                        <fieldset>
-                          <input type="text" class="form-control" placeholder="Enter email address" required="">
-                        </fieldset>
-                     </div>
-                </div>
-
-                <div class="row">
-                     <div class="col-md-6">
-                        <fieldset>
-                          <input type="text" class="form-control" placeholder="Enter phone" required="">
-                        </fieldset>
-                     </div>
-
-                     <div class="col-md-6">
-                        <div class="row">
-                           <div class="col-md-6">
-                              <fieldset>
-                                <input type="text" class="form-control" placeholder="From date" required="">
-                              </fieldset>
-                           </div>
-
-                           <div class="col-md-6">
-                              <fieldset>
-                                <input type="text" class="form-control" placeholder="To date" required="">
-                              </fieldset>
-                           </div>
-                        </div>
-                     </div>
-                </div>
-            </form>
-         </div>
-         </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Send Request</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Additional Scripts -->
-  <script src="assets/js/custom.js"></script>
-  <script src="assets/js/owl.js"></script>
-  <script src="assets/js/slick.js"></script>
-  <script src="assets/js/isotope.js"></script>
-  <script src="assets/js/accordions.js"></script>
-
-  <script language = "text/Javascript">
-    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-    function clearField(t){                   //declaring the array outside of the
-    if(! cleared[t.id]){                      // function makes it static and global
-        cleared[t.id] = 1;  // you could use true and false, but that's more typing
-        t.value='';         // with more chance of typos
-        t.style.color='#fff';
-        }
-    }
-  </script>
-
+        </div></div>
+</section>

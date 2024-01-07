@@ -1,0 +1,56 @@
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.unread {
+  background-color: #caabfd9d;
+  }
+/* Dropdown button */
+.dropbtn {
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;  font-size: 12px;
+
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.bl {
+  display: block;
+}
+
+
+.dropdownProfile:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdownProfile {
+  position: relative;
+  display: inline-block;
+}

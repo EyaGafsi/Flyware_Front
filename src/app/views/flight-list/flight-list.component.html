@@ -1,77 +1,54 @@
-<section id="pack" class="packages">
+<section class="ftco-section">
   <div class="container">
-    <div class="gallary-header text-center">
-      <h2>
-        special packages
-      </h2>
-      <p>
-        Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.
-      </p>
-    </div><!--/.gallery-header-->
-    <div class="packages-content">
-      <div class="row">
-
-        <div *ngFor="let flight of flights" class="col-md-4 col-sm-6" >
-          <div class="single-package-item">
-
-            <img [src]="flight.imagePath" alt="package-place">
-            <div class="single-package-item-txt">
-              <h3>{{flight.destination}} <span class="pull-right">{{flight.price}} $</span></h3>
-              <div class="packages-para">
-                <p>
-                  <span>
-                    <i class="fa fa-plane-departure"></i> {{flight.date  | date: 'yyyy-MM-dd'}}
-                  </span>
-                  <i class="fas fa-clock"></i>  {{ formatDuration(flight.duration) }}
-                </p>
-                <p>
-                  <span *ngIf="flight.returnDate!=null">
-                    <i class="fa-solid fa-plane-arrival"></i> {{flight.returnDate | date: 'yyyy-MM-dd'}}
-                  </span>
-                  <i class="fa fa-angle-right"></i> {{flight.departure}}
-                 </p>
-              </div><!--/.packages-para-->
-              <div class="packages-review">
-                <p>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <span>2544 review</span>
-                </p>
-              </div><!--/.packages-review-->
-              <div class="about-btn">
-                <button  class="about-view packages-btn">
-                  book here
-                </button>
-
-              </div><!--/.about-btn-->
-              <div class="about-btn">
-
-              <button  class="about-view packages-btn" (click)="navigateToUpdatePage(flight._id)">
-                update
-              </button>
-            </div><!--/.about-btn-->
-            <div class="about-btn">
-
-              <button  class="about-view packages-btn" (click)="delete(flight._id)">
-                delete
-              </button>
-            </div><!--/.about-btn-->
-            </div><!--/.single-package-item-txt-->
-          </div><!--/.single-package-item-->
-
-        </div><!--/.col-->
-      </div><!--/.row-->
-    </div><!--/.packages-content-->
-  </div><!--/.container-->
-  <div class="clearfix text">
-
-    <div class="hint-text"> <b>{{currentPage}}</b> - <b>{{numberOfPages}}</b>
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Flight List</h2>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <table class="table table-responsive-xl">
+            <thead>
+              <tr>
+                <th>Flight number</th>
+                <th>destination</th>
+                <th>price</th>
+                <th>date</th>
+                <th>duration</th>
+                <th>departure</th>
+                <th ><button style="margin-right: 0px;margin-bottom: 0px;" class="btn btn-primary" (click)="navigateToAddPage()"><i style="font-size: 15px;margin: 12px;" class="fas fa-plus"></i></button></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let flight of flights" class="alert" role="alert">
+
+                <td>{{ flight._id }}</td>
+                <td>{{flight.destination}}</td>
+                <td>{{flight.price}} $</td>
+                <td> {{flight.date  | date: 'yyyy-MM-dd'}}</td>
+                <td> {{ formatDuration(flight.duration) }}</td>
+                <td> {{flight.departure}}</td>
+                <td  class="border-bottom-0">
+                  <button type="button" class="edit" (click)="navigateToUpdatePage(flight._id)">
+                    <span aria-hidden="true"><i class="fas fa-marker"></i></span>
+                  </button>
+                </td>
+                <td  >
+                  <button type="button" class="close" (click)="delete(flight._id)" >
+                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix text-center">
     <ul class="pagination">
-      <li class="page-item"><a (click)="goToPreviousPage()" class="page-link"><i
+      <li ><a (click)="goToPreviousPage()" class="page-link"><i
             class="fa fa-angle-double-left"></i></a></li>
       <li class="page-item" [class.active]="currentPage === page"
         *ngFor="let page of generatePageNumbers(numberOfPages);">
@@ -82,3 +59,4 @@
     </ul>
   </div>
 </section>
+

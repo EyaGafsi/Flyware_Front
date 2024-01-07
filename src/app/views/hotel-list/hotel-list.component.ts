@@ -10,48 +10,83 @@ import { Router } from '@angular/router';
   styleUrls: ['./hotel-list.component.css']
 })
 export class HotelListComponent implements OnInit {
-  private apiUrl = 'http://localhost:8081/hotels';
 
-  hotels: Hotel[] | null = null;
+  hotels: any[] = [];
+  currentPage = 0;
+  itemsPerPage = 10;
+  numberOfPages = 0;
 
-  constructor(private hotelService: HotelService, private router: Router) { }
+
+  constructor(private hotelService: HotelService, private router: Router) {   this.afficher(this.currentPage, this.itemsPerPage);
+  }
 
   ngOnInit() {
-    this.loadHotels();
   }
 
-  loadHotels() {
-    this.hotelService.getHotels().subscribe(
-      (data: Hotel[]) => {
-        this.hotels = data;
+  afficher(page:any, size:any) {
+    this.hotelService.afficherHotel(page, size).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.hotels = response.content;
+        this.numberOfPages = response.totalPages ;
       },
       error => {
-        console.error('Error loading hotels:', error);
+        console.log(error);
+
       }
     );
   }
-
-  editHotel(id: number) {
-    // Redirect to the edit page for the hotel with the specified ID
-    // Replace 'edit/:id' with the actual path of your edit route
-    this.router.navigate(['/edit', id]);
+  goToNextPage() {
+    if (this.currentPage <this.numberOfPages-1) {
+    this.currentPage++;
+    this.afficher(this.currentPage,this.itemsPerPage);}
   }
 
-  deleteHotel(id: number) {
-    this.hotelService.deleteHotel(id).subscribe(
-      () => {
-        console.log('Hotel deleted successfully.');
-        this.loadHotels();
-      },
+  goToPreviousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.afficher(this.currentPage,this.itemsPerPage);
+    }
+  }
+
+  generatePageNumbers(totalPages: number): number[] {
+    const pageNumbers: number[] = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i );
+    }
+    return pageNumbers;
+  }
+
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.afficher(this.currentPage,this.itemsPerPage);
+  }
+  navigateToUpdatePage(hotel: any) {
+    this.hotelService.setSelectedHotel(hotel);
+    this.hotelService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/edit']);
+  }
+  navigateToAddPage() {
+    this.router.navigate(['/create']);
+  }
+
+
+  delete(hotel: any) {
+    const confirmation = window.confirm('Are you sure you want to delete this hotel?');
+ if(confirmation){
+  this.hotelService.deleteHotel(hotel).subscribe(
+      response => {
+        console.log(response);
+        this.afficher(this.currentPage, this.itemsPerPage);
+
+         },
       error => {
-        console.error('Error deleting hotel:', error);
+        console.log(error);
+
       }
     );
-  }
-
-  // Add a method to display hotel details with new variables
-  displayDetails(hotel: Hotel) {
-    console.log('Hotel Details:', hotel);
-    // You can display the details in a modal, tooltip, or any other way you prefer
   }
 }
+
+}
+

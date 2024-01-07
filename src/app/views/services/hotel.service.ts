@@ -1,50 +1,82 @@
 // hotel.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
+import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HotelService {
-  private apiUrl = 'http://localhost:8081/hotels';
+   apiUrl = 'http://localhost:8081';
+   requestHeader=new HttpHeaders(
+    {"No-Auth":"True"}
+      );
+      private selectedHotel: any;
+      private currentPage: any;
 
+      setSelectedHotel(hotel: any) {
+        this.selectedHotel = hotel;
+      }
+      getSelectedHotel() {
+        return this.selectedHotel;
+      }
+      setCurrentPage(currentPage: any) {
+        this.currentPage = currentPage;
+      }
+      getCurrentPage() {
+        return this.currentPage;
+      }
   constructor(private http: HttpClient) { }
 
-  getHotels(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(this.apiUrl);
+
+  getHotelById(id: any): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.apiUrl}/hotels/${id}`);
   }
 
-  getHotelById(id: number): Observable<Hotel> {
-    return this.http.get<Hotel>(`${this.apiUrl}/${id}`);
+  createHotel(hotel: any){
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+
+    // Include headers in the request
+    const options = { headers: headers };
+
+    return this.http.post(`${this.apiUrl}/hotels`, hotel, options);
   }
 
-  createHotel(hotel: Hotel): Observable<Hotel> {
-    // Update the API URL to match your Spring Boot endpoint
-    return this.http.post<Hotel>(this.apiUrl, hotel);
-  }
+  updateHotel(id: any, hotel: any): Observable<any> {
+    console.log(id);
 
-  updateHotel(id: number, hotel: Hotel): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/hotels/${id}`;
     return this.http.put(url, hotel);
   }
 
   deleteHotel(id: number): Observable<any> {
-    const deleteUrl = `${this.apiUrl}/${id}`;
+    const deleteUrl = `${this.apiUrl}/hotels/${id}`;
     return this.http.delete(deleteUrl);
   }
 
-  // Add a new method to search hotels with additional parameters
-  searchHotels(name: string, address: string): Observable<Hotel[]> {
-    const searchUrl = `${this.apiUrl}/search?name=${name}&address=${address}`;
-    return this.http.get<Hotel[]>(searchUrl);
+  public searchHotels(form: any, page: any, size: any): Observable<any> {
+    const params = new HttpParams()
+      .set('name', form.value.from || '')
+      .set('address', form.value.to || '');
+
+    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`, { params });
   }
 
-  // Add a new method to create hotel with additional fields
-  createHotelWithDetails(hotel: Hotel): Observable<Hotel> {
-    // Update the API URL to match your Spring Boot endpoint for creating hotels with details
-    const createUrl = `${this.apiUrl}/create-with-details`;
-    return this.http.post<Hotel>(createUrl, hotel);
+
+  public getCountries() {
+    return this.http.get<any>(`${this.apiUrl}/hotels/countries`);
+  }
+
+  public getLocations() {
+    return this.http.get(`${this.apiUrl}/hotels/locations`);}
+
+
+   public afficherHotel( page: any, size: any) {    console.log(`${this.apiUrl}/hotels?page=${page}&size=${size}`)
+
+    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`);
   }
 }

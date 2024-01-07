@@ -1,0 +1,63 @@
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Flight Booking List</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div >
+          <table class="table table-responsive-xl">
+            <thead>
+              <tr>
+                <th>Flight number</th>
+                <th>Number of Adults</th>
+                <th>Number of Children</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>&nbsp;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let flight of flights" class="alert" role="alert">
+
+                <td>{{ flight.flightId }}</td>
+                <td>{{ flight.nbAdults }}</td>
+                <td>{{ flight.nbChildren }}</td>
+                <td>{{ flight.type }}</td>
+
+                <td class="status"><span  [ngClass]="{ 'active': flight.status=='accepted', 'waiting': flight.status=='en attente' || flight.status=='expired' , 'refuser': flight.status=='refused' || flight.status=='soldout'}" >{{flight.status}}</span></td>
+                <td *ngIf="flight.status=='en attente'"  class="border-bottom-0">
+                  <button type="button" class="edit" (click)="navigateToUpdatePage(flight)">
+                    <span aria-hidden="true"><i class="fas fa-marker"></i></span>
+                  </button>
+                </td>
+                <td *ngIf="flight.status=='en attente'" >
+                  <button type="button" class="close" (click)="cancel(flight._id)" >
+                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                  </button>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix text-center">
+    <ul class="pagination">
+      <li ><a (click)="goToPreviousPage()" class="page-link"><i
+            class="fa fa-angle-double-left"></i></a></li>
+      <li class="page-item" [class.active]="currentPage === page"
+        *ngFor="let page of generatePageNumbers(numberOfPages);">
+        <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+      </li>
+      <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i
+            class="fa fa-angle-double-right"></i></a></li>
+    </ul>
+  </div>
+</section>
+

@@ -2,7 +2,7 @@
   <div class="header-area">
     <div class="container">
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-2" style="z-index: 1000;">
           <div class="logo">
             <a href="index.html">
               Fly<span>Ware</span>
@@ -12,7 +12,6 @@
         <div class="col-sm-10">
           <div class="main-menu">
 
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <i class="fa fa-bars"></i>
@@ -25,17 +24,72 @@
                 <li class="smooth-menu"><a href="#pack">Packages </a></li>
                 <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
                 <li class="smooth-menu"><a href="#blog">blog</a></li>
-                <li class="smooth-menu"><a href="#subs">subscription</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('client')">
+                  <div class="dropdown position-relative" (click)="noticationNumber()">
+                    <a class="dropbtn">
+                      <span><i class="fa-solid fa-bell"></i></span>
+                      <span class="position-absolute badge rounded-pill bg-danger" *ngIf="notifNumber > 0">
+                        {{ notifNumber }}
+                      </span>
+                    </a>
+
+                    <div class="dropdown-content" [ngClass]="{'bl': isDropdownOpen}"
+                      style="max-width: 300px; width: 250px; font-size: 15px; max-height: 200px; overflow-y: auto;"
+                      *ngIf="notifications">
+                      <div *ngFor="let notif of notifications" [ngClass]="{'unread': notif.unread==true}">
+                        <a style="white-space: normal;">
+                          {{ notif.message }}
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="dropdown" *ngIf="!notifications">
+                      <a *ngIf="!notifications" class="dropdown-content">vous n'avez aucune notification</a>
+                    </div>
+                  </div>
+
+                </li>
+                <li class="smooth-menu" *ngIf="role.includes('client')"><a routerLink="flights">flights</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight
+                  bookings</a></li>
+                <li class="smooth-menu" *ngIf="isLoggedIn()">
+                  <div class="dropdownProfile position-relative">
+                    <a class="dropbtn">
+                       <i class="fas fa-user"></i>
+                        admin
+                    </a>
+
+                    <div  class="dropdown-content" style="font-size: 12px;"
+                      >
+                        <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="/userFlightBookings">
+                          <i style="margin-right: 5px;font-size: 15px;" class="fas fa-plane"></i>
+                          My Flight Bookings</a>
+                          <a style="white-space: normal;" *ngIf="role.includes('client')" >
+                            <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
+                            My Hotel Bookings</a>
+                            <a style="white-space: normal;" *ngIf="role.includes('client')">
+                              <i style="margin-right: 5px;font-size: 15px;" class="fas fa-car"></i>
+                              My Transport Bookings</a>
+                          <a style="white-space: normal;" (click)="logout()">
+                            <i style="margin-right: 5px;font-size: 15px;" class="fa fa-sign-out"></i>
+                            Logout</a>
+                    </div>
+
+
+                  </div>
+
+                </li>
+
                 <li>
-                  <button class="book-btn">Login
+                  <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
                   </button>
+
                 </li><!--/.project-btn-->
               </ul>
             </div><!-- /.navbar-collapse -->
-          </div><!-- /.main-menu-->
+          </div><!-- /.main-menu-->s
         </div><!-- /.col-->
       </div><!-- /.row -->
-      <div class="home-border"></div><!-- /.home-border-->
     </div><!-- /.container-->
   </div><!-- /.header-area -->
 
@@ -43,6 +97,7 @@
 <!-- main-menu End -->
 <!--about-us start -->
 <section id="home" class="about-us">
+
   <div class="container">
     <div class="about-us-content">
       <div class="row">
@@ -54,7 +109,7 @@
 
               </h2>
               <div class="about-btn">
-                <button  class="about-view">
+                <button class="about-view">
                   explore now
                 </button>
               </div><!--/.about-btn-->
