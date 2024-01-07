@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
-        <h2 class="heading-section">User Flight Booking List</h2>
+        <h2 class="heading-section">User Transport Booking List</h2>
       </div>
     </div>
     <div class="row">
@@ -11,30 +11,28 @@
           <table class="table table-responsive-xl">
             <thead>
               <tr>
-                <th>Flight number</th>
-                <th>Number of Adults</th>
-                <th>Number of Children</th>
-                <th>Type</th>
+                <th>Transport number</th>
+                <th>Number of Person</th>
+                <th>Luggage</th>
                 <th>Status</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let flight of flights" class="alert" role="alert">
+              <tr *ngFor="let transport of transports" class="alert" role="alert">
 
-                <td>{{ flight.flightId }}</td>
-                <td>{{ flight.nbAdults }}</td>
-                <td>{{ flight.nbChildren }}</td>
-                <td>{{ flight.type }}</td>
+                <td>{{ transport.transportId }}</td>
+                <td>{{ transport.nbPerson }}</td>
+                <td>{{ transport.luggage }}</td>
 
-                <td class="status"><span  [ngClass]="{ 'active': flight.status=='accepted', 'waiting': flight.status=='en attente' || flight.status=='expired' , 'refuser': flight.status=='refused' || flight.status=='soldout'}" >{{flight.status}}</span></td>
-                <td *ngIf="flight.status=='en attente'"  class="border-bottom-0">
-                  <button type="button" class="edit" (click)="navigateToUpdatePage(flight)">
+                <td class="status"><span  [ngClass]="{ 'active': transport.status=='accepted', 'waiting': transport.status=='en attente' || transport.status=='expired' , 'refuser': transport.status=='refused' || transport.status=='soldout'}" >{{transport.status}}</span></td>
+                <td *ngIf="transport.status=='en attente'"  class="border-bottom-0">
+                  <button type="button" class="edit" (click)="navigateToUpdatePage(transport)">
                     <span aria-hidden="true"><i class="fas fa-marker"></i></span>
                   </button>
                 </td>
-                <td *ngIf="flight.status=='en attente'" >
-                  <button type="button" class="close" (click)="cancel(flight._id)" >
+                <td *ngIf="transport.status=='en attente'" >
+                  <button type="button" class="close" (click)="cancel(transport._id)" >
                     <span aria-hidden="true"><i class="fa fa-close"></i></span>
                   </button>
                 </td>
