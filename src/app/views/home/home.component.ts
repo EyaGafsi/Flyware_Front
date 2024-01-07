@@ -21,13 +21,10 @@ export class HomeComponent implements OnInit {
   currentPageHotel = 0;
   itemsPerPageHotel = 12;
   numberOfPagesHotel = 0;
-
-
   transports: any[] = [];
   currentPageTransport = 1;
   itemsPerPageTransport = 2;
   numberOfPagesTransport = 1;
-
   tripType=false;
   searchForm: FormGroup;
   hotelSearchForm: FormGroup;
@@ -39,10 +36,9 @@ export class HomeComponent implements OnInit {
   destinationsTransport:any;
   countries: any;
   locations: any;
-
-
   constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService: TransportService,private keycloakService: KeycloakService) {
 
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
 
     this.searchForm = this.formBuilder.group({
       from: [''],
@@ -115,6 +111,7 @@ export class HomeComponent implements OnInit {
       },
       error => console.error('Error fetching locations in component:', error)
     );
+
     this.transportService.getDestinationsTransport().subscribe(
       (response: any) => {
         this.destinationsTransport = response;
@@ -178,15 +175,12 @@ export class HomeComponent implements OnInit {
   formatDuration(minutes: number): string {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
-
     if (h > 0) {
       return ${h}h ${m}min;
     } else {
       return ${m}min;
     }
   }
-
-
   goToPreviousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -222,6 +216,7 @@ export class HomeComponent implements OnInit {
         console.log(response);
         this.afficher(this.currentPage, this.itemsPerPage);
         },
+
       error => {
         console.log(error);
 
