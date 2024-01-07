@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
+
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 
@@ -9,12 +9,10 @@ import { Hotel } from '../models/hotel';
   providedIn: 'root'
 })
 export class HotelService {
-   apiUrl = 'http://localhost:8081/hotels';
-   requestHeader=new HttpHeaders(
-    {"No-Auth":"True"}
-      );
-      private selectedHotel: any;
-      private currentPage: any;
+  apiUrl = 'http://localhost:8081/hotels';
+  requestHeader = new HttpHeaders({ "No-Auth": "True" });
+  private selectedHotel: any;
+  private currentPage: any;
 
   setSelectedHotel(hotel: any) {
     this.selectedHotel = hotel;
@@ -31,12 +29,21 @@ export class HotelService {
   getCurrentPage() {
     return this.currentPage;
   }
+   apiUrl = 'http://localhost:8081';
+   PATH_OF_BOOKING_API = "http://localhost:8082";
+
+   requestHeader=new HttpHeaders(
+    {"No-Auth":"True"}
+      );
+      private selectedHotel: any;
+      private currentPage: any;
+
 
   constructor(private http: HttpClient) { }
 
 
   getHotelById(id: any): Observable<Hotel> {
-    return this.http.get<Hotel>(`${this.apiUrl}/hotels/${id}`);
+    return this.http.get<Hotel>(${this.apiUrl}/hotels/${id});
   }
 
   createHotel(hotel: any){
@@ -45,18 +52,18 @@ export class HotelService {
 
     const options = { headers: headers };
 
-    return this.http.post(`${this.apiUrl}/hotels`, hotel, options);
+    return this.http.post(${this.apiUrl}/hotels, hotel, options);
   }
 
   updateHotel(id: any, hotel: any): Observable<any> {
     console.log(id);
 
-    const url = `${this.apiUrl}/hotels/${id}`;
+    const url = ${this.apiUrl}/hotels/${id};
     return this.http.put(url, hotel);
   }
 
   deleteHotel(id: number): Observable<any> {
-    const deleteUrl = `${this.apiUrl}/hotels/${id}`;
+    const deleteUrl = ${this.apiUrl}/hotels/${id};
     return this.http.delete(deleteUrl);
   }
 
@@ -65,12 +72,7 @@ export class HotelService {
       .set('name', form.value.from || '')
       .set('address', form.value.to || '');
 
-    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`, { params });
-  }
-
-  createHotelWithDetails(hotel: Hotel): Observable<Hotel> {
-    const createUrl = `${this.apiUrl}/create-with-details`;
-    return this.http.post<Hotel>(createUrl, hotel);
+    return this.http.get(${this.apiUrl}/hotels?page=${page}&size=${size}, { params });
   }
 
   advancedSearchHotels(
@@ -83,11 +85,8 @@ export class HotelService {
     duration: string,
     members: number | null
   ): Observable<any> {
-    console.log('Paramètres reçus :', name, address, country, location, checkIn, checkOut, duration, members);
-
-    const url = `${this.apiUrl}/advancedSearchHotels`;
+    const url = ${this.apiUrl}/advancedSearchHotels;
     let params = new HttpParams()
-      // ... (votre logique de construction des paramètres)
       .set('name', name)
       .set('address', address)
       .set('country', country)
@@ -97,19 +96,18 @@ export class HotelService {
       .set('duration', duration)
       .set('members', members != null ? members.toString() : '');
 
-    console.log('Paramètres de la requête :', params.toString()); // Vérifiez les paramètres de la requête
-
     return this.http.get(url, { params });
   }
+
   public getCountries() {
-    return this.http.get<any>(`${this.apiUrl}/hotels/countries`);
+    return this.http.get<any>(${this.apiUrl}/hotels/countries);
   }
 
   public getLocations() {
-    return this.http.get(`${this.apiUrl}/locations`);}
+    return this.http.get(${this.apiUrl}/locations);
+  }
 
-
-   public afficherHotel(form: any, page: any, size: any) { // Correction du nom de la méthode
+  public afficherHotel(form: any, page: any, size: any): Observable<any> {
     const params = new HttpParams()
       .set('country', form.value.country || '')
       .set('location', form.value.location || '')
@@ -118,8 +116,52 @@ export class HotelService {
       .set('duration', form.value.duration || '')
       .set('members', form.value.members || '');
 
-    return this.http.post(`${this.PATH_OF_BOOKING_API}/sendHotelEmail`, emailData);
+    return this.http.get(${this.apiUrl}/hotels/locations);}
+
+
+   public afficherHotel( page: any, size: any) {    console.log(${this.apiUrl}/hotels?page=${page}&size=${size})
+
+    return this.http.get(${this.apiUrl}/hotels?page=${page}&size=${size});
   }
 
+
+
+  public getBookings(page: any, size: any) {
+    return this.http.get(${this.PATH_OF_BOOKING_API}/hotelReservations?page=${page}&size=${size});
+  }
+  public getHotelBookingByUserId(id: any, page: any, size: any) {
+    return this.http.get(${this.PATH_OF_BOOKING_API}/hotelReservationsByUserId?id=${id}&page=${page}&size=${size});
+  }
+  public getHotelBookingById(id: any) {
+    return this.http.get(${this.PATH_OF_BOOKING_API}/hotelReservations/${id});
+  }
+  public setHotelBookingStatus(id: any,status:any) {
+    return this.http.put(${this.PATH_OF_BOOKING_API}/setHotelStatus/${id},{status:status});
+  }
+
+  public editHotelBooking(form: any) {
+    console.log(form);
+
+    return this.http.put(${this.PATH_OF_BOOKING_API}/updateHotelBooking,form);
+  }
+  public cancelHotelBooking(id: any) {
+    return this.http.delete(${this.PATH_OF_BOOKING_API}/cancelHotelBooking/${id});
+  }
+  public deleteReservationByHotelId(id: any) {
+    return this.http.delete(${this.PATH_OF_BOOKING_API}/deleteByHotelId/${id});
+  }
+  public bookHotel(form: any) {
+    return this.http.post(${this.PATH_OF_BOOKING_API}/reserveHotel, form);
+  }
+  public sendHotelEmail(hotel: any,hotelBooking: any,user : any) {
+    const emailData = {
+      hotel: hotel,
+      hotelReservation: hotelBooking,
+      user: user
+    };
+    console.log(emailData);
+
+    return this.http.post(${this.PATH_OF_BOOKING_API}/sendHotelEmail, emailData);
+  }
 
 }
