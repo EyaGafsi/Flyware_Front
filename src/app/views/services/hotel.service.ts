@@ -10,7 +10,7 @@ import { Hotel } from '../models/hotel';
   providedIn: 'root'
 })
 export class HotelService {
-   apiUrl = 'http://localhost:8081/hotels';
+   apiUrl = 'http://localhost:8081';
    requestHeader=new HttpHeaders(
     {"No-Auth":"True"}
       );
@@ -31,25 +31,30 @@ export class HotelService {
       }
   constructor(private http: HttpClient) { }
 
-  getHotels(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(this.apiUrl);
+
+  getHotelById(id: any): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.apiUrl}/hotels/${id}`);
   }
 
-  getHotelById(id: number): Observable<Hotel> {
-    return this.http.get<Hotel>(`${this.apiUrl}/${id}`);
+  createHotel(hotel: any){
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+
+    // Include headers in the request
+    const options = { headers: headers };
+
+    return this.http.post(`${this.apiUrl}/hotels`, hotel, options);
   }
 
-  createHotel(hotel: Hotel): Observable<Hotel> {
-    return this.http.post<Hotel>(this.apiUrl, hotel);
-  }
+  updateHotel(id: any, hotel: any): Observable<any> {
+    console.log(id);
 
-  updateHotel(id: number, hotel: Hotel): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/hotels/${id}`;
     return this.http.put(url, hotel);
   }
 
   deleteHotel(id: number): Observable<any> {
-    const deleteUrl = `${this.apiUrl}/${id}`;
+    const deleteUrl = `${this.apiUrl}/hotels/${id}`;
     return this.http.delete(deleteUrl);
   }
 
@@ -61,56 +66,17 @@ export class HotelService {
     return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`, { params });
   }
 
-  createHotelWithDetails(hotel: Hotel): Observable<Hotel> {
-    const createUrl = `${this.apiUrl}/create-with-details`;
-    return this.http.post<Hotel>(createUrl, hotel);
-  }
 
-  advancedSearchHotels(
-    name: string,
-    address: string,
-    country: string,
-    location: string,
-    checkIn: string,
-    checkOut: string,
-    duration: string,
-    members: number | null
-  ): Observable<any> {
-    console.log('Paramètres reçus :', name, address, country, location, checkIn, checkOut, duration, members);
-
-    const url = `${this.apiUrl}/advancedSearchHotels`;
-    let params = new HttpParams()
-      // ... (votre logique de construction des paramètres)
-      .set('name', name)
-      .set('address', address)
-      .set('country', country)
-      .set('location', location)
-      .set('checkIn', checkIn)
-      .set('checkOut', checkOut)
-      .set('duration', duration)
-      .set('members', members != null ? members.toString() : '');
-
-    console.log('Paramètres de la requête :', params.toString()); // Vérifiez les paramètres de la requête
-
-    return this.http.get(url, { params });
-  }
   public getCountries() {
-    return this.http.get<any>(`${this.apiUrl}/countries`);
+    return this.http.get<any>(`${this.apiUrl}/hotels/countries`);
   }
 
   public getLocations() {
-    return this.http.get(`${this.apiUrl}/locations`);}
+    return this.http.get(`${this.apiUrl}/hotels/locations`);}
 
 
-   public afficherHotel(form: any, page: any, size: any) { // Correction du nom de la méthode
-    const params = new HttpParams()
-      .set('country', form.value.country || '')
-      .set('location', form.value.location || '')
-      .set('checkIn', form.value.checkIn || '')
-      .set('checkOut', form.value.checkOut || '')
-      .set('duration', form.value.duration || '')
-      .set('members', form.value.members || '');
+   public afficherHotel( page: any, size: any) {    console.log(`${this.apiUrl}/hotels?page=${page}&size=${size}`)
 
-    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`, { params });
+    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`);
   }
 }
