@@ -23,7 +23,7 @@ const routes: Routes = [
   {path:'flightUpdate',component:FlightUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'hotels', component: HotelListComponent, canActivate: [AuthGuard], data:{ 'roles': ['admin'] } },
   { path: 'create', component: HotelCreateComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
-  { path: 'edit/:id', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  { path: 'edit', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'accessDenied', component: AccessDeniedComponent},
   { path: 'flightBookings', component: FlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'userFlightBookings', component: UserFlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},

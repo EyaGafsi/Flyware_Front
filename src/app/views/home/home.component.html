@@ -178,13 +178,13 @@
                           <h2>destination</h2>
                           <div class="travel-select-icon">
                             <select class="form-control" formControlName="country">
-                              <option value="default">Select your destination country</option>
+                              <option value="">Select your destination country</option>
                               <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
                             </select>
                           </div>
                           <div class="travel-select-icon">
                             <select class="form-control" formControlName="location">
-                              <option value="default">Select your destination location</option>
+                              <option value="">Select your destination town</option>
                               <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
                             </select>
                           </div>
@@ -195,9 +195,7 @@
                         <div class="single-tab-select-box">
                           <h2>check in</h2>
                           <div class="travel-check-icon">
-                            <form action="#">
                               <input type="text" name="check_in" class="form-control" data-toggle="datepicker" placeholder="12 -01 - 2017" formControlName="checkIn">
-                            </form>
                           </div>
                         </div>
                       </div>
@@ -206,9 +204,7 @@
                         <div class="single-tab-select-box">
                           <h2>check out</h2>
                           <div class="travel-check-icon">
-                            <form action="#">
                               <input type="text" name="check_out" class="form-control" data-toggle="datepicker" placeholder="22 -01 - 2017" formControlName="checkOut">
-                            </form>
                           </div>
                         </div>
                       </div>
@@ -246,7 +242,7 @@
                       <div class="col-sm-5"></div>
                       <div class="clo-sm-7">
                         <div class="about-btn travel-mrt-0 pull-right">
-                          <button type="button" class="about-view travel-btn" (click)="advancedSearchHotels()">search</button>
+                          <button type="button" class="about-view travel-btn" >search</button>
                         </div>
                       </div>
                     </div>
@@ -1386,15 +1382,13 @@
 <!--*************************************************************************************-->
 
 
-<section id="pack" class="packages" *ngIf="!displayHome">
+<section id="pack" class="packages" *ngIf="displayFlight">
   <div class="container">
     <div class="gallary-header text-center">
       <h2>
         choose your flight
       </h2>
-      <p>
-        Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.
-      </p>
+
     </div><!--/.gallery-header-->
     <div class="packages-content">
       <div class="row">
@@ -1449,11 +1443,10 @@
 </section>
 
 <!-- hotel.component.html -->
-<section id="hotels" class="hotels" *ngIf="!displayHome">
+<section id="hotels" class="hotels" *ngIf="displayHotel">
   <div class="container">
     <div class="gallery-header text-center">
       <h2>Choose Your Hotel</h2>
-      <p>Duis aute irure dolor in velit esse cillum dolore eu fugiat nulla.</p>
     </div>
     <div class="hotels-content">
       <div class="row">

@@ -1,57 +1,141 @@
 <!-- hotel-create.component.html -->
-<app-client-layout></app-client-layout>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h2 class="heading-section">Add Flight</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="wrapper">
+          <div class="row no-gutters" style="margin-left: 20px;">
+            <div class="col-lg-6">
+              <form  [formGroup]="form" (submit)="onSubmit()" class="contactForm">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
 
-<div class="container">
+                      <input type="text" formControlName="name" class="form-control" placeholder="name">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="text" formControlName="address" class="form-control" placeholder="address">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
 
-  <form class="row g-3" [formGroup]="form" (submit)="onSubmit()">
-    <div class="col-md-6">
-      <label for="inputName" class="form-label">Name</label>
-      <input type="text" formControlName="name" class="form-control" id="inputName" placeholder="Hotel Name">
-    </div>
-    <div class="col-md-6">
-      <label for="inputAddress" class="form-label">Address</label>
-      <input type="text" formControlName="address" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="col-md-6">
-      <label for="inputStars" class="form-label">Rating</label>
-      <input type="number" formControlName="rating" class="form-control" id="inputRating" placeholder="Number of Rating">
-    </div>
-    <!-- New Fields for Destination (Country, Location), Check In, Check Out, Duration, Members -->
-    <div class="col-md-6">
-      <label for="inputCountry" class="form-label">Country</label>
-      <input type="text" formControlName="country" class="form-control" id="inputCountry" placeholder="Hotel Country">
-    </div>
-    <div class="col-md-6">
-      <label for="inputLocation" class="form-label">Location</label>
-      <input type="text" formControlName="location" class="form-control" id="inputLocation" placeholder="Hotel Location">
-    </div>
-    <div class="col-md-6">
-      <label for="inputCheckIn" class="form-label">Check In</label>
-      <input type="date" formControlName="checkIn" class="form-control" id="inputCheckIn">
-    </div>
-    <div class="col-md-6">
-      <label for="inputCheckOut" class="form-label">Check Out</label>
-      <input type="date" formControlName="checkOut" class="form-control" id="inputCheckOut">
-    </div>
-    <div class="col-md-6">
-      <label for="inputDuration" class="form-label">Duration (days)</label>
-      <input type="number" formControlName="duration" class="form-control" id="inputDuration" placeholder="Duration in days">
-    </div>
-    <div class="col-md-6">
-      <label for="inputMembers" class="form-label">Members</label>
-      <input type="number" formControlName="members" class="form-control" id="inputMembers" placeholder="Number of Members">
-    </div>
-    <!-- End of New Fields -->
-    <div class="col-md-6 mb-3">
-      <label for="formFile" class="form-label">Hotel Image</label>
-      <input type="file" (change)="onFileSelect($event)" class="form-control" id="formFile">
-    </div>
-    <div *ngIf="imageData" class="col-md-6">
-      <img [src]="imageData" [alt]="form.value.name" class="img-thumbnail">
-    </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary">Create Hotel</button>
-    </div>
-  </form>
+                      <input type="number" formControlName="starNumber" class="form-control" placeholder="starNumber">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="price" class="form-control" placeholder="price">
+                    </div>
+                  </div>
 
-</div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="text" formControlName="country" class="form-control" placeholder="country">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="text" formControlName="location" class="form-control" placeholder="Town">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="nbSuites" class="form-control"
+                        placeholder="Room number">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="nbRooms" class="form-control"
+                        placeholder="Suites number">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="submit" value="Add" class="btn btn-primary">
+                      <div class="submitting"></div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+            <div class="col-lg-6 d-flex  align-items-stretch">
+              <div class="info-wrap  w-100 p-5 img">
+                <div class="file-upload">
+                  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+                <div class="image-upload-wrap">
+                  <input class="file-upload-input" type='file' (change)="onFileSelect($event)"  />
+                  <div class="drag-text">
+                    <h3 *ngIf="!imageData">Drag and drop a file or select add Image</h3>
+                    <img *ngIf="imageData" class="file-upload-image" [src]="imageData" alt="your image" />
+                  </div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fixed-bottom p-3" *ngIf="showSuccessAlert">
+    <div class="success alert fixed-end">
+      <div class="content">
+        <div class="icon">
+          <svg width="50" height="50" id="Layer_1" style="enable-background:new 0 0 128 128;" version="1.1"
+            viewBox="0 0 128 128" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g>
+              <circle fill="#fff" cx="64" cy="64" r="64" />
+            </g>
+            <g>
+              <path fill="#3EBD61"
+                d="M54.3,97.2L24.8,67.7c-0.4-0.4-0.4-1,0-1.4l8.5-8.5c0.4-0.4,1-0.4,1.4,0L55,78.1l38.2-38.2   c0.4-0.4,1-0.4,1.4,0l8.5,8.5c0.4,0.4,0.4,1,0,1.4L55.7,97.2C55.3,97.6,54.7,97.6,54.3,97.2z" />
+            </g>
+          </svg>
+        </div>
+        <p>{{message}}</p>
+      </div>
+      <button class="close" (click)="closeAlert()">
+        <svg height="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
+          width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path fill="#69727D"
+            d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="fixed-bottom p-3" *ngIf="showFailedAlert">
+    <div class="danger alert  fixed-end">
+      <div class="content">
+        <div class="icon">
+          <svg height="50" viewBox="0 0 512 512" width="50" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#fff"
+              d="M449.07,399.08,278.64,82.58c-12.08-22.44-44.26-22.44-56.35,0L51.87,399.08A32,32,0,0,0,80,446.25H420.89A32,32,0,0,0,449.07,399.08Zm-198.6-1.83a20,20,0,1,1,20-20A20,20,0,0,1,250.47,397.25ZM272.19,196.1l-5.74,122a16,16,0,0,1-32,0l-5.74-121.95v0a21.73,21.73,0,0,1,21.5-22.69h.21a21.74,21.74,0,0,1,21.73,22.7Z" />
+          </svg>
+        </div>
+        <p>{{message}}</p>
+      </div>
+      <button class="close" (click)="closeAlert()">
+        <svg heig ht="18px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
+          width="18px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <path fill="#69727D"
+            d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+</section>

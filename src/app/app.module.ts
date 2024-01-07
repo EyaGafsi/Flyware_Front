@@ -24,8 +24,7 @@ import { UserFlightBookingListComponent } from './views/user-flight-booking-list
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
 import { RxStompService } from './views/services/rx-stomp-service.service';
-import {HotelService} from './views/services/hotel.service';
-import { Hotel } from './views/models/hotel';
+
 export function kcFactory(kcService: KeycloakService) {
   return () => {
     console.log('Initializing Keycloak');
