@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
-
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 
@@ -37,7 +35,6 @@ export class HotelService {
       );
       private selectedHotel: any;
       private currentPage: any;
-
 
   constructor(private http: HttpClient) { }
 
@@ -86,6 +83,9 @@ export class HotelService {
     members: number | null
   ): Observable<any> {
     const url = ${this.apiUrl}/advancedSearchHotels;
+
+    const url = `${this.apiUrl}/advancedSearchHotels`;
+
     let params = new HttpParams()
       .set('name', name)
       .set('address', address)
@@ -105,6 +105,9 @@ export class HotelService {
 
   public getLocations() {
     return this.http.get(${this.apiUrl}/locations);
+
+    return this.http.get(`${this.apiUrl}/locations`);
+
   }
 
   public afficherHotel(form: any, page: any, size: any): Observable<any> {

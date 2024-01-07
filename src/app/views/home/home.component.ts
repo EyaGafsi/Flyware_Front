@@ -37,6 +37,8 @@ export class HomeComponent implements OnInit {
   countries: any;
   locations: any;
   constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService: TransportService,private keycloakService: KeycloakService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+
 
   constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
 
@@ -112,6 +114,7 @@ export class HomeComponent implements OnInit {
       error => console.error('Error fetching locations in component:', error)
     );
 
+
     this.transportService.getDestinationsTransport().subscribe(
       (response: any) => {
         this.destinationsTransport = response;
@@ -181,6 +184,7 @@ export class HomeComponent implements OnInit {
       return ${m}min;
     }
   }
+
   goToPreviousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -240,6 +244,7 @@ export class HomeComponent implements OnInit {
         console.log(response);
         this.afficher(this.currentPage, this.itemsPerPage);
         },
+
       error => {
         console.log(error);
 

@@ -24,7 +24,11 @@ import { UserFlightBookingListComponent } from './views/user-flight-booking-list
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
 import { RxStompService } from './views/services/rx-stomp-service.service';
-
+import {HotelService} from './views/services/hotel.service';
+import { Hotel } from './views/models/hotel';
+import { TransportAddComponent } from './views/transport-add/transport-add.component';
+import { TransportDetailsComponent } from './views/transport-details/transport-details.component';
+import { TransportUpdateComponent } from './views/transport-update/transport-update.component';
 export function kcFactory(kcService: KeycloakService) {
   return () => {
     console.log('Initializing Keycloak');
@@ -67,7 +71,13 @@ export function kcFactory(kcService: KeycloakService) {
     UserFlightBookingListComponent,
     FlightDetailsComponent,
     FlightBookingUpdateComponent,
-    HotelEditComponent
+    HotelEditComponent,
+
+    HotelEditComponent,
+    TransportAddComponent,
+    TransportDetailsComponent,
+    TransportUpdateComponent
+
   ],
   imports: [
     BrowserModule,
