@@ -11,55 +11,120 @@ import { HotelService } from '../services/hotel.service';
 })
 export class HotelEditComponent implements OnInit {
   form: FormGroup;
-
+  imageData: String;
+  file: any;
+  hotel: any;
+  showSuccessAlert = false;
+  showFailedAlert=false;
+  message:any;
+  originalImageUrl:any
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private hotelService: HotelService,
-    private route: ActivatedRoute,
-    private router: Router
+
   ) {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      address: ['', Validators.required],
-      rating: ['', Validators.required],
-      imageUrl: [''],
-      country: ['', Validators.required],       // Add country field
-      location: ['', Validators.required],      // Add location field
-      checkIn: ['', Validators.required],        // Add checkIn field
-      checkOut: ['', Validators.required],       // Add checkOut field
-      duration: ['', Validators.required],       // Add duration field
-      members: ['', Validators.required]         // Add members field
+    this.form = this.formBuilder.group({
+      name: ['',Validators.required],
+      address: ['',Validators.required],
+      starNumber: [null,Validators.required],
+      price:[null,Validators.required],
+      country: ['',Validators.required],
+      location: ['',Validators.required],
+      nbSuites: [null,Validators.required],
+      nbRooms: [null,Validators.required],
     });
+    this.imageData = "";
+
   }
 
   ngOnInit() {
-    // Load existing hotel data based on the ID from the URL
-    const hotelId = this.route.snapshot.paramMap.get('id');
-    if (hotelId) {
-      this.hotelService.getHotelById(+hotelId).subscribe(
-        (hotel) => {
-          this.form.patchValue(hotel);
-        },
-        (error) => {
-          console.error('Error loading hotel for edit:', error);
-        }
-      );
-    }
+    const selectedHotel = this.hotelService.getSelectedHotel();
+    this.hotelService.getHotelById(selectedHotel).subscribe(
+      response => {
+        this.hotel=response;
+        this.form = this.formBuilder.group({
+          name: [this.hotel.name,Validators.required],
+          address: [this.hotel.address,Validators.required],
+          starNumber: [this.hotel.starNumber,Validators.required],
+          price:[this.hotel.price,Validators.required],
+          country: [this.hotel.country,Validators.required],
+          location: [this.hotel.location,Validators.required],
+          nbSuites: [this.hotel.nbSuites,Validators.required],
+          nbRooms: [this.hotel.nbRooms,Validators.required],
+        });
+        this.imageData = this.hotel.imageUrl;
+        this.originalImageUrl = this.hotel.imageUrl;
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
   }
 
+  onFileSelect(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target && target.files) {
+      this.file = target.files[0];
+      if (this.file) {
+        this.form.patchValue({image:this.file});
+        const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+        if (allowedMimeTypes.includes(this.file.type)) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.imageData = reader.result as string;
+          };
+          reader.readAsDataURL(this.file);
+        }
+      }
+    }
+  }
   onSubmit() {
-    const hotelId = this.route.snapshot.paramMap.get('id');
-    if (hotelId) {
-      const numericHotelId = +hotelId; // Convert hotelId to number
-      this.hotelService.updateHotel(numericHotelId, this.form.value).subscribe(
-        () => {
-          console.log('Hotel updated successfully.');
-          this.router.navigate(['/hotels', numericHotelId]);
-        },
-        (error) => {
-          console.error('Error updating hotel:', error);
+    const formData = new FormData();
+    formData.append('hotel',JSON.stringify(this.form.value));
+    if (this.imageData !== this.originalImageUrl) {
+
+      formData.append('image', this.file);
+    }else{
+      formData.append('image', new Blob(), 'empty-file.txt');
+
+    }
+    console.log( JSON.stringify(this.form.value));
+
+      this.hotelService.updateHotel(this.hotelService.getSelectedHotel(), formData).subscribe(
+        response => {
+          console.log(response);
+          this.message = 'Hotel updated successfully';
+          this.showSuccessMessage();
+
+           },
+        error => {
+          console.log(error);
+          this.message = 'Error while updating the hotel';
+          this.showFailedMessage();
+
         }
       );
-    }
+
+  }
+  showSuccessMessage() {
+    this.showSuccessAlert = true;
+
+    setTimeout(() => {
+      this.showSuccessAlert = false;
+    }, 5000);
+  }
+  showFailedMessage() {
+    this.showFailedAlert = true;
+    setTimeout(() => {
+      this.showFailedAlert = false;
+    }, 5000);
+  }
+
+  closeAlert() {
+    this.showSuccessAlert = false;
+    this.showFailedAlert = false;
+
   }
 }

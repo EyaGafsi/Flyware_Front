@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlightService } from '../services/flight.service';
 import { HotelService } from '../services/hotel.service';
-
+import { TransportService } from '../services/transport.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 
@@ -22,17 +22,33 @@ export class HomeComponent implements OnInit {
   itemsPerPageHotel = 12;
   numberOfPagesHotel = 0;
 
+<<<<<<< HEAD
+=======
+
+  transports: any[] = [];
+  currentPageTransport = 1;
+  itemsPerPageTransport = 2;
+  numberOfPagesTransport = 1;
+
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
   tripType=false;
   searchForm: FormGroup;
   hotelSearchForm: FormGroup;
+  transportSearchForm: FormGroup;
   displayHome=true;
   destinations:any;
   departures:any;
+  departuresTransport:any;
+  destinationsTransport:any;
   countries: any;
   locations: any;
 
 
+<<<<<<< HEAD
   constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+=======
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService: TransportService,private keycloakService: KeycloakService) {
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
 
     this.searchForm = this.formBuilder.group({
@@ -58,6 +74,17 @@ export class HomeComponent implements OnInit {
       duration: [''],
       members: [''],
     });
+    this.transportSearchForm = this.formBuilder.group({
+      fromTransport: [''],
+      toTransport: [''],
+      departureTransport: [''],
+      returnTransport: [''],
+      minPriceTransport: [0],
+      maxPriceTransport: [0],
+      nbPerson: [0],
+      luggage: [0]
+    });
+
   }
   ngOnInit(): void {
     this.displayHome=true;
@@ -95,6 +122,22 @@ export class HomeComponent implements OnInit {
       },
       error => console.error('Error fetching locations in component:', error)
     );
+    this.transportService.getDestinationsTransport().subscribe(
+      (response: any) => {
+        this.destinationsTransport = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.transportService.getDeparturesTransport().subscribe(
+      (response: any) => {
+        this.departuresTransport = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   afficher(page:any, size:any) {
@@ -125,13 +168,27 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+  afficherTransport(page:any, size:any) {
+    this.transportService.afficherTransport(this.transportSearchForm,page, size).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.transports = response.docs;
+        this.numberOfPages = response.pages ;
+        this.displayHome=false;
+      },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
   formatDuration(minutes: number): string {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
     if (h > 0) {
-      return `${h}h ${m}min`;
+      return ${h}h ${m}min;
     } else {
-      return `${m}min`;
+      return ${m}min;
     }
   }
 
@@ -177,6 +234,32 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
+=======
+  navigateToBookingPageTransport(transport: any) {
+    this.transportService.setSelectedTransport(transport);
+    this.transportService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/transportDetails']);
+  }
+
+  navigateToUpdatePageTransport(transport: any) {
+    this.transportService.setSelectedTransport(transport);
+    this.transportService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/transportUpdate']);
+  }
+  deleteTransport(transport: any) {
+    this.transportService.deleteTransport(transport).subscribe(
+      response => {
+        console.log(response);
+        this.afficher(this.currentPage, this.itemsPerPage);
+        },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
   navigateToBookingPage(flight: any) {
     this.flightService.setSelectedFlight(flight);
     this.flightService.setCurrentPage(this.currentPage);

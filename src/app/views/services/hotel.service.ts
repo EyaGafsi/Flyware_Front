@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+=======
+
+import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
 
@@ -7,6 +12,7 @@ import { Hotel } from '../models/hotel';
   providedIn: 'root'
 })
 export class HotelService {
+<<<<<<< HEAD
   apiUrl = 'http://localhost:8081/hotels';
   requestHeader = new HttpHeaders({ "No-Auth": "True" });
   private selectedHotel: any;
@@ -27,28 +33,42 @@ export class HotelService {
   getCurrentPage() {
     return this.currentPage;
   }
+=======
+   apiUrl = 'http://localhost:8081';
+   PATH_OF_BOOKING_API = "http://localhost:8082";
+
+   requestHeader=new HttpHeaders(
+    {"No-Auth":"True"}
+      );
+      private selectedHotel: any;
+      private currentPage: any;
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
   constructor(private http: HttpClient) { }
 
-  getHotels(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(this.apiUrl);
+
+  getHotelById(id: any): Observable<Hotel> {
+    return this.http.get<Hotel>(`${this.apiUrl}/hotels/${id}`);
   }
 
-  getHotelById(id: number): Observable<Hotel> {
-    return this.http.get<Hotel>(`${this.apiUrl}/${id}`);
+  createHotel(hotel: any){
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+
+    const options = { headers: headers };
+
+    return this.http.post(`${this.apiUrl}/hotels`, hotel, options);
   }
 
-  createHotel(hotel: Hotel): Observable<Hotel> {
-    return this.http.post<Hotel>(this.apiUrl, hotel);
-  }
+  updateHotel(id: any, hotel: any): Observable<any> {
+    console.log(id);
 
-  updateHotel(id: number, hotel: Hotel): Observable<any> {
-    const url = `${this.apiUrl}/${id}`;
+    const url = `${this.apiUrl}/hotels/${id}`;
     return this.http.put(url, hotel);
   }
 
   deleteHotel(id: number): Observable<any> {
-    const deleteUrl = `${this.apiUrl}/${id}`;
+    const deleteUrl = `${this.apiUrl}/hotels/${id}`;
     return this.http.delete(deleteUrl);
   }
 
@@ -60,11 +80,8 @@ export class HotelService {
     return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`, { params });
   }
 
-  createHotelWithDetails(hotel: Hotel): Observable<Hotel> {
-    const createUrl = `${this.apiUrl}/create-with-details`;
-    return this.http.post<Hotel>(createUrl, hotel);
-  }
 
+<<<<<<< HEAD
   advancedSearchHotels(
     name: string,
     address: string,
@@ -89,11 +106,14 @@ export class HotelService {
     return this.http.get(url, { params });
   }
 
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
   public getCountries() {
-    return this.http.get<any>(`${this.apiUrl}/countries`);
+    return this.http.get<any>(`${this.apiUrl}/hotels/countries`);
   }
 
   public getLocations() {
+<<<<<<< HEAD
     return this.http.get(`${this.apiUrl}/locations`);
   }
 
@@ -105,7 +125,55 @@ export class HotelService {
       .set('checkOut', form.value.checkOut || '')
       .set('duration', form.value.duration || '')
       .set('members', form.value.members || '');
+=======
+    return this.http.get(`${this.apiUrl}/hotels/locations`);}
 
-    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`, { params });
+
+   public afficherHotel( page: any, size: any) {    console.log(`${this.apiUrl}/hotels?page=${page}&size=${size}`)
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+
+    return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`);
   }
+
+
+
+  public getBookings(page: any, size: any) {
+    return this.http.get(`${this.PATH_OF_BOOKING_API}/hotelReservations?page=${page}&size=${size}`);
+  }
+  public getHotelBookingByUserId(id: any, page: any, size: any) {
+    return this.http.get(`${this.PATH_OF_BOOKING_API}/hotelReservationsByUserId?id=${id}&page=${page}&size=${size}`);
+  }
+  public getHotelBookingById(id: any) {
+    return this.http.get(`${this.PATH_OF_BOOKING_API}/hotelReservations/${id}`);
+  }
+  public setHotelBookingStatus(id: any,status:any) {
+    return this.http.put(`${this.PATH_OF_BOOKING_API}/setHotelStatus/${id}`,{status:status});
+  }
+
+  public editHotelBooking(form: any) {
+    console.log(form);
+
+    return this.http.put(`${this.PATH_OF_BOOKING_API}/updateHotelBooking`,form);
+  }
+  public cancelHotelBooking(id: any) {
+    return this.http.delete(`${this.PATH_OF_BOOKING_API}/cancelHotelBooking/${id}`);
+  }
+  public deleteReservationByHotelId(id: any) {
+    return this.http.delete(`${this.PATH_OF_BOOKING_API}/deleteByHotelId/${id}`);
+  }
+  public bookHotel(form: any) {
+    return this.http.post(`${this.PATH_OF_BOOKING_API}/reserveHotel`, form);
+  }
+  public sendHotelEmail(hotel: any,hotelBooking: any,user : any) {
+    const emailData = {
+      hotel: hotel,
+      hotelReservation: hotelBooking,
+      user: user
+    };
+    console.log(emailData);
+
+    return this.http.post(`${this.PATH_OF_BOOKING_API}/sendHotelEmail`, emailData);
+  }
+
+
 }

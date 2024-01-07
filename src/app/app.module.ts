@@ -23,8 +23,13 @@ import { FlightBookingListComponent } from './views/flight-booking-list/flight-b
 import { UserFlightBookingListComponent } from './views/user-flight-booking-list/user-flight-booking-list.component';
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
+<<<<<<< HEAD
 import {  RxStomp   } from '@stomp/rx-stomp';
 import { RxStompService } from './views/services/rx-stomp-service.service';
+=======
+import { RxStompService } from './views/services/rx-stomp-service.service';
+import { TransportListComponent } from './views/transport-list/transport-list.component';
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
 export function kcFactory(kcService: KeycloakService) {
   return () => {
@@ -34,6 +39,7 @@ export function kcFactory(kcService: KeycloakService) {
         realm: 'Flyware-Realm',
         clientId: 'flyware-client',
         url: 'http://localhost:8080'
+<<<<<<< HEAD
 
 <<<<<<< HEAD
       },
@@ -53,6 +59,24 @@ export function kcFactory(kcService: KeycloakService) {
 =======
 import {HotelService} from './views/services/hotel.service';
 import { Hotel } from './views/models/hotel';
+=======
+
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        enableLogging: true,
+  checkLoginIframe: false,
+  flow: 'standard'}    })
+    .then((authenticated) => {
+      console.log('Keycloak authenticated:', authenticated);
+    })
+    .catch((error) => {
+      console.error('Error initializing Keycloak:', error);
+    });
+  };
+}
+
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
 >>>>>>> aya-benfraj
 @NgModule({
@@ -67,14 +91,23 @@ import { Hotel } from './views/models/hotel';
     HotelDetailsComponent,
     HotelCreateComponent,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
     HotelEditComponent,
     AccessDeniedComponent,
     FlightBookingListComponent,
     UserFlightBookingListComponent,
     FlightDetailsComponent,
+<<<<<<< HEAD
     FlightBookingUpdateComponent
 =======
     HotelEditComponent
+=======
+    FlightBookingUpdateComponent,
+    HotelEditComponent,
+    TransportListComponent
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
 >>>>>>> aya-benfraj
   ],

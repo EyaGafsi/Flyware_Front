@@ -1,6 +1,9 @@
 
+<<<<<<< HEAD
 
 /* Dropdown container */
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 .dropdown {
   position: relative;
   display: inline-block;
@@ -44,3 +47,18 @@
 .bl {
   display: block;
 }
+<<<<<<< HEAD
+=======
+
+
+.dropdownProfile:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdownProfile {
+  position: relative;
+  display: inline-block;
+}
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4

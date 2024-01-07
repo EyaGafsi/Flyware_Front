@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FlightService } from '../services/flight.service';
 import { Router } from '@angular/router';
+import { TransportService } from '../services/transport.service';
 
 @Component({
-  selector: 'app-flight-list',
-  templateUrl: './flight-list.component.html',
-  styleUrls: ['./flight-list.component.css']
+  selector: 'app-transport-list',
+  templateUrl: './transport-list.component.html',
+  styleUrls: ['./transport-list.component.css']
 })
-export class FlightListComponent implements OnInit {
-  flights: any[] = [];
+export class TransportListComponent {
+  transports: any[] = [];
   currentPage = 1;
   itemsPerPage = 10;
   numberOfPages = 1;
 
-  constructor(private router: Router,private flightService: FlightService) {
+  constructor(private router: Router,private transportService: TransportService) {
     this.afficher(this.currentPage, this.itemsPerPage);
   }
   ngOnInit(): void {
   }
 
   afficher(page:any, size:any) {
-    this.flightService.afficher(null,page, size).subscribe(
+    this.transportService.afficherTransport(null,page, size).subscribe(
       (response: any) => {
         console.log(response);
-        this.flights = response.docs;
+        this.transports = response.docs;
         this.numberOfPages = response.pages ;
       },
       error => {
@@ -37,9 +37,9 @@ export class FlightListComponent implements OnInit {
     const m = minutes % 60;
 
     if (h > 0) {
-      return `${h}h ${m}min`;
+      return ${h}h ${m}min;
     } else {
-      return `${m}min`;
+      return ${m}min;
     }
   }
   goToPreviousPage() {
@@ -66,33 +66,18 @@ export class FlightListComponent implements OnInit {
     this.afficher(this.currentPage, this.itemsPerPage);
   }
 
-  navigateToUpdatePage(flight: any) {
-    this.flightService.setSelectedFlight(flight);
-    this.flightService.setCurrentPage(this.currentPage);
-    this.router.navigate(['/flightUpdate']);
+  navigateToUpdatePageTransport(transport: any) {
+    this.transportService.setSelectedTransport(transport);
+    this.transportService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/transportUpdate']);
   }
-  navigateToAddPage() {
-    this.router.navigate(['/flightAdd']);
-  }
-
-
-  delete(flight: any) {
-    const confirmation = window.confirm('Are you sure you want to delete this flight?');
+  deleteTransport(transport: any) {
+    const confirmation = window.confirm('Are you sure you want to delete this transport?');
  if(confirmation){
-    this.flightService.delete(flight).subscribe(
+    this.transportService.deleteTransport(transport).subscribe(
       response => {
         console.log(response);
         this.afficher(this.currentPage, this.itemsPerPage);
-        this.flightService.deleteReservationByFlightId(flight).subscribe(
-          response => {
-            console.log(response);
-
-             },
-          error => {
-            console.log(error);
-
-          }
-        );
          },
       error => {
         console.log(error);
@@ -101,5 +86,5 @@ export class FlightListComponent implements OnInit {
     );
   }
 }
-
 }
+

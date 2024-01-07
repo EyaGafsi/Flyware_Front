@@ -56,8 +56,6 @@ export class FlightAddComponent implements OnInit {
 
   onSubmit() {
     if (this.file) {
-console.log(this.form);
-
       const formData = new FormData();
       formData.append('duration', this.form.get('duration')?.value);
       formData.append('date',  this.datePipe.transform(this.form.get('date')?.value, 'yyyy-MM-dd') || '');
@@ -83,7 +81,11 @@ console.log(this.form);
           console.log(error);
           this.message = 'Error while adding the flight';
 
+<<<<<<< HEAD
           this.showSuccessMessage();
+=======
+          this.showFailedMessage();
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
         }
       );
     }

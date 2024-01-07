@@ -2,11 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
-<<<<<<< HEAD
-        <h2 class="heading-section">User Flight Booking List</h2>
-=======
-        <h2 class="heading-section">Flight Booking List</h2>
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+        <h2 class="heading-section">Your Hotel Booking List</h2>
       </div>
     </div>
     <div class="row">
@@ -15,30 +11,35 @@
           <table class="table table-responsive-xl">
             <thead>
               <tr>
-                <th>Flight number</th>
-                <th>Number of Adults</th>
-                <th>Number of Children</th>
-                <th>Type</th>
+                <th>Hotel Name</th>
+                <th>check In</th>
+                <th>check Out</th>
+                <th>Room Type</th>
+                <th>Rooms Number</th>
+                <th>Beds Number</th>
                 <th>Status</th>
                 <th>&nbsp;</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let flight of flights" class="alert" role="alert">
+              <tr *ngFor="let hotel of hotels" class="alert" role="alert">
 
-                <td>{{ flight.flightId }}</td>
-                <td>{{ flight.nbAdults }}</td>
-                <td>{{ flight.nbChildren }}</td>
-                <td>{{ flight.type }}</td>
+                <td>{{ hotel.name }}</td>
+                <td>{{ hotel.checkIn | date: 'yyyy-MM-dd'}}</td>
+                <td>{{ hotel.checkOut | date: 'yyyy-MM-dd'}}</td>
+                <td>{{ hotel.roomType }}</td>
+                <td>{{ hotel.nbRooms }}</td>
+                <td>{{ hotel.nbBeds }}</td>
 
-                <td class="status"><span  [ngClass]="{ 'active': flight.status=='accepted', 'waiting': flight.status=='en attente' || flight.status=='expired' , 'refuser': flight.status=='refused' || flight.status=='soldout'}" >{{flight.status}}</span></td>
-                <td *ngIf="flight.status=='en attente'"  class="border-bottom-0">
-                  <button type="button" class="edit" (click)="navigateToUpdatePage(flight)">
+
+                <td class="status"><span  [ngClass]="{ 'active': hotel.status=='accepted', 'waiting': hotel.status=='en attente' || hotel.status=='expired' , 'refuser': hotel.status=='refused' || hotel.status=='soldout'}" >{{hotel.status}}</span></td>
+                <td *ngIf="hotel.status=='en attente'"  class="border-bottom-0">
+                  <button type="button" class="edit" (click)="navigateToUpdatePage(hotel)">
                     <span aria-hidden="true"><i class="fas fa-marker"></i></span>
                   </button>
                 </td>
-                <td *ngIf="flight.status=='en attente'" >
-                  <button type="button" class="close" (click)="cancel(flight._id)" >
+                <td *ngIf="hotel.status=='en attente'" >
+                  <button type="button" class="close" (click)="cancel(hotel._id)" >
                     <span aria-hidden="true"><i class="fa fa-close"></i></span>
                   </button>
                 </td>
@@ -55,7 +56,7 @@
     <ul class="pagination">
       <li ><a (click)="goToPreviousPage()" class="page-link"><i
             class="fa fa-angle-double-left"></i></a></li>
-      <li class="page-item" [class.active]="currentPage === page"
+      <li class="page-item" [class.active]="currentPage+1 === page"
         *ngFor="let page of generatePageNumbers(numberOfPages);">
         <a class="page-link" (click)="changePage(page)">{{ page }}</a>
       </li>

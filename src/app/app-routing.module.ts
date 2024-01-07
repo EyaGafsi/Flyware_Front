@@ -23,7 +23,11 @@ const routes: Routes = [
   {path:'flightUpdate',component:FlightUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'hotels', component: HotelListComponent, canActivate: [AuthGuard], data:{ 'roles': ['admin'] } },
   { path: 'create', component: HotelCreateComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+<<<<<<< HEAD
   { path: 'edit/:id', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+=======
+  { path: 'edit', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
   { path: 'accessDenied', component: AccessDeniedComponent},
   { path: 'flightBookings', component: FlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'userFlightBookings', component: UserFlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},

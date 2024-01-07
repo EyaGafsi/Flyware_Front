@@ -3995,26 +3995,14 @@ input[type="button"].btn-block {
 .breadcrumb-item.active {
   color: #6c757d; }
 
-  .pagination {
-    display: inline-block;
-  }
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem; }
 
-  .pagination a {
-    color: black;
-    float: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 5px;
-
-  }
-  .pagination a.active {
-    background-color: #4CAF50;
-    border-radius: 5px;
-
-    color: white;
-  }
-
-  .pagination a:hover:not(.active) {background-color: #ddd;}
 .page-link {
   position: relative;
   display: block;
@@ -4241,12 +4229,6 @@ input[type="button"].btn-block {
     right: 0;
     padding: 0.75rem 1.25rem;
     color: inherit; }
-    .alert-dismissible .edit {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 0.75rem 1.25rem;
-      color: inherit; }
 
 .alert-primary {
   color: #004085;
@@ -4639,7 +4621,7 @@ input[type="button"].btn-block {
 
 .close {
   float: right;
-  font-size: 1.5rem;
+  font-size: 10px;
   font-weight: 700;
   line-height: 1;
   color: #000;
@@ -4648,23 +4630,21 @@ input[type="button"].btn-block {
   .close:hover {
     color: #000;
     text-decoration: none; }
-  .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
-    opacity: .75; }
-
-    .edit {
+    .accept {
       float: right;
-      font-size: 1.5rem;
+      font-size: 10px;
       font-weight: 700;
       line-height: 1;
       color: #000;
       text-shadow: 0 1px 0 #fff;
       opacity: .5; }
-      .edit:hover {
+      .accept:hover {
         color: #000;
         text-decoration: none; }
-      .edit:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
-        opacity: .75; }
-
+  .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+    opacity: .75; }
+    .accept:not(:disabled):not(.disabled):hover, .accept:not(:disabled):not(.disabled):focus {
+      opacity: .75; }
 button.close {
   padding: 0;
   background-color: transparent;
@@ -4672,18 +4652,16 @@ button.close {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none; }
-
-a.close.disabled {
-  pointer-events: none; }
-  button.edit {
+  button.accept {
     padding: 0;
     background-color: transparent;
     border: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none; }
-
-  a.edit.disabled {
+a.close.disabled {
+  pointer-events: none; }
+  a.accept.disabled {
     pointer-events: none; }
 .toast {
   max-width: 350px;
@@ -4853,10 +4831,9 @@ a.close.disabled {
   .modal-header .close {
     padding: 1rem 1rem;
     margin: -1rem -1rem -1rem auto; }
-    .modal-header .edit {
+    .modal-header .accept {
       padding: 1rem 1rem;
       margin: -1rem -1rem -1rem auto; }
-
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5; }
@@ -8281,9 +8258,9 @@ h1, h2, h3, h4, h5,
   .table tbody td .close span {
     font-size: 25px;
     color: #dc3545; }
-    .table tbody td .edit span {
+    .table tbody td .accept span {
       font-size: 25px;
-      color: #e3a005; }
+      color: #059103; }
 .checkbox-wrap {
   display: block;
   position: relative;
@@ -8333,15 +8310,30 @@ h1, h2, h3, h4, h5,
   font-family: "FontAwesome";
   color: rgba(0, 0, 0, 0.2); }
 
+/* Style the checkmark/indicator */
 .checkbox-primary {
   color: #40bfc1; }
   .checkbox-primary input:checked ~ .checkmark:after {
     color: #40bfc1; }
-    .table tbody td.status .refuser {
-      background: #ffc0cb;
-      color: #bd3a23;
+    .pagination {
+      display: inline-block;
     }
 
-    .table tbody td.status .refuser:after {
-      background: #bd3a23;
+    .pagination a {
+      color: black;
+      float: center;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+
     }
+    .pagination a.active {
+      background-color: #4CAF50;
+      border-radius: 5px;
+
+      color: white;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .text-center {
+      text-align: center !important; }

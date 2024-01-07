@@ -6,26 +6,46 @@
           <div id="desc-tabs" class="desc-tabs">
 
         <ul class="nav nav-tabs" role="tablist">
+<<<<<<< HEAD
         <li role="presentation" class="active">
+=======
+          <li role="presentation">
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
              <a href="#flights" aria-controls="flights" role="tab" data-toggle="tab">
                <i class="fa fa-plane"></i>
                flights
              </a>
           </li>
+<<<<<<< HEAD
           <li role="presentation" class="active" >
+=======
+          <li role="presentation">
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
             <a href="#hotels" aria-controls="hotels" role="tab" data-toggle="tab">
               <i class="fa fa-building"></i>
               hotels
             </a>
           </li>
           <li role="presentation" >
+<<<<<<< HEAD
              <a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
                <i class="fa fa-tree"></i>
                tours
              </a>
           </li>
+=======
+             <a href="#transports" aria-controls="transports" role="tab" data-toggle="tab">
+               <i class="fa fa-tree"></i>
+               transports
+             </a>
+          </li>
+        </ul>
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
+        <!-- Tab panes -->
+        <div class="tab-content">
 
+<<<<<<< HEAD
 
 
         </ul>
@@ -169,6 +189,8 @@
 
           </div><!--/.tabpannel-->
 
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
           <div role="tabpanel" class="tab-pane fade in" id="hotels">
             <form [formGroup]="hotelSearchForm" (ngSubmit)="afficherhotel(0, 10)">
               <div class="tab-para">
@@ -253,6 +275,7 @@
               </div>
             </form>
           </div>
+<<<<<<< HEAD
 
 
 
@@ -290,6 +313,38 @@
                     <div class="travel-select-icon">
                       <select class="form-control" formControlName="from">
 
+=======
+          <div role="tabpanel" class="tab-pane active fade in" id="flights">
+            <form [formGroup]="searchForm" (ngSubmit)="afficher(0, 10)">
+              <div class="tab-para">
+              <div class="trip-circle">
+                <div class="single-trip-circle">
+                  <input type="radio" id="radio01" name="radio"  [checked]="!tripType"
+                  (change)="tripType = !tripType"/>
+                    <label for="radio01">
+                      <span class="round-boarder">
+                        <span class="round-boarder1"></span>
+                      </span>round trip
+                    </label>
+                </div><!--/.single-trip-circle-->
+                <div class="single-trip-circle">
+                  <input type="radio" id="radio02" name="radio"   [checked]="tripType"
+                  (change)="tripType = !tripType"/>
+                    <label for="radio02">
+                      <span class="round-boarder">
+                        <span class="round-boarder1"></span>
+                      </span>on way
+                    </label>
+                </div><!--/.single-trip-circle-->
+              </div><!--/.trip-circle-->
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="single-tab-select-box">
+                    <h2>from</h2>
+                    <div class="travel-select-icon">
+                      <select class="form-control" formControlName="from">
+
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
                           <option value="">enter your location</option><!-- /.option-->
                           <option *ngFor="let departure of departures" [value]="departure">{{ departure }}</option>
 
@@ -387,7 +442,11 @@
                   <div class="single-tab-select-box">
                     <h2>Max price ( $ )</h2>
                     <div class="travel-icon">
+<<<<<<< HEAD
                       <input type="number" name="maxPrice" formControlName="maxPrice" class="form-control" >
+=======
+                      <input type="number" name="maxPrice" formControlName="maxPrice" class="form-control"  >
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
                     </div><!-- /.travel-select-icon -->
                   </div><!--/.single-tab-select-box-->
@@ -406,6 +465,110 @@
             </div>
           </form>
           </div><!--/.tabpannel-->
+<<<<<<< HEAD
+=======
+          <div role="tabpanel" class="tab-pane active fade in" id="transports">
+            <form [formGroup]="transportSearchForm" (ngSubmit)="afficherTransport(0, 10)">
+              <div class="tab-para">
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="single-tab-select-box">
+                      <h2>From</h2>
+                      <div class="travel-select-icon">
+                        <select class="form-control" formControlName="fromTransport">
+                          <option value="">Enter your departure location</option>
+                          <option *ngFor="let departure of departuresTransport" [value]="departure">{{ departure }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="single-tab-select-box">
+                      <h2>Departure</h2>
+                      <div class="travel-check-icon">
+                        <input type="date" name="departureTransport" class="form-control" formControlName="departureTransport"
+                          placeholder="Select departure date">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 col-md-3 col-sm-4">
+                    <div class="single-tab-select-box">
+                      <h2>Return</h2>
+                      <div class="travel-check-icon">
+                        <input *ngIf="tripType" type="date" name="returnTransport" class="form-control" formControlName="returnTransport"
+                          placeholder="Select return date">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 col-md-1 col-sm-4">
+                    <div class="single-tab-select-box">
+                      <h2>Person</h2>
+                      <div class="travel-icon">
+                        <input type="number" name="nbPerson" formControlName="nbPerson" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 col-md-1 col-sm-4">
+                    <div class="single-tab-select-box">
+                      <h2>Luggage</h2>
+                      <div class="travel-icon">
+                        <input type="number" name="luggage" formControlName="luggage" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                </div><!--/.row-->
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="single-tab-select-box">
+                      <h2>To</h2>
+                      <div class="travel-select-icon">
+                        <select class="form-control" formControlName="toTransport">
+                          <option value="">Enter your destination location</option>
+                          <option *ngFor="let destination of destinationsTransport" [value]="destination">{{ destination }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 col-md-1 col-sm-4">
+                    <div class="single-tab-select-box">
+                      <h2>Min price ( $ )</h2>
+                      <div class="travel-icon">
+                        <input type="number" name="minPriceTransport" formControlName="minPriceTransport" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-2 col-md-1 col-sm-4">
+                    <div class="single-tab-select-box">
+                      <h2>Max price ( $ )</h2>
+                      <div class="travel-icon">
+                        <input type="number" name="maxPriceTransport" formControlName="maxPriceTransport" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-5">
+                    <div class="about-btn pull-right">
+                      <button class="about-view travel-btn">
+                        Search
+                      </button>
+                    </div>
+                  </div>
+
+                </div><!--/.row-->
+
+              </div>
+            </form>
+          </div><!--/.tabpannel-->
+
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
         </div><!--/.tab content-->
       </div><!--/.desc-tabs-->
@@ -1499,6 +1662,7 @@
         </div>
       </div>
     </div>
+<<<<<<< HEAD
   </div>
 </div>
 <div class="clearfix text">
@@ -3020,6 +3184,9 @@ Le dim. 7 janv. 2024 à 23:20, mariem benyoussef <mariembenyoussef876@gmail.com>
       </div>
     </div>
   </div>
+=======
+  </div>
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 </div>
 <div class="clearfix text">
   <div class="hint-text">
@@ -3033,5 +3200,73 @@ Le dim. 7 janv. 2024 à 23:20, mariem benyoussef <mariembenyoussef876@gmail.com>
     <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
   </ul>
 </div>
+</div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+</section>
+
+
+
+<section id="pack" class="packages" *ngIf="!displayHome">
+<div class="container">
+<div class="gallary-header text-center">
+  <h2>
+    choose your Transport
+  </h2>
+  <p>
+    Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.
+  </p>
+</div><!--/.gallery-header-->
+<div class="packages-content">
+  <div class="row">
+
+    <div *ngFor="let transport of transports" class="col-md-4 col-sm-6" >
+      <div class="single-package-item">
+
+        <img [src]="transport.imagePath" alt="package-place">
+        <div class="single-package-item-txt">
+          <h3>{{transport.destination}} <span class="pull-right">{{transport.price}} $</span></h3>
+          <div class="packages-para">
+            <p>
+              <span>
+                <i class="fa fa-plane-departure"></i> {{transport.date  | date: 'yyyy-MM-dd'}}
+              </span>
+              <i class="fas fa-clock"></i>  {{ formatDuration(transport.duration) }}
+            </p>
+            <p>
+              <span *ngIf="transport.returnDate!=null">
+                <i class="fa-solid fa-plane-arrival"></i> {{transport.returnDate | date: 'yyyy-MM-dd'}}
+              </span>
+              <i class="fa fa-angle-right"></i> {{transport.departure}}
+             </p>
+          </div><!--/.packages-para-->
+
+          <div class="about-btn">
+            <button  class="about-view packages-btn" (click)="navigateToBookingPage(transport._id)">
+              book now
+            </button>
+
+          </div><!--/.about-btn-->
+
+        </div><!--/.single-package-item-txt-->
+      </div><!--/.single-package-item-->
+
+    </div><!--/.col-->
+  </div><!--/.row-->
+</div><!--/.packages-content-->
+</div><!--/.container-->
+<div class="clearfix text-center">
+<ul class="pagination">
+  <li ><a (click)="goToPreviousPage()" class="page-link"><i
+        class="fa fa-angle-double-left"></i></a></li>
+  <li class="page-item" [class.active]="currentPage === page"
+    *ngFor="let page of generatePageNumbers(numberOfPages);">
+    <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+  </li>
+  <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i
+        class="fa fa-angle-double-right"></i></a></li>
+</ul>
 </div>
 </section>

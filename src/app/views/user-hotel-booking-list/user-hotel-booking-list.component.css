@@ -3995,26 +3995,14 @@ input[type="button"].btn-block {
 .breadcrumb-item.active {
   color: #6c757d; }
 
-  .pagination {
-    display: inline-block;
-  }
+.pagination {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem; }
 
-  .pagination a {
-    color: black;
-    float: center;
-    padding: 8px 16px;
-    text-decoration: none;
-    border-radius: 5px;
-
-  }
-  .pagination a.active {
-    background-color: #4CAF50;
-    border-radius: 5px;
-
-    color: white;
-  }
-
-  .pagination a:hover:not(.active) {background-color: #ddd;}
 .page-link {
   position: relative;
   display: block;
@@ -8333,6 +8321,7 @@ h1, h2, h3, h4, h5,
   font-family: "FontAwesome";
   color: rgba(0, 0, 0, 0.2); }
 
+/* Style the checkmark/indicator */
 .checkbox-primary {
   color: #40bfc1; }
   .checkbox-primary input:checked ~ .checkmark:after {
@@ -8345,3 +8334,26 @@ h1, h2, h3, h4, h5,
     .table tbody td.status .refuser:after {
       background: #bd3a23;
     }
+
+    .pagination {
+      display: inline-block;
+    }
+
+    .pagination a {
+      color: black;
+      float: center;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 5px;
+
+    }
+    .pagination a.active {
+      background-color: #4CAF50;
+      border-radius: 5px;
+
+      color: white;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+    .text-center {
+      text-align: center !important; }
