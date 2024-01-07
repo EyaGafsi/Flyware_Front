@@ -24,6 +24,7 @@ import { UserFlightBookingListComponent } from './views/user-flight-booking-list
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
 import { RxStompService } from './views/services/rx-stomp-service.service';
+import { TransportListComponent } from './views/transport-list/transport-list.component';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => {
@@ -67,7 +68,8 @@ export function kcFactory(kcService: KeycloakService) {
     UserFlightBookingListComponent,
     FlightDetailsComponent,
     FlightBookingUpdateComponent,
-    HotelEditComponent
+    HotelEditComponent,
+    TransportListComponent
 
   ],
   imports: [
