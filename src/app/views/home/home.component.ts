@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlightService } from '../services/flight.service';
 import { HotelService } from '../services/hotel.service';
-
+import { TransportService } from '../services/transport.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 
@@ -22,20 +22,26 @@ export class HomeComponent implements OnInit {
   itemsPerPageHotel = 12;
   numberOfPagesHotel = 0;
 
+
+  transports: any[] = [];
+  currentPageTransport = 1;
+  itemsPerPageTransport = 2;
+  numberOfPagesTransport = 1;
+
   tripType=false;
   searchForm: FormGroup;
   hotelSearchForm: FormGroup;
+  transportSearchForm: FormGroup;
   displayHome=true;
-  displayHotel=false;
-  displayFlight=false;
-
   destinations:any;
   departures:any;
+  departuresTransport:any;
+  destinationsTransport:any;
   countries: any;
   locations: any;
 
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService: TransportService,private keycloakService: KeycloakService) {
 
 
     this.searchForm = this.formBuilder.group({
@@ -61,6 +67,17 @@ export class HomeComponent implements OnInit {
       duration: [''],
       members: [''],
     });
+    this.transportSearchForm = this.formBuilder.group({
+      fromTransport: [''],
+      toTransport: [''],
+      departureTransport: [''],
+      returnTransport: [''],
+      minPriceTransport: [0],
+      maxPriceTransport: [0],
+      nbPerson: [0],
+      luggage: [0]
+    });
+
   }
   ngOnInit(): void {
     this.displayHome=true;
@@ -98,6 +115,22 @@ export class HomeComponent implements OnInit {
       },
       error => console.error('Error fetching locations in component:', error)
     );
+    this.transportService.getDestinationsTransport().subscribe(
+      (response: any) => {
+        this.destinationsTransport = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.transportService.getDeparturesTransport().subscribe(
+      (response: any) => {
+        this.departuresTransport = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   afficher(page:any, size:any) {
@@ -107,9 +140,6 @@ export class HomeComponent implements OnInit {
         this.flights = response.docs;
         this.numberOfPages = response.pages ;
         this.displayHome=false;
-        this.displayHotel=false;
-        this.displayFlight=true;
-
       },
       error => {
         console.log(error);
@@ -118,14 +148,27 @@ export class HomeComponent implements OnInit {
     );
   }
   afficherhotel(page:any, size:any) {
-    this.hotelService.afficherHotel(page, size).subscribe(
+    this.hotelService.afficherHotel(this.hotelSearchForm,page, size).subscribe(
       (response: any) => {
         console.log(response);
         this.hotels = response.docs;
         this.numberOfPages = response.pages - 1;
         this.displayHome=false;
-        this.displayFlight=false;
-        this.displayHotel=true;      },
+      },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
+  afficherTransport(page:any, size:any) {
+    this.transportService.afficherTransport(this.transportSearchForm,page, size).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.transports = response.docs;
+        this.numberOfPages = response.pages ;
+        this.displayHome=false;
+      },
       error => {
         console.log(error);
 
@@ -137,11 +180,13 @@ export class HomeComponent implements OnInit {
     const m = minutes % 60;
 
     if (h > 0) {
-      return `${h}h ${m}min`;
+      return ${h}h ${m}min;
     } else {
-      return `${m}min`;
+      return ${m}min;
     }
   }
+
+
   goToPreviousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -176,7 +221,30 @@ export class HomeComponent implements OnInit {
       response => {
         console.log(response);
         this.afficher(this.currentPage, this.itemsPerPage);
-         },
+        },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
+  navigateToBookingPageTransport(transport: any) {
+    this.transportService.setSelectedTransport(transport);
+    this.transportService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/transportDetails']);
+  }
+
+  navigateToUpdatePageTransport(transport: any) {
+    this.transportService.setSelectedTransport(transport);
+    this.transportService.setCurrentPage(this.currentPage);
+    this.router.navigate(['/transportUpdate']);
+  }
+  deleteTransport(transport: any) {
+    this.transportService.deleteTransport(transport).subscribe(
+      response => {
+        console.log(response);
+        this.afficher(this.currentPage, this.itemsPerPage);
+        },
       error => {
         console.log(error);
 
@@ -189,9 +257,39 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/flightDetails']);
   }
 
+  advancedSearchHotels() {
+    // Récupérez les valeurs du formulaire
+    const formData = this.hotelSearchForm.value;
+    console.log('Valeurs du formulaire :', formData);
+  console.log('Valeur de duration avant l\'appel :', formData.duration);
+  console.log('Valeur de members avant l\'appel :', formData.members);
+
+    // Appelez votre service pour effectuer la recherche avancée
+    this.hotelService.advancedSearchHotels(
+      formData.name,
+      formData.address,
+      formData.country,
+      formData.location,
+      formData.checkIn,
+      formData.checkOut,
+      formData.duration,
+      formData.members
+    ).subscribe(
+      (response) => {
+        // Traitez la réponse du serveur ici
+        console.log('Réponse du serveur :', response);
+      },
+      (error) => {
+        // Traitez les erreurs ici
+        console.error('Erreur lors de la recherche avancée :', error);
+      }
+    );
+  }
+
+
   navigateToUpdatePagehotel(hotel: any) {
     this.hotelService.setSelectedHotel(hotel);
     this.hotelService.setCurrentPage(this.currentPage);
-    this.router.navigate(['/edit']);
+    this.router.navigate(['/edit/:id']);
   }
 }
