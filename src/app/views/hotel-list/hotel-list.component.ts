@@ -58,8 +58,10 @@ export class HotelListComponent implements OnInit {
   }
 
   changePage(page: number): void {
-    this.currentPage = page;
-    this.afficher(this.currentPage,this.itemsPerPage);
+    if (page >= 1 && page <= this.numberOfPages) {
+      this.currentPage = page - 1;
+      this.afficher(this.currentPage, this.itemsPerPage);
+    }
   }
   navigateToUpdatePage(hotel: any) {
     this.hotelService.setSelectedHotel(hotel);
