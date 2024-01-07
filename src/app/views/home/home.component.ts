@@ -22,12 +22,21 @@ export class HomeComponent implements OnInit {
   itemsPerPageHotel = 12;
   numberOfPagesHotel = 0;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> aya-benfraj
 
   transports: any[] = [];
   currentPageTransport = 1;
   itemsPerPageTransport = 2;
   numberOfPagesTransport = 1;
 
+<<<<<<< HEAD
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
   tripType=false;
   searchForm: FormGroup;
   hotelSearchForm: FormGroup;
@@ -41,7 +50,15 @@ export class HomeComponent implements OnInit {
   locations: any;
 
 
+<<<<<<< HEAD
   constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService: TransportService,private keycloakService: KeycloakService) {
+=======
+<<<<<<< HEAD
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+=======
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService: TransportService,private keycloakService: KeycloakService) {
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
 
 
     this.searchForm = this.formBuilder.group({
@@ -178,7 +195,6 @@ export class HomeComponent implements OnInit {
   formatDuration(minutes: number): string {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
-
     if (h > 0) {
       return ${h}h ${m}min;
     } else {
@@ -228,6 +244,11 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> aya-benfraj
   navigateToBookingPageTransport(transport: any) {
     this.transportService.setSelectedTransport(transport);
     this.transportService.setCurrentPage(this.currentPage);
@@ -251,6 +272,10 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
   navigateToBookingPage(flight: any) {
     this.flightService.setSelectedFlight(flight);
     this.flightService.setCurrentPage(this.currentPage);

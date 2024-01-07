@@ -81,7 +81,15 @@ export class FlightAddComponent implements OnInit {
           console.log(error);
           this.message = 'Error while adding the flight';
 
+<<<<<<< HEAD
           this.showFailedMessage();
+=======
+<<<<<<< HEAD
+          this.showSuccessMessage();
+=======
+          this.showFailedMessage();
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
         }
       );
     }

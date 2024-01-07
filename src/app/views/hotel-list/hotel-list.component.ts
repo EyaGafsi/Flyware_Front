@@ -36,10 +36,23 @@ export class HotelListComponent implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+  editHotel(id: number) {
+
+    this.router.navigate(['/edit', id]);
+=======
+>>>>>>> aya-benfraj
   goToNextPage() {
     if (this.currentPage <this.numberOfPages-1) {
     this.currentPage++;
     this.afficher(this.currentPage,this.itemsPerPage);}
+<<<<<<< HEAD
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
   }
 
   goToPreviousPage() {
@@ -88,6 +101,16 @@ export class HotelListComponent implements OnInit {
       }
     );
   }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+  displayDetails(hotel: Hotel) {
+    console.log('Hotel Details:', hotel);
+  }
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
 }
 
 }

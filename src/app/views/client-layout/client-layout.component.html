@@ -24,6 +24,7 @@
                 <li class="smooth-menu"><a href="#pack">Packages </a></li>
                 <li class="smooth-menu"><a href="#spo">Special Offers</a></li>
                 <li class="smooth-menu"><a href="#blog">blog</a></li>
+<<<<<<< HEAD
                 <li class="smooth-menu" *ngIf="role.includes('client')">
                   <div class="dropdown position-relative" (click)="noticationNumber()">
                     <a class="dropbtn">
@@ -83,14 +84,113 @@
                 <li>
                   <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
                   </button>
+=======
+<<<<<<< HEAD
+                <li class="smooth-menu"><a href="#subs">subscription</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight bookings</a></li><li class="smooth-menu" *ngIf="role.includes('client')">
+<div class="dropdown position-relative"  (click)="noticationNumber()" >
+  <a  class="dropbtn" >
+    <span><i class="fa-solid fa-bell"></i></span>
+    <span class="position-absolute badge rounded-pill bg-danger" *ngIf="notifNumber > 0">
+      {{ notifNumber }}
+    </span>
+  </a>
+
+  <div class="dropdown-content" [ngClass]="{'bl': isDropdownOpen}"
+       style="max-width: 300px; width: 250px; font-size: 15px; max-height: 200px; overflow-y: auto;"
+       *ngIf="notifications">
+      <div *ngFor="let notif of notifications"[ngClass]="{'unread': notif.unread==true}">
+        <a  style="white-space: normal;">
+          {{ notif.message }}
+        </a>
+      </div>
+  </div>
+
+  <div class="dropdown" *ngIf="!notifications">
+    <a *ngIf="!notifications" class="dropdown-content">vous n'avez aucune notification</a>
+  </div>
+</div>
+
+</li>
+                <li>
+                  <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
+                  </button>
+                  <button *ngIf="isLoggedIn()" (click)="logout()" class="book-btn">Logout
+
+=======
+                <li class="smooth-menu" *ngIf="role.includes('client')">
+                  <div class="dropdown position-relative" (click)="noticationNumber()">
+                    <a class="dropbtn">
+                      <span><i class="fa-solid fa-bell"></i></span>
+                      <span class="position-absolute badge rounded-pill bg-danger" *ngIf="notifNumber > 0">
+                        {{ notifNumber }}
+                      </span>
+                    </a>
+
+                    <div class="dropdown-content" [ngClass]="{'bl': isDropdownOpen}"
+                      style="max-width: 300px; width: 250px; font-size: 15px; max-height: 200px; overflow-y: auto;"
+                      *ngIf="notifications">
+                      <div *ngFor="let notif of notifications" [ngClass]="{'unread': notif.unread==true}">
+                        <a style="white-space: normal;">
+                          {{ notif.message }}
+                        </a>
+                      </div>
+                    </div>
+
+                    <div class="dropdown" *ngIf="!notifications">
+                      <a *ngIf="!notifications" class="dropdown-content">vous n'avez aucune notification</a>
+                    </div>
+                  </div>
+
+                </li>
+                <li class="smooth-menu" *ngIf="role.includes('client')"><a routerLink="flights">flights</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight
+                  bookings</a></li>
+                <li class="smooth-menu" *ngIf="isLoggedIn()">
+                  <div class="dropdownProfile position-relative">
+                    <a class="dropbtn">
+                       <i class="fas fa-user"></i>
+                        admin
+                    </a>
+
+                    <div  class="dropdown-content" style="font-size: 12px;"
+                      >
+                        <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="/userFlightBookings">
+                          <i style="margin-right: 5px;font-size: 15px;" class="fas fa-plane"></i>
+                          My Flight Bookings</a>
+                          <a style="white-space: normal;" *ngIf="role.includes('client')" >
+                            <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
+                            My Hotel Bookings</a>
+                            <a style="white-space: normal;" *ngIf="role.includes('client')">
+                              <i style="margin-right: 5px;font-size: 15px;" class="fas fa-car"></i>
+                              My Transport Bookings</a>
+                          <a style="white-space: normal;" (click)="logout()">
+                            <i style="margin-right: 5px;font-size: 15px;" class="fa fa-sign-out"></i>
+                            Logout</a>
+                    </div>
+
+
+                  </div>
+
+                </li>
+
+                <li>
+                  <button *ngIf="!isLoggedIn()" (click)="login()" class="book-btn">Login
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+                  </button>
+>>>>>>> aya-benfraj
 
                 </li><!--/.project-btn-->
               </ul>
             </div><!-- /.navbar-collapse -->
           </div><!-- /.main-menu-->s
         </div><!-- /.col-->
+<<<<<<< HEAD
+      </div><!-- /.row -->    </div><!-- /.container-->
+=======
       </div><!-- /.row -->
     </div><!-- /.container-->
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
   </div><!-- /.header-area -->
 
 </header><!-- /.top-area-->
