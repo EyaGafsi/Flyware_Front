@@ -23,9 +23,12 @@ import { FlightBookingListComponent } from './views/flight-booking-list/flight-b
 import { UserFlightBookingListComponent } from './views/user-flight-booking-list/user-flight-booking-list.component';
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
-import {  RxStomp   } from '@stomp/rx-stomp';
 import { RxStompService } from './views/services/rx-stomp-service.service';
-
+import {HotelService} from './views/services/hotel.service';
+import { Hotel } from './views/models/hotel';
+import { TransportAddComponent } from './views/transport-add/transport-add.component';
+import { TransportDetailsComponent } from './views/transport-details/transport-details.component';
+import { TransportUpdateComponent } from './views/transport-update/transport-update.component';
 export function kcFactory(kcService: KeycloakService) {
   return () => {
     console.log('Initializing Keycloak');
@@ -35,7 +38,6 @@ export function kcFactory(kcService: KeycloakService) {
         clientId: 'flyware-client',
         url: 'http://localhost:8080'
 
-<<<<<<< HEAD
       },
       initOptions: {
         onLoad: 'check-sso',
@@ -50,11 +52,8 @@ export function kcFactory(kcService: KeycloakService) {
     });
   };
 }
-=======
-import {HotelService} from './views/services/hotel.service';
-import { Hotel } from './views/models/hotel';
 
->>>>>>> aya-benfraj
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,17 +65,17 @@ import { Hotel } from './views/models/hotel';
     HotelListComponent,
     HotelDetailsComponent,
     HotelCreateComponent,
-<<<<<<< HEAD
     HotelEditComponent,
     AccessDeniedComponent,
     FlightBookingListComponent,
     UserFlightBookingListComponent,
     FlightDetailsComponent,
-    FlightBookingUpdateComponent
-=======
-    HotelEditComponent
+    FlightBookingUpdateComponent,
+    HotelEditComponent,
+    TransportAddComponent,
+    TransportDetailsComponent,
+    TransportUpdateComponent
 
->>>>>>> aya-benfraj
   ],
   imports: [
     BrowserModule,

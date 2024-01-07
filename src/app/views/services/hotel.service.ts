@@ -1,37 +1,33 @@
-// hotel.service.ts
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-=======
-import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
->>>>>>> aya-benfraj
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class HotelService {
-   apiUrl = 'http://localhost:8081/hotels';
-   requestHeader=new HttpHeaders(
-    {"No-Auth":"True"}
-      );
-      private selectedHotel: any;
-      private currentPage: any;
+  apiUrl = 'http://localhost:8081/hotels';
+  requestHeader = new HttpHeaders({ "No-Auth": "True" });
+  private selectedHotel: any;
+  private currentPage: any;
 
-      setSelectedHotel(hotel: any) {
-        this.selectedHotel = hotel;
-      }
-      getSelectedHotel() {
-        return this.selectedHotel;
-      }
-      setCurrentPage(currentPage: any) {
-        this.currentPage = currentPage;
-      }
-      getCurrentPage() {
-        return this.currentPage;
-      }
+  setSelectedHotel(hotel: any) {
+    this.selectedHotel = hotel;
+  }
+
+  getSelectedHotel() {
+    return this.selectedHotel;
+  }
+
+  setCurrentPage(currentPage: any) {
+    this.currentPage = currentPage;
+  }
+
+  getCurrentPage() {
+    return this.currentPage;
+  }
+
   constructor(private http: HttpClient) { }
 
   getHotels(): Observable<Hotel[]> {
@@ -79,11 +75,8 @@ export class HotelService {
     duration: string,
     members: number | null
   ): Observable<any> {
-    console.log('Paramètres reçus :', name, address, country, location, checkIn, checkOut, duration, members);
-
     const url = `${this.apiUrl}/advancedSearchHotels`;
     let params = new HttpParams()
-      // ... (votre logique de construction des paramètres)
       .set('name', name)
       .set('address', address)
       .set('country', country)
@@ -93,19 +86,18 @@ export class HotelService {
       .set('duration', duration)
       .set('members', members != null ? members.toString() : '');
 
-    console.log('Paramètres de la requête :', params.toString()); // Vérifiez les paramètres de la requête
-
     return this.http.get(url, { params });
   }
+
   public getCountries() {
     return this.http.get<any>(`${this.apiUrl}/countries`);
   }
 
   public getLocations() {
-    return this.http.get(`${this.apiUrl}/locations`);}
+    return this.http.get(`${this.apiUrl}/locations`);
+  }
 
-
-   public afficherHotel(form: any, page: any, size: any) { // Correction du nom de la méthode
+  public afficherHotel(form: any, page: any, size: any): Observable<any> {
     const params = new HttpParams()
       .set('country', form.value.country || '')
       .set('location', form.value.location || '')
