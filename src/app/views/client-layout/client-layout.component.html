@@ -51,6 +51,8 @@
                 </li>
                 <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flights">flights</a></li>
                 <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="hotels">hotels</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="transports">hotels</a></li>
+
                 <li class="smooth-menu" *ngIf="isLoggedIn()">
                   <div class="dropdownProfile position-relative">
                     <a class="dropbtn">
@@ -69,12 +71,15 @@
                           <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="userHotelBookings">
                             <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
                             My Hotel Bookings</a>
-                            <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="hotelBookings">
+                            <a style="white-space: normal;" *ngIf="role.includes('admin')" routerLink="hotelBookings">
                               <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
                                Hotel Bookings</a>
-                            <a style="white-space: normal;" *ngIf="role.includes('client')">
+                            <a style="white-space: normal;" *ngIf="role.includes('client')"  routerLink="userTransportBooking">
                               <i style="margin-right: 5px;font-size: 15px;" class="fas fa-car"></i>
                               My Transport Bookings</a>
+                              <a style="white-space: normal;" *ngIf="role.includes('admin')"  routerLink="transportBookings">
+                                <i style="margin-right: 5px;font-size: 15px;" class="fas fa-car"></i>
+                                Transport Bookings</a>
                           <a style="white-space: normal;" (click)="logout()">
                             <i style="margin-right: 5px;font-size: 15px;" class="fa fa-sign-out"></i>
                             Logout</a>
