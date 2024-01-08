@@ -35,7 +35,7 @@ export class FlightService {
       .set('maxPrice', form.value.maxPrice || 0)
       .set('type', form.value.type || '')
       .set('nbPlaces', form.value.nbAdult+form.value.nbChildren || 0);
-console.log(params);
+      console.log(params);
 
     return this.httpclient.get(`${this.PATH_OF_API}/flights?page=${page}&size=${size}`, { params });}
     return this.httpclient.get(`${this.PATH_OF_API}/flights?page=${page}&size=${size}`);
