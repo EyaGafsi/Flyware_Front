@@ -96,7 +96,7 @@
                         </div>
                       </div>
 
-                      <div class="col-sm-5">
+                      <div  class="col-sm-5">
                         <div class="about-btn pull-right">
                           <button type="submit" class="about-view travel-btn">
                             Search
@@ -1369,7 +1369,7 @@
                 </p>
               </div><!--/.packages-para-->
 
-              <div class="about-btn">
+              <div class="about-btn" *ngIf="role.includes('client')">
                 <button class="about-view packages-btn" (click)="navigateToBookingPage(flight._id)">
                   book now
                 </button>
@@ -1427,7 +1427,7 @@
                 </p>
               </div><!--/.packages-para-->
 
-              <div class="about-btn">
+              <div class="about-btn" *ngIf="role.includes('client')">
                 <button class="about-view packages-btn" (click)="navigateToHotelBookingPage(hotel._id)">
                   book now
                 </button>
@@ -1483,7 +1483,7 @@
                 </p>
               </div><!--/.packages-para-->
 
-              <div class="about-btn">
+              <div class="about-btn" *ngIf="role.includes('client')">
                 <button class="about-view packages-btn" (click)="navigateToTransportBookingPage(transport._id)">
                   book now
                 </button>

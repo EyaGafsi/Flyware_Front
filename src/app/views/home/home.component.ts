@@ -45,8 +45,9 @@ export class HomeComponent implements OnInit {
 
   locationsTransport:any;
   markTransport:any;
+  role: string[] = []
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService :TransportService) {
+  constructor(private keycloakService: KeycloakService,private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService :TransportService) {
 
 
     this.searchForm = this.formBuilder.group({
@@ -295,5 +296,7 @@ if (page >= 1 && page <= this.numberOfPagesTransport) {
     this.transportService.setSelectedTransport(transport);
     this.transportService.setCurrentPage(this.currentPageTransport);
     this.router.navigate(['/transportBooking']);
+  }
+  getRole(){this.role = this.keycloakService.getUserRoles();console.log(this.role);
   }
 }
