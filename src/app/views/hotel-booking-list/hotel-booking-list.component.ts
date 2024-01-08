@@ -100,6 +100,7 @@ changePage(page: number): void {
     this.afficher(this.currentPage, this.itemsPerPage);
   }
 }
+
   accepter(hotel:any) {
     const confirmation = window.confirm('Are you sure you want to accept this booking?');
 

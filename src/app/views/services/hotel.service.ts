@@ -1,45 +1,15 @@
+// hotel.service.ts
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-=======
->>>>>>> aya-benfraj
 
 import { HttpClient ,HttpHeaders , HttpParams} from '@angular/common/http';
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 import { Observable } from 'rxjs';
 import { Hotel } from '../models/hotel';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class HotelService {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  apiUrl = 'http://localhost:8081/hotels';
-  requestHeader = new HttpHeaders({ "No-Auth": "True" });
-  private selectedHotel: any;
-  private currentPage: any;
-
-  setSelectedHotel(hotel: any) {
-    this.selectedHotel = hotel;
-  }
-
-  getSelectedHotel() {
-    return this.selectedHotel;
-  }
-
-  setCurrentPage(currentPage: any) {
-    this.currentPage = currentPage;
-  }
-
-  getCurrentPage() {
-    return this.currentPage;
-  }
-=======
->>>>>>> aya-benfraj
    apiUrl = 'http://localhost:8081';
    PATH_OF_BOOKING_API = "http://localhost:8082";
 
@@ -48,8 +18,19 @@ export class HotelService {
       );
       private selectedHotel: any;
       private currentPage: any;
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
 
+      setSelectedHotel(hotel: any) {
+        this.selectedHotel = hotel;
+      }
+      getSelectedHotel() {
+        return this.selectedHotel;
+      }
+      setCurrentPage(currentPage: any) {
+        this.currentPage = currentPage;
+      }
+      getCurrentPage() {
+        return this.currentPage;
+      }
   constructor(private http: HttpClient) { }
 
 
@@ -87,68 +68,26 @@ export class HotelService {
   }
 
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  advancedSearchHotels(
-    name: string,
-    address: string,
-    country: string,
-    location: string,
-    checkIn: string,
-    checkOut: string,
-    duration: string,
-    members: number | null
-  ): Observable<any> {
-    const url = `${this.apiUrl}/advancedSearchHotels`;
-    let params = new HttpParams()
-      .set('name', name)
-      .set('address', address)
-      .set('country', country)
-      .set('location', location)
-      .set('checkIn', checkIn)
-      .set('checkOut', checkOut)
-      .set('duration', duration)
-      .set('members', members != null ? members.toString() : '');
-
-    return this.http.get(url, { params });
-  }
-
-=======
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
->>>>>>> aya-benfraj
   public getCountries() {
     return this.http.get<any>(`${this.apiUrl}/hotels/countries`);
   }
 
   public getLocations() {
-<<<<<<< HEAD
     return this.http.get(`${this.apiUrl}/hotels/locations`);}
 
 
-   public afficherHotel( page: any, size: any) {    console.log(`${this.apiUrl}/hotels?page=${page}&size=${size}`)
+   public afficherHotel(form: any, page: any, size: any) {
+    if (form){
+      const params = new HttpParams()
+        .set('country', form.value.country || '')
+        .set('location', form.value.location || '')
+        .set('minPrice', form.value.minPrice || 0)
+        .set('maxPrice', form.value.maxPrice || 0)
+        .set('starNumber', form.value.starNumber || 0);
 
-=======
-<<<<<<< HEAD
-    return this.http.get(`${this.apiUrl}/locations`);
-  }
+  console.log(params);
 
-  public afficherHotel(form: any, page: any, size: any): Observable<any> {
-    const params = new HttpParams()
-      .set('country', form.value.country || '')
-      .set('location', form.value.location || '')
-      .set('checkIn', form.value.checkIn || '')
-      .set('checkOut', form.value.checkOut || '')
-      .set('duration', form.value.duration || '')
-      .set('members', form.value.members || '');
-=======
-    return this.http.get(`${this.apiUrl}/hotels/locations`);}
-
-
-   public afficherHotel( page: any, size: any) {    console.log(`${this.apiUrl}/hotels?page=${page}&size=${size}`)
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
-
->>>>>>> aya-benfraj
+      return this.http.get(`${this.apiUrl}/hotelsSearch?page=${page}&size=${size}`, { params });}
     return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`);
   }
 
