@@ -49,9 +49,8 @@
                   </div>
 
                 </li>
-                <li class="smooth-menu" *ngIf="role.includes('client')"><a routerLink="flights">flights</a></li>
-                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flightBookings">flight
-                  bookings</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="flights">flights</a></li>
+                <li class="smooth-menu" *ngIf="role.includes('admin')"><a routerLink="hotels">hotels</a></li>
                 <li class="smooth-menu" *ngIf="isLoggedIn()">
                   <div class="dropdownProfile position-relative">
                     <a class="dropbtn">
@@ -61,12 +60,18 @@
 
                     <div  class="dropdown-content" style="font-size: 12px;"
                       >
-                        <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="/userFlightBookings">
+                        <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="userFlightBookings">
                           <i style="margin-right: 5px;font-size: 15px;" class="fas fa-plane"></i>
                           My Flight Bookings</a>
-                          <a style="white-space: normal;" *ngIf="role.includes('client')" >
+                          <a style="white-space: normal;" *ngIf="role.includes('admin')" routerLink="flightBookings">
+                            <i style="margin-right: 5px;font-size: 15px;" class="fas fa-plane"></i>
+                             Flight Bookings</a>
+                          <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="userHotelBookings">
                             <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
                             My Hotel Bookings</a>
+                            <a style="white-space: normal;" *ngIf="role.includes('client')" routerLink="hotelBookings">
+                              <i style="margin-right: 5px;font-size: 15px;" class="fas fa-hotel"></i>
+                               Hotel Bookings</a>
                             <a style="white-space: normal;" *ngIf="role.includes('client')">
                               <i style="margin-right: 5px;font-size: 15px;" class="fas fa-car"></i>
                               My Transport Bookings</a>

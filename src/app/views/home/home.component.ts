@@ -5,6 +5,7 @@ import { HotelService } from '../services/hotel.service';
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
+import { TransportService } from '../services/transport.service';
 
 @Component({
   selector: 'app-home',
@@ -22,20 +23,30 @@ export class HomeComponent implements OnInit {
   itemsPerPageHotel = 9;
   numberOfPagesHotel = 0;
 
+  transports: any[] = [];
+  currentPageTransport = 1;
+  itemsPerPageTransport = 2;
+  numberOfPagesTransport = 1;
+
   tripType=false;
   searchForm: FormGroup;
   hotelSearchForm: FormGroup;
+  transportSearchForm: FormGroup;
+
   displayHome=true;
   displayHotel=false;
   displayFlight=false;
+  displayTransport=false;
 
   destinations:any;
   departures:any;
   countries: any;
   locations: any;
 
+  locationsTransport:any;
+  markTransport:any;
 
-  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private keycloakService: KeycloakService) {
+  constructor(private formBuilder: FormBuilder,private router: Router,private flightService: FlightService,private hotelService: HotelService,private transportService :TransportService) {
 
 
     this.searchForm = this.formBuilder.group({
@@ -58,7 +69,18 @@ export class HomeComponent implements OnInit {
       maxPrice: [0],
       starNumber:[0],
     });
+
+    this.transportSearchForm = this.formBuilder.group({
+      address: [''],
+      mark: [''],
+      minPriceTransport: [0],
+      maxPriceTransport: [0],
+      nbPerson: [0],
+      nbLuggage: [0]
+    });
   }
+
+
   ngOnInit(): void {
     this.displayHome=true;
 
@@ -81,19 +103,37 @@ export class HomeComponent implements OnInit {
 
 
     this.hotelService.getCountries().subscribe(
-      countries => {
-        console.log('Countries in component:', countries);
-        this.countries = countries;
+      (response: any) => {
+        this.countries = response;
       },
-      error => console.error('Error fetching countries in component:', error)
+      error => {
+        console.log(error);
+      }
     );
 
     this.hotelService.getLocations().subscribe(
-      locations => {
-        console.log('Locations in component:', locations);
-        this.locations = locations;
+      (response: any)  => {
+        this.locations = response;
       },
-      error => console.error('Error fetching locations in component:', error)
+      error => {
+        console.log(error);
+      }
+    );
+    this.transportService.getLocationTransport().subscribe(
+      (response: any) => {
+        this.locationsTransport = response;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    this.transportService.getMarkTransport().subscribe(
+      (response: any) => {
+        this.markTransport = response;
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 
@@ -105,6 +145,8 @@ export class HomeComponent implements OnInit {
         this.numberOfPages = response.pages ;
         this.displayHome=false;
         this.displayHotel=false;
+        this.displayTransport=false;
+
         this.displayFlight=true;
       },
       error => {
@@ -121,7 +163,24 @@ export class HomeComponent implements OnInit {
         this.numberOfPagesHotel = response.totalPages ;
         this.displayHome=false;
         this.displayFlight=false;
+        this.displayTransport=false;
         this.displayHotel=true;      },
+      error => {
+        console.log(error);
+
+      }
+    );
+  }
+  afficherTransport(page:any, size:any) {
+    this.transportService.afficherTransport(null,page, size).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.transports = response.docs;
+        this.numberOfPagesTransport = response.pages ;
+        this.displayHome=false;
+        this.displayFlight=false;
+        this.displayTransport=true;
+        this.displayHotel=false;       },
       error => {
         console.log(error);
 
@@ -190,23 +249,38 @@ changePageHotel(page: number): void {
     this.afficherhotel(this.currentPageHotel, this.itemsPerPageHotel);
   }
 }
-  navigateToUpdatePage(flight: any) {
-    this.flightService.setSelectedFlight(flight);
-    this.flightService.setCurrentPage(this.currentPage);
-    this.router.navigate(['/flightUpdate']);
-  }
-  delete(flight: any) {
-    this.flightService.delete(flight).subscribe(
-      response => {
-        console.log(response);
-        this.afficher(this.currentPage, this.itemsPerPage);
-         },
-      error => {
-        console.log(error);
 
-      }
-    );
+
+
+goToNextPageTransport() {
+  if (this.currentPageTransport <this.numberOfPagesTransport-1) {
+  this.currentPageTransport++;
+  this.afficherTransport(this.currentPageTransport,this.itemsPerPageTransport);}
+}
+
+goToPreviousPageTransport() {
+  if (this.currentPageTransport > 0) {
+    this.currentPageTransport--;
+    this.afficherTransport(this.currentPageTransport,this.itemsPerPageTransport);
   }
+}
+
+generatePageNumbersTransport(totalPages: number): number[] {
+  const pageNumbers: number[] = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i );
+  }
+  return pageNumbers;
+}
+
+changePageTransport(page: number): void {
+if (page >= 1 && page <= this.numberOfPagesTransport) {
+  this.currentPageTransport = page - 1;
+  this.afficherTransport(this.currentPageTransport, this.itemsPerPageTransport);
+}
+}
+
+
   navigateToBookingPage(flight: any) {
     this.flightService.setSelectedFlight(flight);
     this.flightService.setCurrentPage(this.currentPage);
@@ -217,5 +291,9 @@ changePageHotel(page: number): void {
     this.hotelService.setCurrentPage(this.currentPageHotel);
     this.router.navigate(['/hotelBooking']);
   }
-
+  navigateToTransportBookingPage(transport: any) {
+    this.transportService.setSelectedTransport(transport);
+    this.transportService.setCurrentPage(this.currentPageTransport);
+    this.router.navigate(['/transportBooking']);
+  }
 }

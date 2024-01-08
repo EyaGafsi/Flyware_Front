@@ -1,9 +1,8 @@
-
 <section class="ftco-section">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
-        <h2 class="heading-section">Add Flight</h2>
+        <h2 class="heading-section">Add Transport</h2>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -11,22 +10,28 @@
         <div class="wrapper">
           <div class="row no-gutters" style="margin-left: 20px;">
             <div class="col-lg-6">
-              <form  [formGroup]="form" (submit)="onSubmit()" class="contactForm">
+              <form [formGroup]="form" (submit)="onSubmit()" class="contactForm">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="text" formControlName="name" class="form-control" placeholder="name">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" formControlName="address" class="form-control" placeholder="address">
+                      <input type="text" formControlName="mark" class="form-control" placeholder="mark">
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
 
-                      <input type="number" formControlName="starNumber" class="form-control" placeholder="starNumber">
+                      <input type="text" formControlName="location" class="form-control" placeholder="location">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+
+                      <input type="number" formControlName="nbPerson" class="form-control" min="1" placeholder="nb Person">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input type="number" formControlName="nbLuggage" class="form-control" min="1" placeholder="nb Luggage">
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -35,28 +40,8 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" formControlName="country" class="form-control" placeholder="country">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" formControlName="location" class="form-control" placeholder="Town">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="number" formControlName="nbSuites" class="form-control"
-                        placeholder="Room number">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="number" formControlName="nbRooms" class="form-control"
-                        placeholder="Suites number">
-                    </div>
-                  </div>
+
+
                   <div class="col-md-12">
                     <div class="form-group">
                       <input type="submit" value="Add" class="btn btn-primary">

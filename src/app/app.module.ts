@@ -23,10 +23,19 @@ import { FlightBookingListComponent } from './views/flight-booking-list/flight-b
 import { UserFlightBookingListComponent } from './views/user-flight-booking-list/user-flight-booking-list.component';
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
+import { TransportListComponent } from './views/transport-list/transport-list.component';
 import { RxStompService } from './views/services/rx-stomp-service.service';
+import { UserHotelBookingListComponent } from './views/user-hotel-booking-list/user-hotel-booking-list.component';
+import { HotelBookingComponent } from './views/hotel-booking/hotel-booking.component';
 import { HotelBookingListComponent } from './views/hotel-booking-list/hotel-booking-list.component';
 import { HotelBookingUpdateComponent } from './views/hotel-booking-update/hotel-booking-update.component';
-import { UserHotelBookingListComponent } from './views/user-hotel-booking-list/user-hotel-booking-list.component';
+import { TransportAddComponent } from './views/transport-add/transport-add.component';
+import { TransportUpdateComponent } from './views/transport-update/transport-update.component';
+import { TransportBookingListComponent } from './views/transport-booking-list/transport-booking-list.component';
+import { TransportBookingUpdateComponent } from './views/transport-booking-update/transport-booking-update.component';
+import { TransportDetailsComponent } from './views/transport-details/transport-details.component';
+import { UserTransportBookingListComponent } from './views/user-transport-booking-list/user-transport-booking-list.component';
+
 
 export function kcFactory(kcService: KeycloakService) {
   return () => {
@@ -71,9 +80,18 @@ export function kcFactory(kcService: KeycloakService) {
     FlightDetailsComponent,
     FlightBookingUpdateComponent,
     HotelEditComponent,
+    TransportListComponent,
+    UserHotelBookingListComponent,
+    HotelBookingComponent,
     HotelBookingListComponent,
     HotelBookingUpdateComponent,
-    UserHotelBookingListComponent
+    TransportListComponent,
+    TransportAddComponent,
+    TransportUpdateComponent,
+    TransportBookingListComponent,
+    TransportBookingUpdateComponent,
+    TransportDetailsComponent,
+    UserTransportBookingListComponent
 
   ],
   imports: [
