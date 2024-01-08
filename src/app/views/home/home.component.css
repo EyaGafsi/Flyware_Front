@@ -21,3 +21,20 @@
 .pagination a:hover:not(.active) {background-color: #ddd;}
 .text-center {
   text-align: center !important; }
+
+  .text-warning {
+    color: rgba(193, 188, 97, 0.803) !important; font-size: 28px; }
+
+  a.text-warning:hover, a.text-warning:focus {
+    color: #ba8b00 !important; }
+    .single-package-item {
+      position: relative;
+    }
+
+    .stars {
+      position: absolute;
+      top: 5px; /* Adjust the top position as needed */
+      left: 10px; /* Adjust the left position as needed */
+      /* Adjust the font size for larger stars */
+      color: #FFD700; /* Set the star color */
+    }

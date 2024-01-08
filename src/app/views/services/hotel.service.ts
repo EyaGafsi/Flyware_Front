@@ -76,8 +76,18 @@ export class HotelService {
     return this.http.get(`${this.apiUrl}/hotels/locations`);}
 
 
-   public afficherHotel( page: any, size: any) {    console.log(`${this.apiUrl}/hotels?page=${page}&size=${size}`)
+   public afficherHotel(form: any, page: any, size: any) {
+    if (form){
+      const params = new HttpParams()
+        .set('country', form.value.country || '')
+        .set('location', form.value.location || '')
+        .set('minPrice', form.value.minPrice || 0)
+        .set('maxPrice', form.value.maxPrice || 0)
+        .set('starNumber', form.value.starNumber || 0);
 
+  console.log(params);
+
+      return this.http.get(`${this.apiUrl}/hotelsSearch?page=${page}&size=${size}`, { params });}
     return this.http.get(`${this.apiUrl}/hotels?page=${page}&size=${size}`);
   }
 

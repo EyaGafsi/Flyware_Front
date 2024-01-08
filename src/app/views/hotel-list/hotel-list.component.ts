@@ -24,7 +24,7 @@ export class HotelListComponent implements OnInit {
   }
 
   afficher(page:any, size:any) {
-    this.hotelService.afficherHotel(page, size).subscribe(
+    this.hotelService.afficherHotel(null,page, size).subscribe(
       (response: any) => {
         console.log(response);
         this.hotels = response.content;

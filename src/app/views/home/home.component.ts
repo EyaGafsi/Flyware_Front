@@ -14,12 +14,12 @@ import { KeycloakService } from 'keycloak-angular';
 export class HomeComponent implements OnInit {
   flights: any[] = [];
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 9;
   numberOfPages = 1;
 
   hotels: any[] = [];
   currentPageHotel = 0;
-  itemsPerPageHotel = 12;
+  itemsPerPageHotel = 9;
   numberOfPagesHotel = 0;
 
   tripType=false;
@@ -52,14 +52,11 @@ export class HomeComponent implements OnInit {
     });
 
     this.hotelSearchForm = this.formBuilder.group({
-      name:[''],
-      address:[''],
       country: [''],
       location: [''],
-      checkIn: [''],
-      checkOut: [''],
-      duration: [''],
-      members: [''],
+      minPrice: [0],
+      maxPrice: [0],
+      starNumber:[0],
     });
   }
   ngOnInit(): void {
@@ -109,7 +106,6 @@ export class HomeComponent implements OnInit {
         this.displayHome=false;
         this.displayHotel=false;
         this.displayFlight=true;
-
       },
       error => {
         console.log(error);
@@ -118,11 +114,11 @@ export class HomeComponent implements OnInit {
     );
   }
   afficherhotel(page:any, size:any) {
-    this.hotelService.afficherHotel(page, size).subscribe(
+    this.hotelService.afficherHotel(this.hotelSearchForm,page, size).subscribe(
       (response: any) => {
         console.log(response);
-        this.hotels = response.docs;
-        this.numberOfPages = response.pages - 1;
+        this.hotels = response.content;
+        this.numberOfPagesHotel = response.totalPages ;
         this.displayHome=false;
         this.displayFlight=false;
         this.displayHotel=true;      },
@@ -166,6 +162,34 @@ export class HomeComponent implements OnInit {
     this.afficher(this.currentPage, this.itemsPerPage);
   }
 
+
+  goToNextPageHotel() {
+    if (this.currentPageHotel <this.numberOfPagesHotel-1) {
+    this.currentPageHotel++;
+    this.afficherhotel(this.currentPageHotel,this.itemsPerPageHotel);}
+  }
+
+  goToPreviousPageHotel() {
+    if (this.currentPageHotel > 0) {
+      this.currentPageHotel--;
+      this.afficherhotel(this.currentPageHotel,this.itemsPerPageHotel);
+    }
+  }
+
+  generatePageNumbersHotel(totalPages: number): number[] {
+    const pageNumbers: number[] = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(i );
+    }
+    return pageNumbers;
+  }
+
+changePageHotel(page: number): void {
+  if (page >= 1 && page <= this.numberOfPagesHotel) {
+    this.currentPageHotel = page - 1;
+    this.afficherhotel(this.currentPageHotel, this.itemsPerPageHotel);
+  }
+}
   navigateToUpdatePage(flight: any) {
     this.flightService.setSelectedFlight(flight);
     this.flightService.setCurrentPage(this.currentPage);
@@ -188,10 +212,10 @@ export class HomeComponent implements OnInit {
     this.flightService.setCurrentPage(this.currentPage);
     this.router.navigate(['/flightDetails']);
   }
-
-  navigateToUpdatePagehotel(hotel: any) {
+  navigateToHotelBookingPage(hotel: any) {
     this.hotelService.setSelectedHotel(hotel);
-    this.hotelService.setCurrentPage(this.currentPage);
-    this.router.navigate(['/edit']);
+    this.hotelService.setCurrentPage(this.currentPageHotel);
+    this.router.navigate(['/hotelBooking']);
   }
+
 }
