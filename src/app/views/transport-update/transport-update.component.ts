@@ -24,38 +24,33 @@ export class TransportUpdateComponent implements OnInit {
     private transportService: TransportService
   ) {
     this.form = this.formBuilder.group({
-      duration: ['', Validators.required],
-      date: ['', Validators.required],
-      returnDate: [null],
-      destination: ['', [Validators.required]],
-      departure: ['', Validators.required],
+      mark: ['', Validators.required],
+      location: ['', Validators.required],
+      nbPerson: ['', Validators.required],
+      nbLuggage: ['', Validators.required],
       price: ['', Validators.required],
-      image: [null]
+      imagePath: []
     });
     this.imageData = '';
   }
 
   ngOnInit(): void {
     const selectedTransport = this.transportService.getSelectedTransport();
+    console.log(this.transportService.getSelectedTransport());
+
     this.transportService.getTransportById(selectedTransport).subscribe(
       response => {
         this.transport = response;
         this.form = this.formBuilder.group({
-          duration: [this.transport.duration, Validators.required],
-          date: [this.transport.date, Validators.required],
-          returnDate: [this.transport.returnDate],
-          destination: [this.transport.destination, [Validators.required]],
-          departure: [this.transport.departure, Validators.required],
+
+          mark: [this.transport.mark, Validators.required],
+          location: [this.transport.location, Validators.required],
+          nbPerson: [this.transport.nbPerson, Validators.required],
+          nbLuggage: [this.transport.nbLuggage, Validators.required],
           price: [this.transport.price, Validators.required],
-          image: []
-        });
+          imagePath: []
+         });
         this.imageData = this.transport.imagePath;
-        var transportDate = new Date(this.transport.date);
-        var formattedDate = transportDate.toISOString().split('T')[0];
-        this.form.patchValue({ date: formattedDate });
-        transportDate = new Date(this.transport.returnDate);
-        formattedDate = transportDate.toISOString().split('T')[0];
-        this.form.patchValue({ returnDate: formattedDate });
       },
       error => {
         console.log(error);
@@ -68,7 +63,7 @@ export class TransportUpdateComponent implements OnInit {
     if (target && target.files) {
       this.file = target.files[0];
       if (this.file) {
-        this.form.patchValue({ image: this.file });
+        this.form.patchValue({ imagePath: this.file });
         const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         if (allowedMimeTypes.includes(this.file.type)) {
           const reader = new FileReader();
@@ -83,15 +78,14 @@ export class TransportUpdateComponent implements OnInit {
 
   onSubmit() {
     const formData = new FormData();
-    formData.append('duration', this.form.get('duration')?.value);
-    formData.append('date', this.form.get('date')?.value);
-      formData.append('returnDate', this.form.get('returnDate')?.value);
-    formData.append('destination', this.form.get('destination')?.value);
-    formData.append('departure', this.form.get('departure')?.value);
+    formData.append('mark', this.form.get('mark')?.value);
+    formData.append('location',  this.form.get('location')?.value);
+    formData.append('nbPerson', this.form.get('nbPerson')?.value);
+    formData.append('nbLuggage', this.form.get('nbLuggage')?.value);
     formData.append('price', this.form.get('price')?.value);
-    var newFile = this.form.get('image')?.value;
+    var newFile = this.form.get('imagePath')?.value;
     if (newFile) {
-      formData.append('image', newFile);
+      formData.append('imagePath', newFile);
     }
 
     this.transportService.updateTransport(this.transportService.getSelectedTransport(), formData).subscribe(

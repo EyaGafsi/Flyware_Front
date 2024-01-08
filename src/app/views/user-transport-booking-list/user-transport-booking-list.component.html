@@ -12,8 +12,10 @@
             <thead>
               <tr>
                 <th>Transport number</th>
-                <th>Number of Person</th>
+                <th>Date</th>
+                <th>duration</th>
                 <th>Luggage</th>
+                <th>Number of Person</th>
                 <th>Status</th>
                 <th>&nbsp;</th>
               </tr>
@@ -22,6 +24,8 @@
               <tr *ngFor="let transport of transports" class="alert" role="alert">
 
                 <td>{{ transport.transportId }}</td>
+                <td>{{ transport.date | date: 'yyyy-MM-dd'}}</td>
+                <td>{{ transport.duration }} Days</td>
                 <td>{{ transport.nbPerson }}</td>
                 <td>{{ transport.luggage }}</td>
 

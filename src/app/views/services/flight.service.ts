@@ -82,18 +82,10 @@ console.log(params);
   public cancelFlightBooking(id: any) {
     return this.httpclient.delete(`${this.PATH_OF_BOOKING_API}/cancelBooking/${id}`);
   }
-<<<<<<< HEAD
   public deleteReservationByFlightId(id: any) {
     return this.httpclient.delete(`${this.PATH_OF_BOOKING_API}/deleteByFlightId/${id}`);
   }
-=======
-<<<<<<< HEAD
-=======
-  public deleteReservationByFlightId(id: any) {
-    return this.httpclient.delete(`${this.PATH_OF_BOOKING_API}/deleteByFlightId/${id}`);
-  }
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
->>>>>>> aya-benfraj
+
   public bookFlight(form: any) {
     return this.httpclient.post(`${this.PATH_OF_BOOKING_API}/reserver`, form);
   }

@@ -37,10 +37,11 @@ export class TransportListComponent {
     const m = minutes % 60;
 
     if (h > 0) {
-      return ${h}h ${m}min;
+      return `${h}h ${m}min`;
     } else {
-      return ${m}min;
+      return `${m}min`;
     }
+
   }
   goToPreviousPage() {
     if (this.currentPage > 1) {

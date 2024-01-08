@@ -37,7 +37,7 @@ export class UserTransportBookingListComponent {
   }
   navigateToUpdatePage(transport: any) {
     this.transportService.setSelectedTransport(transport);
-    this.router.navigate(['/updateTransportBookings']);
+    this.router.navigate(['/transportBookingUpdate']);
   }
   cancel(id:any) {
     const confirmation = window.confirm('Are you sure you want to cancel your booking?');

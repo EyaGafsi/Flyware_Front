@@ -13,7 +13,7 @@ export class TransportBookingListComponent implements OnInit {
   itemsPerPage = 10;
   numberOfPages = 1;
   transportUpdate: any;
-
+transport: any;
   constructor(private transportService: TransportService) {
     this.afficher(this.currentPage, this.itemsPerPage);
   }
@@ -95,15 +95,10 @@ export class TransportBookingListComponent implements OnInit {
     const confirmation = window.confirm('Are you sure you want to accept this booking?');
 
     if (confirmation) {
-      this.transportService.updateTransport(transport._id,transport).subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
+      this.transportService.getTransportById(transport.transportId).subscribe(
+        (response: any) => {
+          this.transport=response;
 
-        }
-      );
       this.transportService.setTransportBookingStatus(transport._id, 'accepted').subscribe(
         (response: any) => {
           console.log(response);
@@ -114,7 +109,27 @@ export class TransportBookingListComponent implements OnInit {
         }
       );
 
+      this.transportService.getUserById(transport.userId).subscribe(
+        (userResponse: any) => {
+          this.user = userResponse;
+          this.transportService.sendTransportEmail(this.transport,transport,this.user).subscribe(
+            (response: any) => {
+              console.log(response);
+            },
+            error => {
+              console.log(error);
+
+            }
+          );
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
+    );
+
+  }
   }
 
   refuserTransport(id: any) {

@@ -22,8 +22,10 @@ export class TransportDetailsComponent implements OnInit {
       this.form = this.formBuilder.group({
         transportId: [''],
         userId: [''],
-        nbPerson: [0,Validators.required],
-        luggage: [0,Validators.required]
+        date: ["",Validators.required],
+        duration: ["",Validators.required],
+        nbPerson: ["",Validators.required],
+        luggage: ["",Validators.required]
       });
 
   }
@@ -32,11 +34,7 @@ export class TransportDetailsComponent implements OnInit {
     this.transportService.getTransportById(selectedTransport).subscribe(
       response => {
         this.transport=response;
-        var transportDate = new Date(this.transport.date);
-        this.transport.date= transportDate.toISOString().split('T')[0];
-        if (this.transport.returnDate!==null){
-         transportDate = new Date(this.transport.returnDate);
-         this.transport.returnDate= transportDate.toISOString().split('T')[0]; }       console.log(this.transport);
+       console.log(this.transport);
 
       },
       error => {
@@ -49,9 +47,9 @@ formatDuration(minutes: number): string {
   const m = minutes % 60;
 
   if (h > 0) {
-    return ${h}h ${m}min;
+    return `${h}h ${m}min`;
   } else {
-    return ${m}min;
+    return `${m}min`;
   }
 }
 

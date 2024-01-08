@@ -13,6 +13,8 @@
               <tr>
                 <th>Transport number</th>
                 <th>Client name</th>
+                <th>Date</th>
+                <th>duration</th>
                 <th>Number of Person</th>
                 <th>luggage</th>
                 <th>&nbsp;</th>
@@ -28,6 +30,9 @@
                 <td>
                     <span>{{transport.username }}</span>
                 </td>
+                <td>{{ transport.date | date: 'yyyy-MM-dd'}}</td>
+                <td>{{ transport.duration }}</td>
+
                 <td>{{ transport.nbPerson }}</td>
                 <td>{{ transport.luggage }}</td>
 

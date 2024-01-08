@@ -18,13 +18,14 @@ export class TransportBookingUpdateComponent {
   showWarningAlert=false;
 
   constructor(private formBuilder: FormBuilder, private transportService: TransportService) {
-      this.form = this.formBuilder.group({
-        _id: [''],
-        transportId: [''],
-        userId: [''],
-        nbPerson: [null,Validators.required],
-        luggage: [null,Validators.required]
-      });
+    this.form = this.formBuilder.group({
+      transportId: [''],
+      userId: [''],
+      date: ["",Validators.required],
+      duration: ["",Validators.required],
+      nbPerson: ["",Validators.required],
+      luggage: ["",Validators.required]
+    });
 
   }
   ngOnInit(): void {
@@ -33,12 +34,9 @@ export class TransportBookingUpdateComponent {
     this.transportService.getTransportById(selectedTransport?.transportId).subscribe(
       response => {
         this.transport=response;
-        var transportDate = new Date(this.transport.date);
-        this.transport.date= transportDate.toISOString().split('T')[0];
-        if (this.transport.returnDate!==null){
-         transportDate = new Date(this.transport.returnDate);
-         this.transport.returnDate= transportDate.toISOString().split('T')[0]; }
-
+        var transportDate = new Date(this.form.value.date);
+        var formattedDate = transportDate.toISOString().split('T')[0];
+        this.form.patchValue({ date: formattedDate });
       },
       error => {
         console.log(error);
@@ -48,9 +46,12 @@ export class TransportBookingUpdateComponent {
       _id: [selectedTransport?._id, Validators.required],
       transportId: [selectedTransport?.transportId, Validators.required],
       userId: [selectedTransport?.userId, Validators.required],
+      date: [selectedTransport?.date, Validators.required],
+      duration: [selectedTransport?.duration, Validators.required],
       nbPerson: [selectedTransport?.nbPerson, Validators.required],
       luggage: [selectedTransport?.luggage, Validators.required]
     });
+
   }
 formatDuration(minutes: number): string {
   const h = Math.floor(minutes / 60);

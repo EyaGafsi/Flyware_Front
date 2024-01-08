@@ -1,38 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-
-import { Socket,io } from 'socket.io-client';
+import { Observable } from 'rxjs';
+import { Socket ,io} from 'socket.io-client';
 import { KeycloakService } from 'keycloak-angular';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
-  PATH_OF_API = "http://localhost:3003";
+  PATH_OF_API = 'http://localhost:3003';
 
-  private socket: Socket;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-  private notifications:any;
-  private notifNumber:any;
-=======
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
->>>>>>> aya-benfraj
+  private socket1: Socket;
+  private socket2: Socket;
 
-  constructor(private keycloakService: KeycloakService,private httpclient: HttpClient) {
-    this.socket = io('http://localhost:3001', { transports: ['websocket'] });
+  constructor(private keycloakService: KeycloakService, private httpclient: HttpClient) {
+    this.socket1 = this.createSocket('http://localhost:3001');
+    this.socket2 = this.createSocket('http://localhost:3005');
+
     this.init();
-
   }
 
-  listenForNotifications(): Observable<string> {
+  private createSocket(url: string): Socket {
+    return io(url, { transports: ['websocket'] });
+  }
 
-    return new Observable<string>(observer => {
-      this.socket.on('notification', (data: any) => {
+  listenForNotifications(socket: Socket): Observable<string> {
+    return new Observable<string>((observer) => {
+      socket.on('notification', (data: any) => {
         location.reload();
-
 
         observer.next(data.message);
         const formData = {
@@ -40,28 +35,26 @@ export class NotificationService {
           message: data.message,
         };
         this.add(formData).subscribe(
-          response => {
+          (response) => {
             console.log(response);
-
-
           },
-
         );
-
       });
     });
   }
 
   public add(form: any) {
-    return this.httpclient.post(`${this.PATH_OF_API}/notification/`,form);
+    return this.httpclient.post(`${this.PATH_OF_API}/notification/`, form);
   }
+
   private init(): void {
+    this.listenForNotifications(this.socket1).subscribe((data) => {
+      console.log('Socket 1:', data);
+    });
 
-
-    this.listenForNotifications().subscribe(data => {console.log(data)
-       });
-
-
+    this.listenForNotifications(this.socket2).subscribe((data) => {
+      console.log('Socket 2:', data);
+    });
   }
 
   getNotifications() {

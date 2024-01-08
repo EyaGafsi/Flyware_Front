@@ -17,11 +17,10 @@ export class TransportAddComponent {
   file: any;
   constructor(private formBuilder: FormBuilder, private transportService: TransportService,private datePipe: DatePipe) {
     this.form = this.formBuilder.group({
-      duration: ['', Validators.required],
-      date: ['', Validators.required],
-      returnDate: [null],
-      departure: ['', Validators.required],
-      destination: ['', Validators.required],
+      mark: ['', Validators.required],
+      location: ['', Validators.required],
+      nbPerson: ['', Validators.required],
+      nbLuggage: ['', Validators.required],
       price: ['', Validators.required],
       imagePath: []
     });
@@ -37,7 +36,7 @@ export class TransportAddComponent {
     if (target && target.files) {
       this.file = target.files[0];
       if (this.file) {
-        this.form.patchValue({image:this.file});
+        this.form.patchValue({imagePath:this.file});
         const allowedMimeTypes = ['image/png', 'image/jpeg', 'image/jpg'];
         if (allowedMimeTypes.includes(this.file.type)) {
           const reader = new FileReader();
@@ -55,11 +54,10 @@ export class TransportAddComponent {
 console.log(this.form);
 
       const formData = new FormData();
-      formData.append('duration', this.form.get('duration')?.value);
-      formData.append('date',  this.datePipe.transform(this.form.get('date')?.value, 'yyyy-MM-dd') || '');
-      formData.append('returnDate',  this.datePipe.transform(this.form.get('returnDate')?.value, 'yyyy-MM-dd') || '');
-      formData.append('destination', this.form.get('destination')?.value);
-      formData.append('departure', this.form.get('departure')?.value);
+      formData.append('mark', this.form.get('mark')?.value);
+      formData.append('location',  this.form.get('location')?.value);
+      formData.append('nbPerson', this.form.get('nbPerson')?.value);
+      formData.append('nbLuggage', this.form.get('nbLuggage')?.value);
       formData.append('price', this.form.get('price')?.value);
       formData.append('imagePath', this.form.get('imagePath')?.value);
 
@@ -76,7 +74,7 @@ console.log(this.form);
           console.log(error);
           this.message = 'Error while adding the transport';
 
-          this.showSuccessMessage();
+          this.showFailedMessage();
         }
       );
     }
