@@ -14,11 +14,15 @@ import { AccessDeniedComponent } from './views/access-denied/access-denied.compo
 import { FlightBookingListComponent } from './views/flight-booking-list/flight-booking-list.component';
 import { UserFlightBookingListComponent } from './views/user-flight-booking-list/user-flight-booking-list.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
+import { HotelBookingListComponent } from './views/hotel-booking-list/hotel-booking-list.component';
+import { HotelBookingUpdateComponent } from './views/hotel-booking-update/hotel-booking-update.component';
+import { UserHotelBookingListComponent } from './views/user-hotel-booking-list/user-hotel-booking-list.component';
+import { HotelBookingComponent } from './views/hotel-booking/hotel-booking.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'flights',component:FlightListComponent, canActivate: [AuthGuard],data: { roles: ['admin'] }, },
-  {path:'flightDetails',component:FlightDetailsComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  {path:'flightDetails',component:FlightDetailsComponent, canActivate: [AuthGuard], data: { 'roles': ['client'] }},
   {path:'flightAdd',component:FlightAddComponent, canActivate: [AuthGuard], data:{ 'roles': ['admin'] }},
   {path:'flightUpdate',component:FlightUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'hotels', component: HotelListComponent, canActivate: [AuthGuard], data:{ 'roles': ['admin'] } },
@@ -28,6 +32,10 @@ const routes: Routes = [
   { path: 'flightBookings', component: FlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'userFlightBookings', component: UserFlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
   { path: 'updateFlightBookings', component: FlightBookingUpdateComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
+  { path: 'hotelBookings', component: HotelBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  { path: 'updateHotelBookings', component: HotelBookingUpdateComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
+  { path: 'userHotelBookings', component: UserHotelBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
+  {path:'hotelBooking',component:HotelBookingComponent, canActivate: [AuthGuard], data: { 'roles': ['client'] }},
 
 ];
 

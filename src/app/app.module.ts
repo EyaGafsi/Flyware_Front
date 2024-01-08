@@ -24,6 +24,9 @@ import { UserFlightBookingListComponent } from './views/user-flight-booking-list
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
 import { RxStompService } from './views/services/rx-stomp-service.service';
+import { HotelBookingListComponent } from './views/hotel-booking-list/hotel-booking-list.component';
+import { HotelBookingUpdateComponent } from './views/hotel-booking-update/hotel-booking-update.component';
+import { UserHotelBookingListComponent } from './views/user-hotel-booking-list/user-hotel-booking-list.component';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => {
@@ -67,7 +70,10 @@ export function kcFactory(kcService: KeycloakService) {
     UserFlightBookingListComponent,
     FlightDetailsComponent,
     FlightBookingUpdateComponent,
-    HotelEditComponent
+    HotelEditComponent,
+    HotelBookingListComponent,
+    HotelBookingUpdateComponent,
+    UserHotelBookingListComponent
 
   ],
   imports: [
