@@ -75,5 +75,13 @@ export class ClientLayoutComponent implements OnInit {
   }
   getRole(){this.role = this.keycloakService.getUserRoles();console.log(this.role);
   }
+  getUsername(): string {
+    const keycloakInstance = this.keycloakService.getKeycloakInstance();
 
+    if (keycloakInstance && keycloakInstance.authenticated) {
+      return keycloakInstance.tokenParsed?.['preferred_username'] || '';
+    }
+
+    return 'Guest'; // or any default value you prefer
+  }
 }

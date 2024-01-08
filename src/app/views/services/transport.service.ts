@@ -25,7 +25,7 @@ export class TransportService {
     return this.currentPage;
   }
 
-  public afficherTransport(form: any, page: any, size: any) {
+  public getTransport(form: any, page: any, size: any) {
     if (form){
     const params = new HttpParams()
     .set('location', form.value.location || '')

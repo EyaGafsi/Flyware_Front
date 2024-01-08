@@ -20,7 +20,7 @@ export class TransportListComponent {
   }
 
   afficher(page:any, size:any) {
-    this.transportService.afficherTransport(null,page, size).subscribe(
+    this.transportService.getTransport(null,page, size).subscribe(
       (response: any) => {
         console.log(response);
         this.transports = response.docs;

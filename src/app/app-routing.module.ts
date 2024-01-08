@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'create', component: HotelCreateComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'edit', component: HotelEditComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'accessDenied', component: AccessDeniedComponent},
-  { path: 'flightBookings', component: FlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['c'] }},
+  { path: 'flightBookings', component: FlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   { path: 'userFlightBookings', component: UserFlightBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
   { path: 'updateFlightBookings', component: FlightBookingUpdateComponent , canActivate: [AuthGuard], data: { 'roles': ['client'] }},
   { path: 'hotelBookings', component: HotelBookingListComponent , canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
@@ -47,8 +47,8 @@ const routes: Routes = [
   {path:'transports',component:TransportListComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   {path:'transportUpdate',component:TransportUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
   {path:'transportBookings',component:TransportBookingListComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
-  {path:'transportBookingUpdate',component:TransportBookingUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
-  {path:'transportBooking',component:TransportDetailsComponent, canActivate: [AuthGuard], data: { 'roles': ['admin'] }},
+  {path:'transportBookingUpdate',component:TransportBookingUpdateComponent, canActivate: [AuthGuard], data: { 'roles': ['client'] }},
+  {path:'transportBooking',component:TransportDetailsComponent, canActivate: [AuthGuard], data: { 'roles': ['client'] }},
   {path:'userTransportBooking',component:UserTransportBookingListComponent, canActivate: [AuthGuard], data: { 'roles': ['client'] }},
 
 
