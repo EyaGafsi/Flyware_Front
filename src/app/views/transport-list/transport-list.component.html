@@ -1,0 +1,61 @@
+<section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h2 class="heading-section"> Transport List</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <table class="table table-responsive-xl">
+              <thead>
+                <tr>
+                  <th> number</th>
+                  <th>destination</th>
+                  <th>price</th>
+                  <th>date</th>
+                  <th>duration</th>
+                  <th>departure</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let transport of transports" class="alert" role="alert">
+  
+                  <td>{{ transport._id }}</td>
+                  <td>{{transport.destination}}</td>
+                  <td>{{transport.price}} $</td>
+                  <td> {{transport.date  | date: 'yyyy-MM-dd'}}</td>
+                  <td> {{ formatDuration(transport.duration) }}</td>
+                  <td> {{transport.departure}}</td>
+                  <td  class="border-bottom-0">
+                    <button type="button" class="edit" (click)="navigateToUpdatePageTransport(transport._id)">
+                      <span aria-hidden="true"><i class="fas fa-marker"></i></span>
+                    </button>
+                  </td>
+                  <td  >
+                    <button type="button" class="close" (click)="deleteTransport(transport._id)" >
+                      <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix text-center">
+      <ul class="pagination">
+        <li ><a (click)="goToPreviousPage()" class="page-link"><i
+              class="fa fa-angle-double-left"></i></a></li>
+        <li class="page-item" [class.active]="currentPage === page"
+          *ngFor="let page of generatePageNumbers(numberOfPages);">
+          <a class="page-link" (click)="changePage(page)">{{ page }}</a>
+        </li>
+        <li class="page-item"><a (click)="goToNextPage()" class="page-link"><i
+              class="fa fa-angle-double-right"></i></a></li>
+      </ul>
+    </div>
+  </section>

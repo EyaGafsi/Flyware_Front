@@ -1,35 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { FlightService } from '../services/flight.service';
+import { TransportService } from '../services/transport.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-flight-add',
-  templateUrl: './flight-add.component.html',
-  styleUrls: ['./flight-add.component.css']
+  selector: 'app-transport-add',
+  templateUrl: './transport-add.component.html',
+  styleUrls: ['./transport-add.component.css']
 })
-export class FlightAddComponent implements OnInit {
+export class TransportAddComponent {
   showSuccessAlert = false;
   showFailedAlert=false;
   message:any;
   form: FormGroup;
   imageData: String;
   file: any;
-  tripType:boolean;
-  constructor(private formBuilder: FormBuilder, private flightService: FlightService,private datePipe: DatePipe) {
+  constructor(private formBuilder: FormBuilder, private transportService: TransportService,private datePipe: DatePipe) {
     this.form = this.formBuilder.group({
       duration: ['', Validators.required],
       date: ['', Validators.required],
       returnDate: [null],
-      destination: ['', [Validators.required]],
       departure: ['', Validators.required],
+      destination: ['', Validators.required],
       price: ['', Validators.required],
-      nbBuisPlaces: ['', Validators.required],
-      nbEcoPlaces: ['', Validators.required],
-      image: [],
+      imagePath: []
     });
     this.imageData = "";
-    this.tripType=false;
 
   }
 
@@ -56,40 +52,31 @@ export class FlightAddComponent implements OnInit {
 
   onSubmit() {
     if (this.file) {
+console.log(this.form);
+
       const formData = new FormData();
       formData.append('duration', this.form.get('duration')?.value);
       formData.append('date',  this.datePipe.transform(this.form.get('date')?.value, 'yyyy-MM-dd') || '');
-      if(this.tripType){
-      formData.append('returnDate',  this.datePipe.transform(this.form.get('returnDate')?.value, 'yyyy-MM-dd') || '');}
+      formData.append('returnDate',  this.datePipe.transform(this.form.get('returnDate')?.value, 'yyyy-MM-dd') || '');
       formData.append('destination', this.form.get('destination')?.value);
       formData.append('departure', this.form.get('departure')?.value);
       formData.append('price', this.form.get('price')?.value);
-      formData.append('nbBuisPlaces', this.form.get('nbBuisPlaces')?.value);
-      formData.append('nbEcoPlaces', this.form.get('nbEcoPlaces')?.value);
-      formData.append('image', this.form.get('image')?.value);
+      formData.append('imagePath', this.form.get('imagePath')?.value);
 
-          this.flightService.add(formData).subscribe(
+          this.transportService.addTransport(formData).subscribe(
         response => {
           console.log(response);
           this.form.reset();
-          this.message = 'Flight added successfully';
+          this.message = 'Transport added successfully';
           this.imageData = "";
 
           this.showSuccessMessage();
         },
         error => {
           console.log(error);
-          this.message = 'Error while adding the flight';
+          this.message = 'Error while adding the transport';
 
-<<<<<<< HEAD
-          this.showFailedMessage();
-=======
-<<<<<<< HEAD
           this.showSuccessMessage();
-=======
-          this.showFailedMessage();
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
->>>>>>> aya-benfraj
         }
       );
     }

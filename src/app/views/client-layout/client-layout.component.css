@@ -1,4 +1,12 @@
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+/* Dropdown container */
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
 .dropdown {
   position: relative;
   display: inline-block;
@@ -42,6 +50,11 @@
 .bl {
   display: block;
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> aya-benfraj
 
 
 .dropdownProfile:hover .dropdown-content {
@@ -54,3 +67,7 @@
   position: relative;
   display: inline-block;
 }
+<<<<<<< HEAD
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj

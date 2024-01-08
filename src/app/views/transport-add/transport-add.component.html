@@ -2,15 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
-<<<<<<< HEAD
-        <h2 class="heading-section">Add Flight</h2>
-=======
-<<<<<<< HEAD
-        <h2 class="heading-section">Update Flight</h2>
-=======
-        <h2 class="heading-section">Add Flight</h2>
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
->>>>>>> aya-benfraj
+        <h2 class="heading-section">Add Transport</h2>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -49,45 +41,14 @@
                       <input type="date" formControlName="date" class="form-control" placeholder="departure date">
                     </div>
                   </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label class="form-check-label">Trip Type : </label>
-
-                      <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="oneWayRadio" name="tripType" value="oneWay"
-                          [checked]="!tripType" (change)="tripType = !tripType" />
-                        <label class="form-check-label" for="oneWayRadio">One Way</label>
-                      </div>
-
-                      <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="returnTripRadio" name="tripType"
-                          value="returnTrip" [checked]="tripType" (change)="tripType = !tripType" />
-                        <label class="form-check-label" for="returnTripRadio">Return Trip</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12" *ngIf="tripType === true">
                     <div class="form-group">
                       <label class="form-check-label">return date :</label>
 
                       <input type="date" formControlName="returnDate" class="form-control" placeholder="return date">
                     </div>
-                  </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <input type="number" formControlName="nbBuisPlaces" class="form-control"
-                        placeholder="Business class places">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="number" formControlName="nbEcoPlaces" class="form-control"
-                        placeholder="Economic class places">
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="submit" value="Add" class="btn btn-primary">
+                      <input type="submit" value="AddTransport" class="btn btn-primary">
                       <div class="submitting"></div>
                     </div>
                   </div>

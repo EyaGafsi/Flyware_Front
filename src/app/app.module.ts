@@ -23,7 +23,18 @@ import { FlightBookingListComponent } from './views/flight-booking-list/flight-b
 import { UserFlightBookingListComponent } from './views/user-flight-booking-list/user-flight-booking-list.component';
 import { FlightDetailsComponent } from './views/flight-details/flight-details.component';
 import { FlightBookingUpdateComponent } from './views/flight-booking-update/flight-booking-update.component';
+<<<<<<< HEAD
 import { RxStompService } from './views/services/rx-stomp-service.service';
+import { TransportListComponent } from './views/transport-list/transport-list.component';
+=======
+<<<<<<< HEAD
+import {  RxStomp   } from '@stomp/rx-stomp';
+import { RxStompService } from './views/services/rx-stomp-service.service';
+=======
+import { RxStompService } from './views/services/rx-stomp-service.service';
+import { TransportListComponent } from './views/transport-list/transport-list.component';
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
 
 export function kcFactory(kcService: KeycloakService) {
   return () => {
@@ -33,6 +44,7 @@ export function kcFactory(kcService: KeycloakService) {
         realm: 'Flyware-Realm',
         clientId: 'flyware-client',
         url: 'http://localhost:8080'
+<<<<<<< HEAD
 
       },
       initOptions: {
@@ -49,7 +61,48 @@ export function kcFactory(kcService: KeycloakService) {
   };
 }
 
+=======
+<<<<<<< HEAD
 
+<<<<<<< HEAD
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        enableLogging: true,
+  checkLoginIframe: false,
+  flow: 'standard'}    })
+    .then((authenticated) => {
+      console.log('Keycloak authenticated:', authenticated);
+    })
+    .catch((error) => {
+      console.error('Error initializing Keycloak:', error);
+    });
+  };
+}
+=======
+import {HotelService} from './views/services/hotel.service';
+import { Hotel } from './views/models/hotel';
+=======
+>>>>>>> aya-benfraj
+
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        enableLogging: true,
+  checkLoginIframe: false,
+  flow: 'standard'}    })
+    .then((authenticated) => {
+      console.log('Keycloak authenticated:', authenticated);
+    })
+    .catch((error) => {
+      console.error('Error initializing Keycloak:', error);
+    });
+  };
+}
+
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+
+>>>>>>> aya-benfraj
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,14 +114,35 @@ export function kcFactory(kcService: KeycloakService) {
     HotelListComponent,
     HotelDetailsComponent,
     HotelCreateComponent,
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
     HotelEditComponent,
     AccessDeniedComponent,
     FlightBookingListComponent,
     UserFlightBookingListComponent,
     FlightDetailsComponent,
+<<<<<<< HEAD
     FlightBookingUpdateComponent,
+    HotelEditComponent,
+    TransportListComponent
+=======
+<<<<<<< HEAD
+    FlightBookingUpdateComponent
+=======
     HotelEditComponent
+=======
+    FlightBookingUpdateComponent,
+    HotelEditComponent,
+    TransportListComponent
+>>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
+>>>>>>> aya-benfraj
 
+>>>>>>> aya-benfraj
   ],
   imports: [
     BrowserModule,

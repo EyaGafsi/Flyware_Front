@@ -2,15 +2,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
-<<<<<<< HEAD
-        <h2 class="heading-section">Flight booking</h2>
-=======
-<<<<<<< HEAD
-        <h2 class="heading-section">Flight Details</h2>
-=======
-        <h2 class="heading-section">Flight booking</h2>
->>>>>>> 1459f06eb693b6483cd05cbc177f59143d69fdf4
->>>>>>> aya-benfraj
+        <h2 class="heading-section">Transport Details</h2>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -24,42 +16,42 @@
                   <div class="col-md-4">
                     <div class="dbox w-100 d-flex align-items-start">
                       <div class="text">
-                        <p><span>destination:</span> {{flight?.destination}}</p>
+                        <p><span>destination:</span> {{transport?.destination}}</p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="dbox w-100 d-flex align-items-start">
                       <div class="text">
-                        <p><span>price:</span> {{flight?.price}} $</p>
+                        <p><span>price:</span> {{transport?.price}} $</p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="dbox w-100 d-flex align-items-start">
                       <div class="text">
-                        <p><span>departure:</span> {{flight?.departure}}</p>
+                        <p><span>departure:</span> {{transport?.departure}}</p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="dbox w-100 d-flex align-items-start">
                       <div class="text">
-                        <p><span>date:</span> <a href="mailto:info@yoursite.com">{{flight?.date}}</a></p>
+                        <p><span>date:</span> <a href="mailto:info@yoursite.com">{{transport?.date}}</a></p>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-4">
                     <div class="dbox w-100 d-flex align-items-start">
                       <div class="text">
-                        <p><span>duration:</span> <a href="tel://1234567920">{{formatDuration(flight?.duration)}}</a></p>
+                        <p><span>duration:</span> <a href="tel://1234567920">{{formatDuration(transport?.duration)}}</a></p>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4" *ngIf="flight?.returnDate !==null">
+                  <div class="col-md-4" *ngIf="transport?.returnDate !==null">
                     <div class="dbox w-100 d-flex align-items-start">
                       <div class="text">
-                        <p><span>return date:</span> <a href="tel://1234567920">{{flight?.returnDate}}</a></p>
+                        <p><span>return date:</span> <a href="tel://1234567920">{{transport?.returnDate}}</a></p>
                       </div>
                     </div>
                   </div>
@@ -68,24 +60,12 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <select class="form-control" formControlName="type">
-                          <option [ngValue]="null" disabled selected>Select a class</option>
-                          <option value="economic">economic</option><!-- /.option-->
-
-                          <option value="business">business</option><!-- /.option-->
-
-
-                      </select>
-                     </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <input type="number" class="form-control"  formControlName="nbAdults" id="name" placeholder="adult number" min="1" [max]="maxAdult()">
+                        <input type="number" class="form-control"  formControlName="nbPerson" id="name" placeholder="person number" >
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <input type="number" class="form-control"  formControlName="nbChildren" id="email" placeholder="Children number" min="0" [max]="maxChildren()">
+                        <input type="number" class="form-control"  formControlName="luggage" id="email" placeholder="luggage per kg">
                       </div>
                     </div>
 
@@ -103,7 +83,7 @@
             </div>
             <div class="col-lg-6 d-flex align-items-stretch">
               <div class="info-wrap w-100 p-5 img" >
-                <img [src]="flight?.imagePath"/>
+                <img [src]="transport?.imagePath"/>
               </div>
             </div>
           </div>
